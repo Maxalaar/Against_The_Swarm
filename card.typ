@@ -120,12 +120,10 @@
       )
     }
     
-    // Zone de texte de règles
-    let text_box_bottom = if power != none and toughness != none { 14mm } else { 2mm }
-    
+    // Zone de texte de règles (maintenant toujours jusqu'en bas)
     rect(
       name: "text_box",
-      (2mm, text_box_bottom),
+      (2mm, 2mm),
       (card_width - 2mm, card_height - 56mm),
       radius: (rest: 1mm),
       fill: white,
@@ -147,7 +145,7 @@
     // Texte de flavor (si présent)
     if flavor_text != none {
       content(
-        (card_width/2, text_box_bottom + 8mm),
+        (card_width/2, 10mm),
         anchor: "center",
         box(
           width: card_width - 6mm,
@@ -156,7 +154,7 @@
       )
     }
     
-    // Force et endurance (pour les créatures)
+    // Force et endurance (pour les créatures) - maintenant superposée
     if power != none and toughness != none {
       rect(
         name: "pt_box",

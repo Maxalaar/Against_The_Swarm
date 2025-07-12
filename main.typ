@@ -92,37 +92,46 @@
     ),
 
     card(
-        "Carte supplémentaire",
-        cost: "2G",
-        type_line: "Créature — Elfe",
-        rules_text: "Forestwalk",
-        artist: "G. Rtiste",
-        rarity: "common",
-        set_symbol: "⚡",
-        background_color: rgb("#ccffcc"),
-    ),
-
-    card(
-        "Carte supplémentaire",
-        cost: "2G",
-        type_line: "Créature — Elfe",
-        rules_text: "Forestwalk",
-        artist: "G. Rtiste",
-        rarity: "common",
-        set_symbol: "⚡",
-        background_color: rgb("#ccffcc"),
-    ),
-
-    card(
-        "Carte supplémentaire",
-        cost: "2G",
-        type_line: "Créature — Elfe",
-        rules_text: "Forestwalk",
-        artist: "G. Rtiste",
-        rarity: "common",
-        set_symbol: "⚡",
-        background_color: rgb("#ccffcc"),
-    ),
+    "Gobelin sage",
+    cost: "1R",
+    type_line: "Créature — Gobelin Sorcier",
+    rules_text: "Célérité\n\nQuand le Gobelin sage arrive sur le champ de bataille, piochez une carte.\n\nT: Ajoutez R.",
+    flavor_text: "\"Moi avoir beaucoup de sagesse ! Moi savoir compter jusqu'à... beaucoup !\"",
+    power: "1",
+    toughness: "2",
+    artist: "A. Rtiste",
+    rarity: "uncommon",
+    set_symbol: "⚡",
+    background_color: rgb("#ffcccc"),
+  ),
+  
+  // Sort sans power/toughness (plus d'espace)
+  card(
+    "Inspiration divine",
+    cost: "2W",
+    type_line: "Éphémère",
+    rules_text: "Piochez deux cartes. Vous gagnez 4 points de vie.\n\nRappel (Vous pouvez lancer cette carte depuis votre cimetière pour son coût de rappel. Exilez-la ensuite.)\n\nRappel 4W",
+    flavor_text: "La lumière divine éclaire même les moments les plus sombres.",
+    artist: "B. Rtiste",
+    rarity: "rare",
+    set_symbol: "⚡",
+    background_color: rgb("#ffffcc"),
+  ),
+  
+  // Créature simple pour comparaison
+  card(
+    "Ours runique",
+    cost: "1G",
+    type_line: "Créature — Ours",
+    rules_text: "Les autres créatures que vous contrôlez gagnent +1/+1.",
+    flavor_text: "Les runes sur sa fourrure racontent l'histoire de la forêt.",
+    power: "2",
+    toughness: "2",
+    artist: "C. Rtiste",
+    rarity: "common",
+    set_symbol: "⚡",
+    background_color: rgb("#ccffcc"),
+  ),
 )
 
 // Utilisation de la fonction de pagination
