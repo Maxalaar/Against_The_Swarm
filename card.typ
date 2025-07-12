@@ -120,10 +120,12 @@
       )
     }
     
-    // Zone de texte de règles (maintenant toujours jusqu'en bas)
+    // Zone de texte de règles (ajustée si force/endurance présente)
+    let text_box_bottom = if power != none and toughness != none { 9mm } else { 2mm }
+    
     rect(
       name: "text_box",
-      (2mm, 2mm),
+      (2mm, text_box_bottom),
       (card_width - 2mm, card_height - 56mm),
       radius: (rest: 1mm),
       fill: white,
@@ -146,7 +148,7 @@
     
     // Placement du contenu centré verticalement dans la zone de texte
     content(
-      (card_width/2, (card_height - 56mm + 2mm)/2),
+      (card_width/2, (card_height - 56mm + text_box_bottom)/2),
       anchor: "center",
       box(
         width: card_width - 6mm,
@@ -154,21 +156,21 @@
       )
     )
     
-    // Force et endurance (pour les créatures) - maintenant superposée
+    // Force et endurance (pour les créatures) - maintenant centrée et ajustée au contenu
     if power != none and toughness != none {
       rect(
         name: "pt_box",
-        (card_width - 18mm, 2mm),
-        (card_width - 2mm, 12mm),
+        (card_width/2 - 6mm, 1.5mm),
+        (card_width/2 + 6mm, 7.5mm),
         radius: (rest: 1mm),
         fill: white,
         stroke: (thickness: 0.5mm, paint: black)
       )
       
       content(
-        (card_width - 10mm, 7mm),
+        (card_width/2, 4.5mm),
         anchor: "center",
-        text(size: 10pt, weight: "bold")[#power/#toughness],
+        text(size: 12pt, weight: "bold")[#power/#toughness],
       )
     }
     
