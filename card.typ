@@ -130,29 +130,29 @@
       stroke: (thickness: 0.5mm, paint: black)
     )
     
-    // Texte de règles
-    if rules_text != "" {
-      content(
-        (3mm, card_height - 58mm),
-        anchor: "north-west",
-        box(
-          width: card_width - 6mm,
-          text(size: 7pt)[#rules_text]
-        )
-      )
+    // Contenu de la zone de texte (règles + flavor)
+    let text_content = {
+      if rules_text != "" {
+        text(size: 7pt)[#rules_text]
+      }
+      
+      if flavor_text != none {
+        if rules_text != "" {
+          v(0.5em)
+        }
+        align(center)[#text(size: 6pt, style: "italic", fill: rgb("#666666"))[#flavor_text]]
+      }
     }
     
-    // Texte de flavor (si présent)
-    if flavor_text != none {
-      content(
-        (card_width/2, 10mm),
-        anchor: "center",
-        box(
-          width: card_width - 6mm,
-          text(size: 6pt, style: "italic", fill: rgb("#666666"))[#flavor_text]
-        )
+    // Placement du contenu centré verticalement dans la zone de texte
+    content(
+      (card_width/2, (card_height - 56mm + 2mm)/2),
+      anchor: "center",
+      box(
+        width: card_width - 6mm,
+        text_content
       )
-    }
+    )
     
     // Force et endurance (pour les créatures) - maintenant superposée
     if power != none and toughness != none {
