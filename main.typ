@@ -29,7 +29,7 @@
         type_line: "Éphémère",
         rules_text: "L'Éclair inflige 3 blessures à n'importe quelle cible.",
         flavor_text: "La foudre ne frappe jamais deux fois au même endroit, mais une fois suffit.",
-        rules_flavor_spacing: 0.0em,
+        rules_flavor_spacing: 2.0em,
         artist: "B. Rtiste",
         rarity: "common",
         set_symbol: "⚡",
@@ -88,7 +88,7 @@
         rules_text: rules_list(
             "Célérité",
             "Quand le Gobelin sage arrive sur le champ de bataille, piochez une carte.",
-            "T: Ajoutez R."
+            "T: Ajoutez R.",
         ),
         flavor_text: "\"Moi avoir beaucoup de sagesse ! Moi savoir compter jusqu'à... beaucoup !\"",
         // rules_text_size: 7pt,

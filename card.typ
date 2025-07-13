@@ -148,16 +148,17 @@
     
     // Zone de texte de règles (ajustée si force/endurance présente)
     let text_box_bottom = if power != none and toughness != none { 9mm } else { 2mm }
-    
+    let text_box_top = card_height - 56mm
+
     rect(
       name: "text_box",
       (2mm, text_box_bottom),
-      (card_width - 2mm, card_height - 56mm),
+      (card_width - 2mm, text_box_top),
       radius: (rest: 1mm),
       fill: white,
       stroke: (thickness: 0.5mm, paint: black)
     )
-    
+
     // Contenu de la zone de texte (règles + flavor)
     let text_content = {
       if rules_text != "" {
@@ -177,14 +178,17 @@
         ]
       }
     }
-    
+
+    // Calcul correct du centre vertical de la zone de texte
+    let text_box_center_y = (text_box_top + text_box_bottom) / 2
+
     // Placement du contenu centré verticalement dans la zone de texte
     content(
-      (card_width/2, (card_height - 56mm + text_box_bottom)/2),
+      (card_width/2, text_box_center_y),
       anchor: "center",
       box(
         width: card_width - 6mm,
-        text_content
+        align(horizon, text_content)
       )
     )
     
