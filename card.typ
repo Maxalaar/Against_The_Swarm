@@ -13,12 +13,12 @@
   set_symbol: none,
   background_color: rgb("#f5f5dc"), // Beige par défaut
   border_color: black,
-  rules_text_size: 7pt,
-  flavor_text_size: 6pt,
-  rules_flavor_spacing: 0.5em,
-  rules_line_spacing: 1.2em,
-  flavor_line_spacing: 1.2em,
-  inter_rules_spacing: 0.8em, // Espacement entre les règles
+  rules_text_size: 8pt,
+  flavor_text_size: 7pt,
+  rules_line_spacing: 0.5em,
+  inter_rules_spacing: 0.9em,
+  rules_flavor_spacing: 1.0em,
+  flavor_line_spacing: 0.5em,
 ) = {
   // Variables principales
   let card_width = 63mm
@@ -27,16 +27,17 @@
   // Marges
   let vertical_margin = 1.5mm
   let horizontal_margin = 1.5mm
-  
-  // Zone du titre
-  let title_box_size = 10mm
+
+  // Zone du titre + Zone du coût
+  let title_box_size = 8.5mm
   let title_box_top = card_height - vertical_margin
   let title_box_bottom = title_box_top - title_box_size
   
-  // Zone du coût de mana (nouvelle boîte séparée)
   let mana_box_top = title_box_top
   let mana_box_bottom = title_box_bottom
   let mana_box_width = 9mm
+
+  let title_box_right = if cost != none { card_width - horizontal_margin - mana_box_width - horizontal_margin } else { card_width - horizontal_margin }
   
   // Zone d'illustration
   let art_box_size = 39mm
@@ -51,6 +52,7 @@
   // Zone de texte (ajustée si force/endurance présente)
   let text_box_top = art_box_bottom - vertical_margin
   let text_box_bottom = if power != none and toughness != none { power_toughness_top + vertical_margin } else { vertical_margin }
+  let text_box_center_y = ((text_box_top + text_box_bottom) / 2) - rules_text_size / 2
   
   // Couleurs selon la rareté
   let rarity_colors = (
@@ -107,7 +109,6 @@
     )
     
     // Zone du titre (ajustée pour laisser la place au coût de mana)
-    let title_box_right = if cost != none { card_width - horizontal_margin - mana_box_width - horizontal_margin } else { card_width - horizontal_margin }
     rect(
       name: "title_box",
       (horizontal_margin, title_box_top),
@@ -119,14 +120,14 @@
     
     // Titre
     content(
-      (3mm, card_height - 5.5mm),
+      (3mm, title_box_top - 3mm),
       anchor: "west",
       text(size: 11pt, weight: "bold")[#title],
     )
     
     // Type de la carte (sous le titre)
     content(
-      (3mm, card_height - 9mm),
+      (3mm, title_box_top - 6mm),
       anchor: "west",
       text(size: 7pt)[#type_line],
     )
@@ -197,9 +198,6 @@
       }
     }
 
-    // Calcul correct du centre vertical de la zone de texte
-    let text_box_center_y = ((text_box_top + text_box_bottom) / 2) - rules_text_size / 2
-
     // Placement du contenu centré verticalement dans la zone de texte
     content(
       (card_width/2, text_box_center_y),
@@ -210,7 +208,7 @@
       )
     )
     
-    // Force et endurance (pour les créatures) - maintenant centrée et ajustée au contenu
+    // Force et endurance (pour les créatures)
     if power != none and toughness != none {
       rect(
         name: "pt_box",
@@ -227,25 +225,22 @@
         text(size: 12pt, weight: "bold")[#power/#toughness],
       )
     }
-    
-    // Nom de l'artiste et symbole du set (en bas à gauche)
-    if artist != none and set_symbol != none {
+
+    // Symbole du set
+    if set_symbol != none {
       content(
-        (3mm, 3mm),
-        anchor: "south-west",
-        text(size: 5pt, fill: rgb("#666666"))[#artist #h(1em) #text(fill: rarity_color)[#set_symbol]],
+        (card_width - 3mm, 3mm),
+        anchor: "south-east",
+        text(size: 5pt)[#set_symbol],
       )
-    } else if artist != none {
+    }
+
+    // Nom de l'artiste
+    if artist != none {
       content(
         (3mm, 3mm),
         anchor: "south-west",
         text(size: 5pt, fill: rgb("#666666"))[#artist],
-      )
-    } else if set_symbol != none {
-      content(
-        (3mm, 3mm),
-        anchor: "south-west",
-        text(size: 5pt, fill: rarity_color)[#set_symbol],
       )
     }
   })
