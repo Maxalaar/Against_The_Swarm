@@ -91,19 +91,23 @@
         background_color: rgb("#ccffcc"),
     ),
 
+
     card(
-    "Gobelin sage",
-    cost: "1R",
-    type_line: "Créature — Gobelin Sorcier",
-    rules_text: "Célérité\n\nQuand le Gobelin sage arrive sur le champ de bataille, piochez une carte.\n\nT: Ajoutez R.",
-    flavor_text: "\"Moi avoir beaucoup de sagesse ! Moi savoir compter jusqu'à... beaucoup !\"",
-    power: "1",
-    toughness: "2",
-    artist: "A. Rtiste",
-    rarity: "uncommon",
-    set_symbol: "⚡",
-    background_color: rgb("#ffcccc"),
-  ),
+        "Gobelin sage",
+        cost: "1R",
+        type_line: "Créature — Gobelin Sorcier",
+        rules_text: "Célérité\n\nQuand le Gobelin sage arrive sur le champ de bataille, piochez une carte.\n\nT: Ajoutez R.",
+        flavor_text: "\"Moi avoir beaucoup de sagesse ! Moi savoir compter jusqu'à... beaucoup !\"",
+        rules_text_size: 6pt,
+        rules_line_spacing: 0.5em,
+        flavor_line_spacing: 0.5em,
+        power: "1",
+        toughness: "2",
+        artist: "A. Rtiste",
+        rarity: "uncommon",
+        set_symbol: "⚡",
+        background_color: rgb("#ffcccc"),
+    ),
   
   // Sort sans power/toughness (plus d'espace)
   card(

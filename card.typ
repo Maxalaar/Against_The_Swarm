@@ -13,6 +13,11 @@
   set_symbol: none,
   background_color: rgb("#f5f5dc"), // Beige par défaut
   border_color: black,
+  rules_text_size: 7pt,
+  flavor_text_size: 6pt,
+  rules_flavor_spacing: 0.5em,
+  rules_line_spacing: 1.2em,
+  flavor_line_spacing: 1.2em,
 ) = {
   let card_width = 63mm
   let card_height = 88mm
@@ -135,14 +140,20 @@
     // Contenu de la zone de texte (règles + flavor)
     let text_content = {
       if rules_text != "" {
-        text(size: 7pt)[#rules_text]
+        set text(size: rules_text_size)
+        set par(leading: rules_line_spacing)
+        rules_text
       }
       
       if flavor_text != none {
         if rules_text != "" {
-          v(0.5em)
+          v(rules_flavor_spacing)
         }
-        align(center)[#text(size: 6pt, style: "italic", fill: rgb("#666666"))[#flavor_text]]
+        align(center)[
+          #set text(size: flavor_text_size, style: "italic", fill: rgb("#666666"))
+          #set par(leading: flavor_line_spacing)
+          #flavor_text
+        ]
       }
     }
     
