@@ -6,12 +6,14 @@
   margin: 0.5cm,
 )
 
-#import "card_content/drone/drone.typ": drone
-#import "card_content/swarmer/swarmer.typ": swarmer
+#let language = "fr"
+
+#import "card_content/drone/drone.typ": make_drone
+#import "card_content/swarmer/swarmer.typ": make_swarmer
 
 #let all-cards = (
-    drone,
-    swarmer,
+    make_drone(language: language),
+    make_swarmer(language: language),
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)
