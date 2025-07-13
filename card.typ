@@ -1,7 +1,7 @@
 #import "@preview/cetz:0.4.0"
 
 #let card(
-  title,
+  name,
   cost: none,
   type_line: "",
   rules_text: "",
@@ -12,7 +12,7 @@
   artist: none,
   rarity: "common",
   set_symbol: none,
-  background_color: rgb("#f5f5dc"), // Beige par défaut
+  background_color: rgb("#f5f5dc"),
   border_color: black,
   rules_text_size: 8pt,
   behaviors_text_size: 8pt,
@@ -33,19 +33,20 @@
   let horizontal_margin = 1.5mm
 
   // Zone du titre + Zone du coût
-  let title_box_size = 8.5mm
-  let title_box_top = card_height - vertical_margin
-  let title_box_bottom = title_box_top - title_box_size
+  let name_box_size = 8.5mm
+  let name_box_top = card_height - vertical_margin
+  let name_box_bottom = name_box_top - name_box_size
   
-  let mana_box_top = title_box_top
-  let mana_box_bottom = title_box_bottom
+  let mana_box_top = name_box_top
+  let mana_box_bottom = name_box_bottom
   let mana_box_width = 9mm
 
-  let title_box_right = if cost != none { card_width - horizontal_margin - mana_box_width - horizontal_margin } else { card_width - horizontal_margin }
+  let name_box_right = if cost != none { card_width - horizontal_margin - mana_box_width - horizontal_margin } else { card_width - horizontal_margin }
+  let name_box_center_x = (horizontal_margin + name_box_right) / 2
   
   // Zone d'illustration
   let art_box_size = 39mm
-  let art_box_top = title_box_bottom - vertical_margin
+  let art_box_top = name_box_bottom - vertical_margin
   let art_box_bottom = art_box_top - art_box_size
   
   // Zone de force/endurance
@@ -134,9 +135,9 @@
     
     // Zone du titre (ajustée pour laisser la place au coût de mana)
     rect(
-      name: "title_box",
-      (horizontal_margin, title_box_top),
-      (title_box_right, title_box_bottom),
+      name: "name_box",
+      (horizontal_margin, name_box_top),
+      (name_box_right, name_box_bottom),
       radius: (rest: 1mm),
       fill: white,
       stroke: (thickness: 0.5mm, paint: black)
@@ -144,15 +145,15 @@
     
     // Titre
     content(
-      (3mm, title_box_top - 3mm),
-      anchor: "west",
-      text(size: 11pt, weight: "bold")[#title],
+      (name_box_center_x, name_box_top - 3mm),
+      anchor: "center",
+      text(size: 11pt, weight: "bold")[#name],
     )
     
     // Type de la carte (sous le titre)
     content(
-      (3mm, title_box_top - 6mm),
-      anchor: "west",
+      (name_box_center_x, name_box_top - 6.5mm),
+      anchor: "center",
       text(size: 7pt)[#type_line],
     )
     
