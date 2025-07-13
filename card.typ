@@ -20,9 +20,9 @@
   rules_line_spacing: 0.35em,
   inter_rules_spacing: 0.9em,
   behaviors_line_spacing: 0.5em,
-  inter_behaviors_spacing: 0.4em,
+  inter_behaviors_spacing: 0.35em,
   rules_behaviors_flavor_spacing: 1.0em,
-  flavor_line_spacing: 0.5em,
+  flavor_line_spacing: 0.3em,
 ) = {
   // Variables principales
   let card_width = 63mm
