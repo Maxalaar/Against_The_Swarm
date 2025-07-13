@@ -1,7 +1,5 @@
 #import "card_structure/creat_card.typ": creat_card
 #import "paginated_card_grid.typ": paginated_card_grid
-#import "card_structure/rules_list.typ": rules_list
-#import "card_structure/behaviors_list.typ": behaviors_list
 
 #set page(
   paper: "a4",

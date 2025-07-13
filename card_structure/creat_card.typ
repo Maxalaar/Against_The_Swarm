@@ -11,7 +11,7 @@
   toughness: none,
   artist: none,
   set_symbol: none,
-  background_color: rgb("#f5f5dc"),
+  background_color: rgb("#cfcfca"),
   border_color: black,
   capacity_text_size: 9pt,
   behavior_text_size: 9pt,
