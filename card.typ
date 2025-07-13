@@ -25,17 +25,21 @@
   let card_height = 88mm
   
   // Marges
-  let vertical_margin = 1.75mm
-  let horizontal_margin = 1.75mm
+  let vertical_margin = 1.5mm
+  let horizontal_margin = 1.5mm
   
   // Zone du titre
   let title_box_size = 10mm
   let title_box_top = card_height - vertical_margin
   let title_box_bottom = title_box_top - title_box_size
-
+  
+  // Zone du coût de mana (nouvelle boîte séparée)
+  let mana_box_top = title_box_top
+  let mana_box_bottom = title_box_bottom
+  let mana_box_width = 9mm
   
   // Zone d'illustration
-  let art_box_size = 25mm
+  let art_box_size = 39mm
   let art_box_top = title_box_bottom - vertical_margin
   let art_box_bottom = art_box_top - art_box_size
   
@@ -102,11 +106,12 @@
       )
     )
     
-    // Zone du titre (agrandie pour inclure le type)
+    // Zone du titre (ajustée pour laisser la place au coût de mana)
+    let title_box_right = if cost != none { card_width - horizontal_margin - mana_box_width - horizontal_margin } else { card_width - horizontal_margin }
     rect(
       name: "title_box",
       (horizontal_margin, title_box_top),
-      (card_width - horizontal_margin, title_box_bottom),
+      (title_box_right, title_box_bottom),
       radius: (rest: 1mm),
       fill: white,
       stroke: (thickness: 0.5mm, paint: black)
@@ -116,7 +121,7 @@
     content(
       (3mm, card_height - 5.5mm),
       anchor: "west",
-      text(size: 10pt, weight: "bold")[#title],
+      text(size: 11pt, weight: "bold")[#title],
     )
     
     // Type de la carte (sous le titre)
@@ -126,12 +131,22 @@
       text(size: 7pt)[#type_line],
     )
     
-    // Coût de mana (coin supérieur droit)
+    // Boîte du coût de mana (séparée)
     if cost != none {
+      rect(
+        name: "mana_box",
+        (card_width - horizontal_margin - mana_box_width, mana_box_top),
+        (card_width - horizontal_margin, mana_box_bottom),
+        radius: (rest: 1mm),
+        fill: white,
+        stroke: (thickness: 0.5mm, paint: black)
+      )
+      
+      // Coût de mana centré dans sa boîte
       content(
-        (card_width - 3mm, card_height - 7mm),
-        anchor: "east",
-        text(size: 9pt, weight: "bold")[#cost],
+        (card_width - horizontal_margin - mana_box_width/2, (mana_box_top + mana_box_bottom)/2),
+        anchor: "center",
+        text(size: 11pt, weight: "bold")[#cost],
       )
     }
     
