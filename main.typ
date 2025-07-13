@@ -1,6 +1,7 @@
 #import "card.typ": card
 #import "paginated_card_grid.typ": paginated_card_grid
 #import "rules_list.typ": rules_list
+#import "behaviors_list.typ": behaviors_list
 
 #set page(
   paper: "a4",
@@ -29,7 +30,6 @@
         type_line: "Éphémère",
         rules_text: "L'Éclair inflige 3 blessures à n'importe quelle cible.",
         flavor_text: "La foudre ne frappe jamais deux fois au même endroit, mais une fois suffit.",
-        rules_flavor_spacing: 2.0em,
         artist: "B. Rtiste",
         rarity: "common",
         set_symbol: "⚡",
@@ -117,8 +117,12 @@
         "Ours runique",
         cost: "1G",
         type_line: "Créature — Ours",
-        rules_text: "Les autres créatures que vous contrôlez gagnent +1/+1.",
-        flavor_text: "Les runes sur sa fourrure racontent l'histoire de la forêt.",
+        rules_text: rules_list("Les autres créatures que vous contrôlez gagnent +1/+1."),
+        behaviors_text: behaviors_list(
+            "Si il se trouve en zone 3 ou 2 avance.",
+            "Si il se trouve en zone 1 attaque",
+        ),
+        // flavor_text: "Les runes sur sa fourrure racontent l'histoire de la forêt.",
         power: "2",
         toughness: "2",
         artist: "C. Rtiste",

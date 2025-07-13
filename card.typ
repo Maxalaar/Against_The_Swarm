@@ -5,6 +5,7 @@
   cost: none,
   type_line: "",
   rules_text: "",
+  behaviors_text: "",
   flavor_text: none,
   power: none,
   toughness: none,
@@ -14,10 +15,13 @@
   background_color: rgb("#f5f5dc"), // Beige par défaut
   border_color: black,
   rules_text_size: 8pt,
+  behaviors_text_size: 8pt,
   flavor_text_size: 7pt,
   rules_line_spacing: 0.5em,
   inter_rules_spacing: 0.9em,
-  rules_flavor_spacing: 1.0em,
+  behaviors_line_spacing: 0.5em,
+  inter_behaviors_spacing: 0.4em,
+  rules_behaviors_flavor_spacing: 1.0em,
   flavor_line_spacing: 0.5em,
 ) = {
   // Variables principales
@@ -65,14 +69,14 @@
   let rarity_color = rarity_colors.at(rarity, default: black)
   
   // Fonction pour traiter les règles avec espacement personnalisé
-  let process_rules_list(rules_content) = {
-    if type(rules_content) == str {
+  let process_rules_list(rules_list) = {
+    if type(rules_list) == str {
       // Si c'est une string simple, la retourner telle quelle
-      return rules_content
-    } else if type(rules_content) == array {
+      return rules_list
+    } else if type(rules_list) == array {
       // Si c'est un array, joindre avec des espaces personnalisés
       let result = ()
-      for (i, rule) in rules_content.enumerate() {
+      for (i, rule) in rules_list.enumerate() {
         if i > 0 {
           result = result + (v(inter_rules_spacing, weak: true),)
         }
@@ -80,7 +84,27 @@
       }
       return result.join()
     } else {
-      return rules_content
+      return rules_list
+    }
+  }
+  
+  // Fonction pour traiter les behaviors avec des points noirs
+  let process_behaviors_list(behaviors_list) = {
+    if type(behaviors_list) == str {
+      // Si c'est une string simple, la retourner telle quelle
+      return behaviors_list
+    } else if type(behaviors_list) == array {
+      // Si c'est un array, ajouter des points noirs devant chaque élément
+      let result = ()
+      for (i, behavior) in behaviors_list.enumerate() {
+        if i > 0 {
+          result = result + (v(inter_behaviors_spacing, weak: true),)
+        }
+        result = result + (text(fill: black)[• #behavior],)
+      }
+      return result.join()
+    } else {
+      return behaviors_list
     }
   }
   
@@ -178,7 +202,7 @@
       stroke: (thickness: 0.5mm, paint: black)
     )
 
-    // Contenu de la zone de texte (règles + flavor)
+    // Contenu de la zone de texte (règles + behaviors + flavor)
     let text_content = {
       if rules_text != "" {
         set text(size: rules_text_size)
@@ -186,9 +210,18 @@
         process_rules_list(rules_text)
       }
       
-      if flavor_text != none {
+      if behaviors_text != "" {
         if rules_text != "" {
-          v(rules_flavor_spacing, weak: true)
+          v(rules_behaviors_flavor_spacing, weak: true)
+        }
+        set text(size: behaviors_text_size)
+        set par(leading: behaviors_line_spacing)
+        process_behaviors_list(behaviors_text)
+      }
+      
+      if flavor_text != none {
+        if rules_text != "" or behaviors_text != "" {
+          v(rules_behaviors_flavor_spacing, weak: true)
         }
         align(center)[
           #set text(size: flavor_text_size, style: "italic", fill: rgb("#666666"))
