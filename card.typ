@@ -18,6 +18,7 @@
   rules_flavor_spacing: 0.5em,
   rules_line_spacing: 1.2em,
   flavor_line_spacing: 1.2em,
+  inter_rules_spacing: 0.8em,
 ) = {
   let card_width = 63mm
   let card_height = 88mm
@@ -31,6 +32,26 @@
   )
   
   let rarity_color = rarity_colors.at(rarity, default: black)
+  
+  // Fonction pour traiter les règles avec espacement personnalisé
+  let process_rules_list(rules_content) = {
+    if type(rules_content) == str {
+      // Si c'est une string simple, la retourner telle quelle
+      return rules_content
+    } else if type(rules_content) == array {
+      // Si c'est un array, joindre avec des espaces personnalisés
+      let result = ()
+      for (i, rule) in rules_content.enumerate() {
+        if i > 0 {
+          result = result + (v(inter_rules_spacing),)
+        }
+        result = result + (rule,)
+      }
+      return result.join()
+    } else {
+      return rules_content
+    }
+  }
   
   cetz.canvas({
     import cetz.draw: *
@@ -142,7 +163,7 @@
       if rules_text != "" {
         set text(size: rules_text_size)
         set par(leading: rules_line_spacing)
-        rules_text
+        process_rules_list(rules_text)
       }
       
       if flavor_text != none {
