@@ -101,7 +101,7 @@
         toughness: "2",
         artist: "A. Rtiste",
         rarity: "uncommon",
-        set_symbol: "⚡",
+        set_symbol: "Base",
         background_color: rgb("#ffcccc"),
     ),
   

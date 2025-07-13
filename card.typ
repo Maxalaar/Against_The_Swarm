@@ -77,7 +77,7 @@
       )
     )
     
-    // Zone du titre
+    // Zone du titre (agrandie pour inclure le type)
     rect(
       name: "title_box",
       (2mm, card_height - 2mm),
@@ -89,9 +89,16 @@
     
     // Titre
     content(
-      (3mm, card_height - 7mm),
+      (3mm, card_height - 5mm),
       anchor: "west",
       text(size: 10pt, weight: "bold")[#title],
+    )
+    
+    // Type de la carte (sous le titre)
+    content(
+      (3mm, card_height - 9mm),
+      anchor: "west",
+      text(size: 7pt)[#type_line],
     )
     
     // Coût de mana (coin supérieur droit)
@@ -103,7 +110,7 @@
       )
     }
     
-    // Zone d'illustration (placeholder)
+    // Zone d'illustration (placeholder) - ajustée pour compenser la suppression de la zone de type
     rect(
       name: "art_box",
       (2mm, card_height - 42mm),
@@ -120,35 +127,9 @@
       text(size: 14pt, fill: rgb("#999999"))[ART],
     )
     
-    // Zone de type
-    rect(
-      name: "type_box",
-      (2mm, card_height - 54mm),
-      (card_width - 2mm, card_height - 44mm),
-      radius: (rest: 1mm),
-      fill: white,
-      stroke: (thickness: 0.5mm, paint: black)
-    )
-    
-    // Ligne de type
-    content(
-      (3mm, card_height - 49mm),
-      anchor: "west",
-      text(size: 8pt, weight: "bold")[#type_line],
-    )
-    
-    // Symbole de rareté et d'extension
-    if set_symbol != none {
-      content(
-        (card_width - 3mm, card_height - 49mm),
-        anchor: "east",
-        text(size: 8pt, fill: rarity_color)[#set_symbol],
-      )
-    }
-    
     // Zone de texte de règles (ajustée si force/endurance présente)
     let text_box_bottom = if power != none and toughness != none { 9mm } else { 2mm }
-    let text_box_top = card_height - 56mm
+    let text_box_top = card_height - 44mm
 
     rect(
       name: "text_box",
@@ -210,12 +191,24 @@
       )
     }
     
-    // Nom de l'artiste (en bas à gauche, très petit)
-    if artist != none {
+    // Nom de l'artiste et symbole du set (en bas à gauche)
+    if artist != none and set_symbol != none {
+      content(
+        (3mm, 3mm),
+        anchor: "south-west",
+        text(size: 5pt, fill: rgb("#666666"))[#artist #h(1em) #text(fill: rarity_color)[#set_symbol]],
+      )
+    } else if artist != none {
       content(
         (3mm, 3mm),
         anchor: "south-west",
         text(size: 5pt, fill: rgb("#666666"))[#artist],
+      )
+    } else if set_symbol != none {
+      content(
+        (3mm, 3mm),
+        anchor: "south-west",
+        text(size: 5pt, fill: rarity_color)[#set_symbol],
       )
     }
   })
