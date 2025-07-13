@@ -5,13 +5,13 @@
   type: (
     "Essaim",
     "Créature",
-    "Jeton"
+    "Jeton",
   ),
   behavior: (
     "Si en zone 3 ou 2 Avance.",
     "Si en zone 1 Attaque."
   ),
-  flavor: "Générés en masse par l'Essaim, ils forment la masse sacrifiable de toute force d'invasion.",
+  flavor: "Générés en masse, ils forment la chair sacrifiable de toute force d’invasion.",
 )
 
 #let drone_text_en = (
@@ -25,7 +25,7 @@
     "If in zone 3 or 2, Advance.",
     "If in zone 1, Attack."
   ),
-  flavor: "Mass-produced by the Swarm, they form the expendable bulk of any invasion force.",
+  flavor: "Mass-produced, they form the expendable bulk of any invasion force.",
 )
 
 #let make_drone(
@@ -37,7 +37,7 @@
   } else if language == "fr" {
     drone_text = drone_text_fr
   } else {
-    drone_text = drone_text_fr // langue par défaut
+    drone_text = drone_text_en
   }
   
   let drone = creat_card(

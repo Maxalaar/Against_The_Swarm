@@ -47,7 +47,7 @@
   } else if language == "fr" {
     swarmer_text = swarmer_text_fr
   } else {
-    swarmer_text = swarmer_text_fr // langue par défaut
+    swarmer_text = swarmer_text_en
   }
   
   let swarmer = creat_card(
