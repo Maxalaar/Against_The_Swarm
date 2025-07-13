@@ -180,7 +180,7 @@
     }
 
     // Calcul correct du centre vertical de la zone de texte
-    let text_box_center_y = (text_box_top + text_box_bottom) / 2
+    let text_box_center_y = ((text_box_top + text_box_bottom) / 2) - rules_text_size / 2
 
     // Placement du contenu centré verticalement dans la zone de texte
     content(
