@@ -20,8 +20,33 @@
   flavor_line_spacing: 1.2em,
   inter_rules_spacing: 0.8em, // Espacement entre les règles
 ) = {
+  // Variables principales
   let card_width = 63mm
   let card_height = 88mm
+  
+  // Marges
+  let vertical_margin = 1.75mm
+  let horizontal_margin = 1.75mm
+  
+  // Zone du titre
+  let title_box_size = 10mm
+  let title_box_top = card_height - vertical_margin
+  let title_box_bottom = title_box_top - title_box_size
+
+  
+  // Zone d'illustration
+  let art_box_size = 25mm
+  let art_box_top = title_box_bottom - vertical_margin
+  let art_box_bottom = art_box_top - art_box_size
+  
+  // Zone de force/endurance
+  let power_toughness_size = 5mm
+  let power_toughness_bottom = vertical_margin
+  let power_toughness_top = vertical_margin + power_toughness_size
+  
+  // Zone de texte (ajustée si force/endurance présente)
+  let text_box_top = art_box_bottom - vertical_margin
+  let text_box_bottom = if power != none and toughness != none { power_toughness_top + vertical_margin } else { vertical_margin }
   
   // Couleurs selon la rareté
   let rarity_colors = (
@@ -80,8 +105,8 @@
     // Zone du titre (agrandie pour inclure le type)
     rect(
       name: "title_box",
-      (2mm, card_height - 2mm),
-      (card_width - 2mm, card_height - 12mm),
+      (horizontal_margin, title_box_top),
+      (card_width - horizontal_margin, title_box_bottom),
       radius: (rest: 1mm),
       fill: white,
       stroke: (thickness: 0.5mm, paint: black)
@@ -89,7 +114,7 @@
     
     // Titre
     content(
-      (3mm, card_height - 5mm),
+      (3mm, card_height - 5.5mm),
       anchor: "west",
       text(size: 10pt, weight: "bold")[#title],
     )
@@ -110,11 +135,11 @@
       )
     }
     
-    // Zone d'illustration (placeholder) - ajustée pour compenser la suppression de la zone de type
+    // Zone d'illustration (placeholder)
     rect(
       name: "art_box",
-      (2mm, card_height - 42mm),
-      (card_width - 2mm, card_height - 14mm),
+      (horizontal_margin, art_box_bottom),
+      (card_width - horizontal_margin, art_box_top),
       radius: (rest: 1mm),
       fill: rgb("#e6e6fa"),
       stroke: (thickness: 0.5mm, paint: black)
@@ -122,19 +147,16 @@
     
     // Texte "ART" au centre de la zone d'illustration
     content(
-      (card_width/2, card_height - 28mm),
+      (card_width/2, art_box_top - art_box_size / 2),
       anchor: "center",
       text(size: 14pt, fill: rgb("#999999"))[ART],
     )
     
-    // Zone de texte de règles (ajustée si force/endurance présente)
-    let text_box_bottom = if power != none and toughness != none { 9mm } else { 2mm }
-    let text_box_top = card_height - 44mm
-
+    // Zone de texte de règles
     rect(
       name: "text_box",
-      (2mm, text_box_bottom),
-      (card_width - 2mm, text_box_top),
+      (horizontal_margin, text_box_bottom),
+      (card_width - horizontal_margin, text_box_top),
       radius: (rest: 1mm),
       fill: white,
       stroke: (thickness: 0.5mm, paint: black)
@@ -177,15 +199,15 @@
     if power != none and toughness != none {
       rect(
         name: "pt_box",
-        (card_width/2 - 6mm, 1.5mm),
-        (card_width/2 + 6mm, 7.5mm),
+        (card_width/2 - 6mm, power_toughness_bottom),
+        (card_width/2 + 6mm, power_toughness_top),
         radius: (rest: 1mm),
         fill: white,
         stroke: (thickness: 0.5mm, paint: black)
       )
       
       content(
-        (card_width/2, 4.5mm),
+        (card_width/2, (power_toughness_top + power_toughness_bottom) / 2),
         anchor: "center",
         text(size: 12pt, weight: "bold")[#power/#toughness],
       )
