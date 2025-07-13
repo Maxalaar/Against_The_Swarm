@@ -18,7 +18,7 @@
   rules_flavor_spacing: 0.5em,
   rules_line_spacing: 1.2em,
   flavor_line_spacing: 1.2em,
-  inter_rules_spacing: 0.8em,
+  inter_rules_spacing: 0.8em, // Espacement entre les règles
 ) = {
   let card_width = 63mm
   let card_height = 88mm
@@ -43,7 +43,7 @@
       let result = ()
       for (i, rule) in rules_content.enumerate() {
         if i > 0 {
-          result = result + (v(inter_rules_spacing),)
+          result = result + (v(inter_rules_spacing, weak: true),)
         }
         result = result + (rule,)
       }
@@ -168,7 +168,7 @@
       
       if flavor_text != none {
         if rules_text != "" {
-          v(rules_flavor_spacing)
+          v(rules_flavor_spacing, weak: true)
         }
         align(center)[
           #set text(size: flavor_text_size, style: "italic", fill: rgb("#666666"))
