@@ -9,7 +9,7 @@
   ),
   behavior: (
     "Si en zone 3 ou 2 Avance.",
-    "Si en zone 1 Attaque."
+    "Si en zone 1 Attaque.",
   ),
   flavor: "Les guerriers forment l'armature solide d'une force de l'essaim.",
 )
@@ -19,7 +19,7 @@
   type: (
     "Swarm",
     "Creature",
-    "Token"
+    "Token",
   ),
   behavior: (
     "If in zone 3 or 2, Advance.",

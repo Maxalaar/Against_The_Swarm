@@ -7,7 +7,7 @@
     "Créature",
   ),
   capacity: (
-    "S'il meurt en zone 1, inflige 2 dégâts.",
+    "S'il meurt en zone 1, inflige son Attaque en Dégâts.",
   ),
   behavior: (
     "Si en zone 3 ou 2 Avance.",
@@ -27,7 +27,7 @@
   ),
   behavior: (
     "If in zone 3 or 2, Advance.",
-    "If in zone 1, Attack."
+    "If in zone 1, Attack.",
   ),
   flavor: "What does it matter if a body falls, as long as the swarm advances.",
 )

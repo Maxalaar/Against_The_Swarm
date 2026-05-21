@@ -2,7 +2,6 @@
 
 #let swarmer_text_fr = (
   name: "Essaimeur",
-  cost: 3,
   type: (
     "Essaim",
     "Créature",
@@ -15,13 +14,10 @@
     "Si en zone 1 Attaque.",
   ),
   flavor: "Leur rôle est de répandre l'infestation au plus près de la ligne de front.",
-  power: "2",
-  toughness: "3",
 )
 
 #let swarmer_text_en = (
   name: "Swarmer",
-  cost: 3,
   type: (
     "Swarm",
     "Creature",
@@ -34,8 +30,6 @@
     "If in zone 1, Attack.",
   ),
   flavor: "Their role is to spread the infestation as close as possible to the front line.",
-  power: "2",
-  toughness: "3",
 )
 
 #let make_swarmer(
@@ -52,13 +46,13 @@
   
   let swarmer = creat_card(
     swarmer_text.name,
-    cost: swarmer_text.cost,
+    cost: 2,
     type: swarmer_text.type,
     capacity: swarmer_text.capacity,
     behavior: swarmer_text.behavior,
     flavor: swarmer_text.flavor,
-    power: swarmer_text.power,
-    toughness: swarmer_text.toughness,
+    power: 2,
+    toughness: 3,
   )
   
   swarmer
