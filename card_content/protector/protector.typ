@@ -8,7 +8,7 @@
     "Créature",
   ),
   capacity: (
-    "Chaque fois qu'une créature dans sa zone subit des dégâts, réduire de 1 les dégâts subis.",
+    "Chaque activation qui touche une autre créature de sa zone lui inflige 1 dégât de moins.",
   ),
   behavior: (
     "Si en zone 3 ou 2, Avance.",

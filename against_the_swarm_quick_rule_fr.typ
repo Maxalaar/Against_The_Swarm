@@ -80,7 +80,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 + Mélanger séparément la pile d'équipement et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
 + Chaque joueur prend sa *carte de personnage* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
-+ Chaque joueur reçoit une carte *Basic Gun* qui constitue son arsenal de départ.
++ Chaque joueur reçoit une carte *Pétoire* qui constitue son arsenal de départ.
 + Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'équipement, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
 
@@ -120,7 +120,7 @@ Quand un joueur active un équipement, il retire immédiatement les dés utilis�
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple — Basic Gun* #h(1fr) _(donnée à tous les joueurs en début de partie)_
+  *Exemple — Pétoire* #h(1fr) _(donnée à tous les joueurs en début de partie)_
 
   #text(size: 9.5pt)[
     Type : Arme — Stockage : 1 \
@@ -188,6 +188,7 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 - Une salve peut mêler plusieurs équipements et plusieurs joueurs, tant que chaque activation respecte sa portée.
 - Les dés et les utilisations dépensés dans une salve sont perdus, même si elle ne détruit rien.
 - Une fois la salve résolue, il ne reste aucune trace des dégâts : une nouvelle salve repart de zéro.
+- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien à la salve.
 
 #block(
   fill: luma(240),
@@ -195,7 +196,7 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Basic Gun (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
+  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pétoire (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
 
   *Exemple 2 :* une zone contient quatre créatures à 2 PV. Une salve combine une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
@@ -323,6 +324,8 @@ Quand un joueur est ramené à la vie, les joueurs adjacents lui restituent une 
 // --- Phase de préparation ---
 
 = Phase de préparation
+
+Quand le dernier round d'une vague est tenu, l'Essaim bat en retraite : tous ses permanents encore en jeu sont détruits, ainsi que les cartes mises de côté lors des tirages d'invasion. Les cartes rejoignent la défausse Essaim et les jetons leur réserve. Rien n'est reporté sur la vague suivante.
 
 Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
 
