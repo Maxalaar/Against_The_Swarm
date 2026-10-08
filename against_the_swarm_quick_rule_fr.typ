@@ -80,7 +80,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 + Mélanger séparément la pile d'équipement et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
 + Chaque joueur prend sa *carte de personnage* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
-+ Chaque joueur reçoit une carte *Pétoire* qui constitue son arsenal de départ.
++ Chaque joueur reçoit une carte *Pistolet* qui constitue son arsenal de départ.
 + Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'équipement, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
 
@@ -120,7 +120,7 @@ Quand un joueur active un équipement, il retire immédiatement les dés utilis�
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple — Pétoire* #h(1fr) _(donnée à tous les joueurs en début de partie)_
+  *Exemple — Pistolet* #h(1fr) _(donnée à tous les joueurs en début de partie)_
 
   #text(size: 9.5pt)[
     Type : Arme — Stockage : 1 \
@@ -196,7 +196,7 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pétoire (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
+  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
 
   *Exemple 2 :* une zone contient quatre créatures à 2 PV. Une salve combine une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
