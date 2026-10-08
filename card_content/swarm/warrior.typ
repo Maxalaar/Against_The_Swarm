@@ -1,17 +1,13 @@
-#import "../../card_structure/creat_card.typ": creat_card
+#import "../../card_structure/swarm_card.typ": swarm_card
 
-#let warrior = creat_card(
+#let warrior = swarm_card(
   "Guerrier",
-  type: (
-    "Essaim",
-    "Créature",
-    "Jeton",
-  ),
+  token: true,
   behavior: (
     "Si en zone 3 ou 2, Avance.",
     "Si en zone 1, Attaque.",
   ),
   flavor: "Les guerriers forment l'armature solide d'une force de l'essaim.",
-  power: 3,
-  toughness: 3,
+  attack: 3,
+  health: 3,
 )

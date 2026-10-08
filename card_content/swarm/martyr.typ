@@ -1,12 +1,8 @@
-#import "../../card_structure/creat_card.typ": creat_card
+#import "../../card_structure/swarm_card.typ": swarm_card
 
-#let martyr = creat_card(
+#let martyr = swarm_card(
   "Martyre",
-  cost: 2,
-  type: (
-    "Essaim",
-    "Créature",
-  ),
+  threat: 2,
   capacity: (
     "S'il meurt en zone 1, inflige son Attaque en dégâts au joueur du secteur.",
   ),
@@ -15,6 +11,6 @@
     "Si en zone 1, Attaque.",
   ),
   flavor: "Qu’importe qu’un corps tombe, tant que l’essaim avance.",
-  power: 2,
-  toughness: 2,
+  attack: 2,
+  health: 2,
 )

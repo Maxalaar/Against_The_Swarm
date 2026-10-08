@@ -1,17 +1,13 @@
-#import "../../card_structure/creat_card.typ": creat_card
+#import "../../card_structure/swarm_card.typ": swarm_card
 
-#let bombard = creat_card(
+#let bombard = swarm_card(
   "Bombarde",
-  cost: 3,
-  type: (
-    "Essaim",
-    "Créature",
-  ),
+  threat: 3,
   behavior: (
     "Si en zone 1 ou 2, Recule.",
     "Si en zone 3, Attaque.",
   ),
   flavor: "Lance à longue portée des jets corrosifs qui consument chair et acier.",
-  power: 3,
-  toughness: 3,
+  attack: 3,
+  health: 3,
 )

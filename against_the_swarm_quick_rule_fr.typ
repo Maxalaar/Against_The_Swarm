@@ -108,9 +108,11 @@ L'ensemble des équipements qu'un joueur porte s'appelle son *arsenal*.
 Chaque équipement possède :
 - Un *Stockage* : nombre de PS que l'équipement occupe dans l'arsenal.
 - Une ou plusieurs *capacités*, chacune se caractérisant par :
-  - Un *coût* : un ou plusieurs d6 avec des résultats spécifiques à obtenir.
+  - Un *coût* : un ou plusieurs d6 avec des résultats spécifiques à obtenir. « Un dé 4+ » demande un dé affichant 4 ou plus ; « une paire » demande deux dés de même valeur.
   - Un *effet* : déclenché quand le joueur paie le coût.
   - Un *nombre d'utilisations max par tour* (1 par défaut, indiqué sur la carte si différent).
+
+Quand un effet indique « N créatures maximum », le joueur choisit lui-même les créatures touchées, sans jamais dépasser ce nombre.
 
 Quand un joueur active un équipement, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est pivotée à 90° et ne peut plus être activée jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres équipements entre elles. Chaque activation peut cependant cibler une cible différente.
 
@@ -144,7 +146,7 @@ Quand un joueur active un équipement, il retire immédiatement les dés utilis�
 
   [Déplacement],
   [Un dé affichant 4+],
-  [Choisir une option : déplace un permanent d'1 zone dans son secteur / envoie un permanent de son secteur vers la même zone d'un secteur adjacent / ramène un permanent d'un secteur adjacent vers la même zone de son secteur.],
+  [Déplacer 1.],
 
   [Réanimation],
   [Deux dés affichant 6, 6],
@@ -175,6 +177,13 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   *Exemple :* un équipement à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
+=== Déplacer
+
+*Déplacer X* : le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements :
+- changer d'une zone à l'intérieur de son propre secteur ;
+- passer de son secteur à la même zone d'un secteur adjacent ;
+- passer d'un secteur adjacent à la même zone de son secteur.
+
 // --- Dégâts et salves ---
 
 = Dégâts et salves
@@ -202,6 +211,10 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 ]
 
 Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
+
+=== Garde
+
+*Garde X* : la carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.
 
 // --- Structure d'une partie ---
 

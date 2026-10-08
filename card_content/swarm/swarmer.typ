@@ -1,12 +1,8 @@
-#import "../../card_structure/creat_card.typ": creat_card
+#import "../../card_structure/swarm_card.typ": swarm_card
 
-#let swarmer = creat_card(
+#let swarmer = swarm_card(
   "Essaimeur",
-  cost: 2,
-  type: (
-    "Essaim",
-    "Créature",
-  ),
+  threat: 2,
   capacity: (
     "La première fois qu'il entre en zone 1, créez deux jetons Essaimé dans cette zone.",
   ),
@@ -15,6 +11,6 @@
     "Si en zone 1, Attaque.",
   ),
   flavor: "Leur rôle est de répandre l'infestation au plus près de la ligne de front.",
-  power: 2,
-  toughness: 3,
+  attack: 2,
+  health: 3,
 )

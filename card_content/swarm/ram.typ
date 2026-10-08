@@ -1,12 +1,8 @@
-#import "../../card_structure/creat_card.typ": creat_card
+#import "../../card_structure/swarm_card.typ": swarm_card
 
-#let ram = creat_card(
+#let ram = swarm_card(
   "Bélier",
-  cost: 2,
-  type: (
-    "Essaim",
-    "Créature",
-  ),
+  threat: 2,
   capacity: (
     "La première fois qu'il entre en zone 1, inflige son Attaque en dégâts au joueur du secteur.",
   ),
@@ -14,6 +10,6 @@
     "Si en zone 3 ou 2, Avance.",
     "Si en zone 1, Attaque.",
   ),
-  power: 2,
-  toughness: 3,
+  attack: 2,
+  health: 3,
 )
