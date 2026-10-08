@@ -9,7 +9,7 @@
 )
 
 #set text(
-  font: "Linux Libertine",
+  font: ("Linux Libertine", "Libertinus Serif"),
   size: 10.5pt,
   lang: "fr",
 )
@@ -72,6 +72,8 @@ Le jeu utilise deux piles, chacune avec sa propre défausse :
 - *Pile Essaim* : source des renforts lors de la phase d'invasion.
 
 Quand une pile est vide, on mélange sa défausse pour former une nouvelle pile.
+
+Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont gardées à part et n'entrent en jeu que lorsqu'une autre carte les crée. Un jeton détruit retourne dans la réserve de jetons.
 
 *Avant la première vague :*
 
@@ -173,6 +175,33 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   *Exemple :* un équipement à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
+// --- Dégâts et salves ---
+
+= Dégâts et salves
+
+On ne note jamais les blessures des créatures de l'Essaim. Une créature est soit intacte, soit détruite.
+
+*Seuil* : une créature est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à ses PV. Sinon, les dégâts sont perdus et la créature reste intacte.
+
+*Salve* : pour additionner des dégâts, un ou plusieurs joueurs déclarent une salve. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, puis les résolvent en une seule fois. Chaque créature additionne les dégâts de toutes les activations de la salve qui la touchent, puis compare ce total à ses PV.
+
+- Une salve peut mêler plusieurs équipements et plusieurs joueurs, tant que chaque activation respecte sa portée.
+- Les dés et les utilisations dépensés dans une salve sont perdus, même si elle ne détruit rien.
+- Une fois la salve résolue, il ne reste aucune trace des dégâts : une nouvelle salve repart de zéro.
+
+#block(
+  fill: luma(240),
+  inset: 10pt,
+  radius: 4pt,
+  width: 100%,
+)[
+  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Basic Gun (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
+
+  *Exemple 2 :* une zone contient quatre créatures à 2 PV. Une salve combine une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
+]
+
+Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
+
 // --- Structure d'une partie ---
 
 = Structure d'une partie
@@ -183,7 +212,7 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   radius: 4pt,
   width: 100%,
 )[
-  #set text(font: "Courier New", size: 9.5pt)
+  #set text(font: ("Courier New", "DejaVu Sans Mono"), size: 9.5pt)
   ```
   PARTIE
    └── VAGUE
@@ -246,10 +275,17 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 
 Chaque carte Essaim de type créature indique :
 - *Menace* : valeur comptée lors du tirage d'invasion.
-- *PV* : points de vie. À 0 PV, la créature est détruite et placée dans la défausse Essaim.
 - *ATT* : points d'attaque, dégâts infligés quand la créature attaque.
+- *PV* : points de vie, c'est-à-dire le seuil de dégâts à atteindre en une seule salve pour la détruire. Une créature détruite est placée dans la défausse Essaim.
 - *Effet* : ce qui se passe quand la carte entre en jeu. Par défaut, les créatures arrivent en zone 3.
 - *Activation* : ce qui se passe quand le permanent s'active chaque tour.
+
+Sur les cartes, ATT et PV sont notés en bas sous la forme ATT/PV, et la Menace en haut à droite. Les jetons n'ont pas de valeur de Menace.
+
+Les activations utilisent trois mots-clés :
+- *Avance* : la créature se déplace d'une zone vers le joueur (3 → 2 → 1).
+- *Recule* : la créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).
+- *Attaque* : la créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.
 
 #block(
   fill: luma(240),
@@ -257,13 +293,13 @@ Chaque carte Essaim de type créature indique :
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple — Guerrier*
+  *Exemple — Bombarde*
 
   #text(size: 9.5pt)[
     Type : Créature \
-    Menace : 3 | PV : 4 | ATT : 3 \
+    Menace : 3 | ATT : 3 | PV : 3 \
     Effet : entre en jeu en zone 3. \
-    Activation : se rapproche d'une zone. Si en zone 1, attaque.
+    Activation : si en zone 1 ou 2, Recule. Si en zone 3, Attaque.
   ]
 ]
 

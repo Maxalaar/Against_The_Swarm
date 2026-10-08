@@ -1,59 +1,20 @@
 #import "../../card_structure/creat_card.typ": creat_card
 
-#let swarmer_text_fr = (
-  name: "Essaimeur",
+#let swarmer = creat_card(
+  "Essaimeur",
+  cost: 2,
   type: (
     "Essaim",
     "Créature",
   ),
   capacity: (
-    "La première fois qu'il entre en zone 1, créez deux jetons Drone dans cette zone.",
+    "La première fois qu'il entre en zone 1, créez deux jetons Essaimé dans cette zone.",
   ),
   behavior: (
-    "Si en zone 3 ou 2 Avance.",
-    "Si en zone 1 Attaque.",
+    "Si en zone 3 ou 2, Avance.",
+    "Si en zone 1, Attaque.",
   ),
   flavor: "Leur rôle est de répandre l'infestation au plus près de la ligne de front.",
+  power: 2,
+  toughness: 3,
 )
-
-#let swarmer_text_en = (
-  name: "Swarmer",
-  type: (
-    "Swarm",
-    "Creature",
-  ),
-  capacity: (
-    "The first time it enters zone 1, create two Drone tokens in that zone.",
-  ),
-  behavior: (
-    "If in zone 3 or 2, Advance.",
-    "If in zone 1, Attack.",
-  ),
-  flavor: "Their role is to spread the infestation as close as possible to the front line.",
-)
-
-#let make_swarmer(
-  language: "en",
-) = {
-  let swarmer_text = none
-  if language == "en" {
-    swarmer_text = swarmer_text_en
-  } else if language == "fr" {
-    swarmer_text = swarmer_text_fr
-  } else {
-    swarmer_text = swarmer_text_en
-  }
-  
-  let swarmer = creat_card(
-    swarmer_text.name,
-    cost: 2,
-    type: swarmer_text.type,
-    capacity: swarmer_text.capacity,
-    behavior: swarmer_text.behavior,
-    flavor: swarmer_text.flavor,
-    power: 2,
-    toughness: 3,
-  )
-  
-  swarmer
-}
