@@ -5,5 +5,5 @@
   kind: "Équipement",
   storage: 1,
   cost: [une paire],
-  effect: [Vous ou un joueur adjacent regagnez 2 PV.],
+  effect: [Soin 2, sur vous ou un joueur adjacent.],
 )

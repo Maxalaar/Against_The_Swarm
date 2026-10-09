@@ -5,6 +5,6 @@
   kind: "Arme",
   storage: 3,
   cost: [une paire],
-  effect: [1 dégât à 5 créatures maximum à portée 2.],
+  effect: [1 dégât à 2 créatures maximum en zone 1 et à 2 créatures maximum en zone 2 de votre secteur.],
   uses: 2,
 )

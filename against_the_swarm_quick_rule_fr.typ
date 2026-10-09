@@ -177,13 +177,6 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   *Exemple :* un équipement à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
-=== Déplacer
-
-*Déplacer X* : le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements :
-- changer d'une zone à l'intérieur de son propre secteur ;
-- passer de son secteur à la même zone d'un secteur adjacent ;
-- passer d'un secteur adjacent à la même zone de son secteur.
-
 // --- Dégâts et salves ---
 
 = Dégâts et salves
@@ -212,9 +205,44 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 
 Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
 
-=== Garde
+// --- Mots-clés ---
 
-*Garde X* : la carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.
+= Mots-clés
+
+Les cartes utilisent les mots-clés suivants. Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur la carte.
+
+#table(
+  columns: (auto, auto, 1fr),
+  align: (left, left, left),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
+  inset: 6pt,
+  [*Mot-clé*], [*Cartes*], [*Effet*],
+
+  [Déplacer X],
+  [Joueurs],
+  [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
+
+  [Garde X],
+  [Joueurs],
+  [La carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
+
+  [Soin X],
+  [Joueurs],
+  [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
+
+  [Avance],
+  [Essaim],
+  [La créature se déplace d'une zone vers le joueur (3 → 2 → 1).],
+
+  [Recule],
+  [Essaim],
+  [La créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).],
+
+  [Attaque],
+  [Essaim],
+  [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
+)
 
 // --- Structure d'une partie ---
 
@@ -296,10 +324,7 @@ Chaque carte Essaim de type créature indique :
 
 Sur les cartes, ATT et PV sont notés en bas sous la forme ATT/PV, et la Menace en haut à droite. Les jetons n'ont pas de valeur de Menace.
 
-Les activations utilisent trois mots-clés :
-- *Avance* : la créature se déplace d'une zone vers le joueur (3 → 2 → 1).
-- *Recule* : la créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).
-- *Attaque* : la créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.
+Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, définis dans le tableau des mots-clés.
 
 #block(
   fill: luma(240),
