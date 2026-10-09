@@ -332,6 +332,18 @@ Chaque carte Essaim de type créature indique :
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
 
+=== Emprises
+
+Une *Emprise* est un permanent de l'Essaim qui n'est pas une créature : elle n'a ni zone, ni ATT, ni PV. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
+
+Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, qui se lit comme le coût d'un atout. « Total 10+ » demande des dés dont la somme atteint au moins 10.
+
+- Seuls l'As du secteur et les As des secteurs adjacents peuvent payer.
+- Le coût se paie en une seule fois, par un seul joueur, pendant un seul tour. Deux joueurs ne peuvent pas se partager un coût, et aucun dé ne reste sur la carte d'un tour à l'autre.
+- Une Emprise retirée est placée dans la défausse Essaim.
+
+Une carte Infestation n'est pas une Emprise : rien de ce qui retire ou détruit une Emprise ne peut l'affecter.
+
 === Impulsions
 
 Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les créatures, et compte normalement dans le tirage d'invasion.

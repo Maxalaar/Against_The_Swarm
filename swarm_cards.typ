@@ -42,6 +42,15 @@
 #import "card_content/swarm/rampage.typ": rampage
 #import "card_content/swarm/tide.typ": tide
 
+// Emprises: lasting effects on a sector, removed by paying dice
+#import "card_content/swarm/toxin.typ": toxin
+#import "card_content/swarm/tunnel.typ": tunnel
+#import "card_content/swarm/hive_mind.typ": hive_mind
+#import "card_content/swarm/mucus.typ": mucus
+#import "card_content/swarm/fog.typ": fog
+#import "card_content/swarm/infested_ground.typ": infested_ground
+#import "card_content/swarm/eclipse.typ": eclipse
+
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
 #import "card_content/swarm/spitter.typ": spitter
@@ -78,6 +87,13 @@
   psychic_attack,
   rampage,
   tide,
+  toxin,
+  tunnel,
+  hive_mind,
+  mucus,
+  fog,
+  infested_ground,
+  eclipse,
   broodling,
   spitter,
   warrior,

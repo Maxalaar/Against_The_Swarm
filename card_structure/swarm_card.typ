@@ -1,3 +1,5 @@
+#import "equipment_card.typ": die
+
 // Swarm card, 63 x 88 mm.
 // - `rank`: evolution rank, 1 to 4, shown as a Roman numeral left of the name; none hides it.
 // - `threat`: Menace value, top right; tokens have none.
@@ -9,6 +11,9 @@
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
 // - `impulse`: true marks an Impulsion, a one-shot effect that resolves and is discarded.
 //   It has no zones, attack or health; its text goes in `passive`.
+// - `emprise`: true marks an Emprise, a lasting effect on a sector with no zone or stats.
+//   Players remove it by paying `removal`: either dice labels, as on asset cards,
+//   or a number, the total to reach with any dice.
 // - `passive`: optional always-on text, printed under the zone lines. Pass an array
 //   to give several abilities; each gets its own paragraph.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
@@ -21,6 +26,8 @@
   zones_per_line: (3,),
   structure: false,
   impulse: false,
+  emprise: false,
+  removal: none,
   activation: none,
   passive: none,
   flavor: none,
@@ -62,7 +69,7 @@
     frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
-      text(size: 7pt)[#if impulse [Essaim, Impulsion] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
+      text(size: 7pt)[#if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
     }))
     if threat != none {
       frame(width - margin - corner_box, margin, corner_box, 8.5mm, number(threat))
@@ -82,7 +89,7 @@
       let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
       let start = 0
       let rows = ()
-      for count in (if structure or impulse { () } else { zones_per_line }) {
+      for count in (if structure or impulse or emprise { () } else { zones_per_line }) {
         let row = cells.slice(start, start + count)
         start += count
         rows.push(if count == 1 {
@@ -117,6 +124,7 @@
       }
       let has_lines = rows.len() > 0
       if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
+      if removal != none { v(3.6mm) }
       let passives = if type(passive) == array { passive } else if passive != none { (passive,) } else { () }
       if passives.len() > 0 {
         if has_lines {
@@ -128,6 +136,23 @@
         stack(dir: ttb, spacing: 2.8mm, ..passives)
       }
     })
+
+    // Removal cost of an Emprise, on the seam between art and text like an asset cost.
+    if removal != none {
+      let cost = if type(removal) == array {
+        removal.map(die).join(h(1.2mm))
+      } else {
+        box(
+          height: 8mm,
+          radius: 1.6mm,
+          stroke: 0.9pt + black,
+          fill: white,
+          inset: (x: 2.2mm),
+          align(center + horizon, text(size: 11.5pt, weight: "bold")[Total #removal+]),
+        )
+      }
+      place(top + left, dy: 51.25mm - 4mm, box(width: width, align(center, cost)))
+    }
 
     // Bottom row: attack, flavor, health. Cards without stats give the flavor the full width.
     let has_stats = attack != none or health != none
