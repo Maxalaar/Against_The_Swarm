@@ -2,7 +2,7 @@
 
 #let brute = ace_card(
   "La Brute",
-  hp: 6,
+  hp: 10,
   ap: 4,
   charge: 5,
   passive: [Vos atouts infligent +1~dégât à portée~1.],

@@ -2,7 +2,7 @@
 
 #let sharpshooter = ace_card(
   "La Tireuse",
-  hp: 4,
+  hp: 5,
   ap: 5,
   charge: 5,
   passive: [Vos Armes ont +1 de portée.],
