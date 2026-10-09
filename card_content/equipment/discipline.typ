@@ -3,7 +3,7 @@
 #let discipline = equipment_card(
   "Discipline",
   kind: "Atout, Technique",
-  charge: 1,
+  slots: 1,
   dice: (),
   effect: [Chaque fois que vous activez une Technique, Garde 1.],
   flavor: [Mille fois le même geste.],

@@ -4,7 +4,7 @@
   "Le Flambeur",
   hp: 5,
   ap: 5,
-  charge: 5,
+  slots: 5,
   passive: [Une fois par tour, relancez tous vos dés.],
   flavor: [Il mise tout. Tout le temps.],
 )

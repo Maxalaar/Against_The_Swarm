@@ -3,7 +3,7 @@
 #let guided_missile = equipment_card(
   "Missile guidé",
   kind: "Atout, Arme, Explosif",
-  charge: 2,
+  slots: 2,
   dice: ("6",),
   effect: [Infligez 5~dégâts à une engeance de votre secteur ou d'un secteur adjacent, quelle que soit sa zone.],
   flavor: [Elle peut toujours courir.],

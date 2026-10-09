@@ -3,7 +3,7 @@
 #let composure = equipment_card(
   "Sang-froid",
   kind: "Atout, Technique",
-  charge: 1,
+  slots: 1,
   dice: (),
   effect: [Une fois par tour, relancez un de vos dés.],
   flavor: [Respire. Recommence.],

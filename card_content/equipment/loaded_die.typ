@@ -3,7 +3,7 @@
 #let loaded_die = equipment_card(
   "Dé pipé",
   kind: "Atout, Technique",
-  charge: 1,
+  slots: 1,
   dice: ("",),
   effect: [Ajoutez ou retirez 1 à un autre de vos dés.],
   uses: 2,

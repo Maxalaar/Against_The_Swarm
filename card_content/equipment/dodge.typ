@@ -3,7 +3,7 @@
 #let dodge = equipment_card(
   "Esquive",
   kind: "Atout, Technique",
-  charge: 1,
+  slots: 1,
   dice: ("4+",),
   effect: [Garde 2.],
   flavor: [Raté.],

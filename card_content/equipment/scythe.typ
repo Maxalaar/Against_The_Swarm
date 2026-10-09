@@ -3,7 +3,7 @@
 #let scythe = equipment_card(
   "Faux",
   kind: "Atout, Arme, Mêlée",
-  charge: 2,
+  slots: 2,
   dice: ("5+",),
   effect: [Ciblez jusqu'à 3~engeances à portée~1. Infligez 3~dégâts à chacune.],
   flavor: [On récolte ce qui dépasse.],

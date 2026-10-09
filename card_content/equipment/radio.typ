@@ -3,7 +3,7 @@
 #let radio = equipment_card(
   "Radio",
   kind: "Atout, Matériel",
-  charge: 1,
+  slots: 1,
   dice: ("",),
   effect: [Donnez ce dé à un autre joueur, qui l'ajoute à sa réserve avec la même valeur.],
   uses: 2,

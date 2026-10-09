@@ -4,7 +4,7 @@
   "La Brute",
   hp: 10,
   ap: 4,
-  charge: 5,
+  slots: 5,
   passive: [Vos atouts infligent +1~dégât à portée~1.],
   flavor: [Elle règle les problèmes de près.],
 )

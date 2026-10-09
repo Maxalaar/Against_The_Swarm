@@ -3,7 +3,7 @@
 #let medkit = equipment_card(
   "Trousse de secours",
   kind: "Atout, Matériel",
-  charge: 1,
+  slots: 1,
   dice: ("X", "X",),
   effect: [Soin 2 sur vous ou un joueur adjacent.],
   flavor: [Ça va piquer.],

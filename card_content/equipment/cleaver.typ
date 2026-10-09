@@ -3,7 +3,7 @@
 #let cleaver = equipment_card(
   "Couperet",
   kind: "Atout, Arme, Mêlée",
-  charge: 1,
+  slots: 1,
   dice: ("",),
   effect: [Détruisez un jeton à portée~1.],
   uses: 2,

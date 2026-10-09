@@ -4,7 +4,7 @@
   "La Mécano",
   hp: 5,
   ap: 5,
-  charge: 7,
-  passive: [Votre Charge max est de 7.],
+  slots: 7,
+  passive: [Vous avez 7~emplacements.],
   flavor: [Elle a toujours ce qu'il faut. Quelque part.],
 )

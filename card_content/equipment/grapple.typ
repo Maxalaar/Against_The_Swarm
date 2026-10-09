@@ -3,7 +3,7 @@
 #let grapple = equipment_card(
   "Grappin",
   kind: "Atout, Matériel",
-  charge: 1,
+  slots: 1,
   dice: ("3+",),
   effect: [Déplacer 2.],
   flavor: [Viens par ici, toi.],

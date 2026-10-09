@@ -3,7 +3,7 @@
 #let mine = equipment_card(
   "Mine",
   kind: "Atout, Arme, Explosif",
-  charge: 1,
+  slots: 1,
   dice: ("4+",),
   effect: [Armer 1, jusqu'à un maximum de 4~marqueurs.
 

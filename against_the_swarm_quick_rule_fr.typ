@@ -97,8 +97,8 @@ Nombre de Blessures que le joueur peut encaisser. Au début de chaque vague, il 
 *PA — Points d'Action* (base 5) \
 Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts. Quels que soient les malus, un joueur lance toujours au moins 1 dé.
 
-*Charge max* (base 5) \
-Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Charge de sa Panoplie ne peut pas dépasser sa Charge max.
+*Emplacements* (base 5) \
+Limite le nombre d'atouts que le joueur peut porter. Chaque atout occupe un certain nombre d'emplacements, et le total de sa Panoplie ne peut pas dépasser les emplacements de son As.
 
 === Carte de suivi
 
@@ -115,7 +115,7 @@ Quand un joueur subit des dégâts, ils retirent d'abord des points de Garde ; l
 L'ensemble des atouts qu'un joueur porte s'appelle sa *Panoplie*.
 
 Chaque atout possède :
-- Une *Charge* : la place que l'atout occupe dans la Panoplie, indiquée dans le carré en haut à droite. Une carte sans carré a une Charge de 0.
+- Des *emplacements* : la place que l'atout occupe dans la Panoplie, indiquée dans le carré en haut à droite. Une carte sans carré n'occupe aucun emplacement.
 - Une *capacité*, composée d'un coût, d'un effet et d'un nombre d'utilisations.
 - Un *type*, sous son nom : Arme, Matériel ou Technique. Les Armes ont aussi une famille (Mêlée, Tir, Explosif ou Énergie), à laquelle certains atouts donnent des bonus.
 
@@ -173,13 +173,13 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   *Exemple — Pistolet* #h(1fr) _(donnée à tous les joueurs en début de partie)_
 
   #text(size: 9.5pt)[
-    Type : Atout, Arme — Charge : 1 \
+    Type : Atout, Arme, Tir — Emplacements : 1 \
     Coût : un dé 4+, trois points noirs (3 utilisations par tour) \
     Effet : Infligez 2 dégâts à portée 2.
   ]
 ]
 
-=== Atouts de base _(type Atout, Base ; Charge 0, donnés à tous les joueurs)_
+=== Atouts de base _(type Atout, Base ; aucun emplacement, donnés à tous les joueurs)_
 
 #table(
   columns: (auto, auto, 1fr),
@@ -424,7 +424,7 @@ Entre chaque vague, tout est remis à zéro : PV, PA, marqueurs, pénalités due
 + *Évolution* : avant les vagues 3, 5 et 7, ajouter à la pile Essaim les cartes du nouveau rang d'évolution, puis la mélanger avec sa défausse.
 + *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à sa Panoplie (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
 + *Échange* : chaque joueur peut donner un atout de sa Panoplie à un autre joueur de son choix.
-+ *Défausse* : chaque joueur retire de sa Panoplie les atouts de son choix jusqu'à ce que la somme des valeurs de Charge ne dépasse plus sa Charge max.
++ *Défausse* : chaque joueur retire de sa Panoplie les atouts de son choix jusqu'à ce qu'ils tiennent dans les emplacements de son As.
 
 // --- Fin de partie ---
 

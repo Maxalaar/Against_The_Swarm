@@ -1,13 +1,13 @@
 #import "fit.typ": fit, size_steps
 
 // Ace card ("As"), 63 x 88 mm: the character a player plays.
-// - `hp`, `ap`, `charge`: PV, PA and Charge max, in three labelled boxes at the bottom.
+// - `hp`, `ap`, `slots`: PV, PA and Emplacements, in three labelled boxes at the bottom.
 // - `passive`: the ability that defines the character's build.
 #let ace_card(
   name,
   hp: 5,
   ap: 5,
-  charge: 5,
+  slots: 5,
   passive: none,
   flavor: none,
 ) = {
@@ -60,7 +60,7 @@
     let w = (width - 4 * margin) / 3
     frame(margin, 78mm, w, 8.5mm, stat("PV", hp))
     frame(2 * margin + w, 78mm, w, 8.5mm, stat("PA", ap))
-    frame(3 * margin + 2 * w, 78mm, w, 8.5mm, stat("Charge max", charge))
+    frame(3 * margin + 2 * w, 78mm, w, 8.5mm, stat("Emplacements", slots))
   })
 }
 
