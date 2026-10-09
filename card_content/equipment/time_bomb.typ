@@ -7,4 +7,5 @@
   dice: ("",),
   effect: [Armer 1. Quand cet atout atteint 3~marqueurs, retirez-les tous. Ciblez jusqu'à 4~engeances d'une même zone à portée~2. Infligez 4~dégâts à chacune.],
   uses: 2,
+  flavor: [Tic. Tic. Tic.],
 )

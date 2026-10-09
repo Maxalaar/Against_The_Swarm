@@ -1,3 +1,5 @@
+#import "fit.typ": fit, size_steps
+
 // Ace card ("As"), 63 x 88 mm: the character a player plays.
 // - `hp`, `ap`, `charge`: PV, PA and Charge max, in three labelled boxes at the bottom.
 // - `passive`: the ability that defines the character's build.
@@ -29,8 +31,9 @@
 
   box(width: width, height: height, {
     place(top + left, rect(width: width, height: height, radius: 2.5mm, fill: rgb("#e3d6b8"), stroke: 1mm + black))
-    frame(margin, margin, width - 2 * margin, 8.5mm, align(center + horizon, {
-      text(size: 11pt, weight: "bold")[#name]
+    frame(margin, margin, width - 2 * margin, 8.5mm, align(center + horizon, context {
+      let title(size) = text(size: size, weight: "bold")[#name]
+      title(fit(title, size_steps(11pt, 6.5pt), width: width - 2 * margin - 2mm))
       v(-2.3mm)
       text(size: 7pt)[As]
     }))
@@ -39,15 +42,19 @@
       align(center + horizon, text(size: 14pt, fill: rgb("#999999"))[ART]),
       fill: rgb("#e6e6fa"),
     )
-    frame(margin, 52mm, width - 2 * margin, 24.5mm, inset: (x: 2mm, y: 1.6mm), {
+    frame(margin, 52mm, width - 2 * margin, 24.5mm, inset: (x: 2mm, y: 1.6mm), context {
       set par(leading: 0.4em)
-      align(center + horizon, {
-        text(size: 9.5pt, passive)
+      // Passive and flavor shrink together until they fit.
+      let body(f) = {
+        text(size: 9.5pt * f, passive)
         if flavor != none {
           v(1.6mm, weak: true)
-          text(size: 7.5pt, style: "italic", fill: rgb("#555555"), flavor)
+          text(size: 7.5pt * f, style: "italic", fill: rgb("#555555"), flavor)
         }
-      })
+      }
+      let factors = (1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6)
+      let f = fit(f => block(width: width - 2 * margin - 4mm, body(f)), factors, height: 24.5mm - 3.2mm)
+      align(center + horizon, body(f))
     })
     // Bottom row: three equal stat boxes.
     let w = (width - 4 * margin) / 3

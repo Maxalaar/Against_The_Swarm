@@ -1,4 +1,5 @@
 #import "equipment_card.typ": die
+#import "fit.typ": fit, size_steps
 
 // Swarm card, 63 x 88 mm.
 // - `rank`: evolution rank, 1 to 4, shown as a Roman numeral left of the name; none hides it.
@@ -69,8 +70,10 @@
     if rank != none {
       frame(margin, margin, corner_box, 8.5mm, number(("I", "II", "III", "IV").at(rank - 1)))
     }
-    frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
-      text(size: 11pt, weight: "bold")[#name]
+    frame(name_x, margin, name_width, 8.5mm, align(center + horizon, context {
+      // The title shrinks until it fits on one line.
+      let title(size) = text(size: size, weight: "bold")[#name]
+      title(fit(title, size_steps(11pt, 6.5pt), width: name_width - 2mm))
       v(-2.3mm)
       text(size: 7pt)[#if type_line != none [#type_line] else if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if mutation [Essaim, Mutation] else if token [Essaim, Engeance, Jeton] else if structure [Essaim, Engeance, Structure] else [Essaim, Engeance]]
     }))
@@ -87,7 +90,10 @@
 
     // Text box: one line per zone, always 3, 2, 1, then the passive.
     frame(margin, 52mm, width - 2 * margin, 26mm, inset: (x: 2mm, y: 1.4mm), context {
-      set text(size: 9pt)
+      // `build(f)` lays out the whole text box with every text size scaled by `f`,
+      // so the content can shrink as one block until it fits.
+      let build(f) = {
+      set text(size: 9pt * f)
       set par(leading: 0.4em)
       // Structures apply one effect in every zone; other kinds of card have no zones.
       let effects = if structure and activation != none {
@@ -109,7 +115,7 @@
       }
       let numbers(group) = group.at(0).map(zone_block).join(h(0.5mm))
       let compact(group) = {
-        set text(size: 8.5pt)
+        set text(size: 8.5pt * f)
         grid(columns: 2, column-gutter: 1mm, align: horizon, numbers(group), group.at(1))
       }
       let full_line(group) = grid(
@@ -155,9 +161,13 @@
           line(length: 100%, stroke: 0.4pt + luma(130))
           v(1.2mm, weak: true)
         }
-        set text(size: 8.5pt)
-        stack(dir: ttb, spacing: 2.8mm, ..passives)
+        set text(size: 8.5pt * f)
+        stack(dir: ttb, spacing: 2.8mm * f, ..passives)
       }
+      }
+      let inner_width = width - 2 * margin - 4mm
+      let factors = (1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6)
+      build(fit(f => block(width: inner_width, build(f)), factors, height: 26mm - 2.8mm))
     })
 
     // Removal cost of an Emprise, on the seam between art and text like an asset cost.
@@ -185,9 +195,11 @@
     }
     if flavor != none {
       let flavor_x = if has_stats { 2 * margin + corner_box } else { margin }
-      frame(flavor_x, 79.5mm, width - 2 * flavor_x, 7mm, inset: (x: 1mm), align(center + horizon, {
+      let flavor_width = width - 2 * flavor_x
+      frame(flavor_x, 79.5mm, flavor_width, 7mm, inset: (x: 1mm), align(center + horizon, context {
         set par(leading: 0.3em)
-        text(size: 6.3pt, style: "italic", flavor)
+        let line(size) = text(size: size, style: "italic", flavor)
+        line(fit(size => block(width: flavor_width - 2mm, line(size)), size_steps(6.5pt, 4.5pt), height: 6mm))
       }))
     }
   })

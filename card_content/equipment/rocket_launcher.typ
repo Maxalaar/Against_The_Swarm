@@ -6,4 +6,5 @@
   charge: 3,
   dice: ("X", "X",),
   effect: [Infligez 6~dégâts à portée~3. Ciblez jusqu'à 2~autres engeances de la même zone. Infligez 3~dégâts à chacune.],
+  flavor: [Baissez la tête.],
 )

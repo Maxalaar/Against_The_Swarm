@@ -5,4 +5,5 @@
   kind: "Atout, Base",
   dice: ("6", "6",),
   effect: [Un joueur adjacent revient en jeu avec 1~PV restant. Il perd 2~PA jusqu'à la fin de la vague.],
+  flavor: [Debout. On n'a pas fini.],
 )
