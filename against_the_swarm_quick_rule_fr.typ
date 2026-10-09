@@ -80,7 +80,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 + Former la pile Essaim avec les seules cartes de rang d'évolution I. Mettre de côté les cartes des rangs II, III et IV, triées par rang.
 + Mélanger séparément la pile d'atouts et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
-+ Chaque joueur prend sa *carte d'As* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
++ Chaque joueur prend sa *carte d'As* et sa *carte de suivi*, et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
 + Chaque joueur reçoit une carte *Pistolet* qui constitue son arsenal de départ.
 + Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'atouts, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
@@ -91,14 +91,22 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 
 Les caractéristiques de chaque joueur sont indiquées sur sa *carte d'As* :
 
-*PV — Points de Vie Max* (base 5) \
-Nombre de points de vie maximum. Au début de chaque vague, le joueur commence avec ses PV au maximum. Les PV peuvent varier au cours d'une vague mais ne peuvent jamais dépasser la valeur max. À 0 PV, le joueur est mis hors jeu pour la vague en cours.
+*PV — Points de Vie* (base 5) \
+Nombre de Blessures que le joueur peut encaisser. Au début de chaque vague, il n'a aucune Blessure. Ses PV restants sont ses PV moins ses Blessures : à 0 PV restant, il est mis hors jeu pour la vague en cours.
 
 *PA — Points d'Action* (base 5) \
-Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts.
+Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts. Quels que soient les malus, un joueur lance toujours au moins 1 dé.
 
 *Charge max* (base 5) \
 Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Charge de son arsenal ne peut pas dépasser sa Charge max.
+
+=== Carte de suivi
+
+À côté de sa carte d'As, chaque joueur a une *carte de suivi* avec deux emplacements, où il pose des d6 pour compter :
+- ses *Blessures* : chaque dégât subi ajoute 1 Blessure ;
+- sa *Garde* : des points qui absorbent les dégâts à la place des Blessures.
+
+Quand un joueur subit des dégâts, ils retirent d'abord des points de Garde ; le reste devient des Blessures. Si une valeur dépasse 6, on ajoute un second dé.
 
 // --- Arsenal ---
 
@@ -142,7 +150,7 @@ Les effets suivent toujours le même ordre : on désigne d'abord les cibles, pui
 
 === Activer un atout
 
-Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est *activée* : on la pivote à 90° pour le montrer, et elle ne peut plus servir jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
+Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est *activée* : on la pivote à 90° pour le montrer, et elle ne peut plus servir tant qu'elle n'est pas désactivée, à la fin du tour des joueurs. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
 
 #block(
   fill: luma(240),
@@ -178,7 +186,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
 
   [Réanimation],
   [Deux dés 6],
-  [Un joueur adjacent revient en jeu à 1 PV. Il perd 2 PA jusqu'à la fin de la vague (minimum 1 PA).],
+  [Un joueur adjacent revient en jeu avec 1 PV restant. Il perd 2 PA jusqu'à la fin de la vague.],
 )
 
 // --- Champ de bataille ---
@@ -290,10 +298,10 @@ Les jetons n'ont pas de rang d'évolution.
 
 Tous les joueurs jouent *simultanément*. La communication est libre.
 
-+ Toutes les cartes d'atout et de base activées sont désactivées : on les remet droites, et leurs utilisations sont de nouveau disponibles.
++ La Garde de chaque joueur est remise à zéro.
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
-+ Une fois que tous les joueurs ont déclaré une fin de tour, on passe au tour de l'Essaim.
++ Une fois que tous les joueurs ont déclaré une fin de tour, toutes les cartes d'atout et de base activées sont désactivées : on les remet droites, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
 
 // --- Tour de l'Essaim ---
 
@@ -301,9 +309,9 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 === Étape 1 — Activation
 
-Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord désactivés : on les remet droits. Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
+Tous les permanents de l'Essaim qui ne sont pas déjà activés s'activent, dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
 
-Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera désactivée au début du tour de l'Essaim suivant, comme les autres.
+Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'activera pas avant d'avoir été désactivée, à la fin du tour de l'Essaim.
 
 === Étape 2 — Invasion
 
@@ -349,6 +357,10 @@ Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, d�
     Zone 1 : Recule 1.
   ]
 ]
+
+=== Étape 3 — Fin du tour
+
+Tous les permanents de l'Essaim activés sont désactivés : on les remet droits.
 
 // --- Mort et résurrection ---
 
@@ -424,10 +436,10 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
   [Garde X],
-  [La carte reste activée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est désactivée et la Garde restante est perdue.],
+  [Le joueur ajoute X points de Garde sur sa carte de suivi. La Garde est remise à zéro au début du tour des joueurs.],
 
   [Soin X],
-  [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
+  [Le joueur ciblé retire X Blessures de sa carte de suivi. Un joueur hors jeu ne peut pas être soigné : il doit d'abord être ramené en jeu.],
 )
 
 === Mots-clés de l'Essaim
