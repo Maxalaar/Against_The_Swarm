@@ -4,6 +4,6 @@
   "Calculateur de tir",
   kind: "Atout, Matériel",
   charge: 1,
-  dice: ("2−",),
+  dice: ("5+",),
   effect: [Réglez un autre de vos dés sur la face de votre choix.],
 )

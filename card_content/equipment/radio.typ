@@ -5,6 +5,6 @@
   kind: "Atout, Matériel",
   charge: 1,
   dice: ("",),
-  effect: [Donnez ce dé à un autre joueur : il l'ajoute à sa réserve avec la même valeur.],
+  effect: [Donnez ce dé à un autre joueur, qui l'ajoute à sa réserve avec la même valeur.],
   uses: 2,
 )
