@@ -7,6 +7,8 @@
 // - `zones_per_line`: how the three zones are split over lines, in order 3, 2, 1.
 //   (3,) puts them all on one line, (2, 1) gives zone 1 a line of its own,
 //   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
+// - `zone_lines`: replaces `zones` when several zones share one effect. An array of
+//   (zones, effect) pairs, one per line: (((3, 2), [...]), ((1,), [...])).
 // - `structure`: true marks a Structure, a creature that never moves. It takes
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
 // - `impulse`: true marks an Impulsion, a one-shot effect that resolves and is discarded.
@@ -27,6 +29,7 @@
   token: false,
   zones: (),
   zones_per_line: (3,),
+  zone_lines: none,
   structure: false,
   impulse: false,
   emprise: false,
@@ -94,7 +97,7 @@
       let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
       let start = 0
       let rows = ()
-      for count in (if structure or impulse or emprise or mutation or zones.len() == 0 { () } else { zones_per_line }) {
+      for count in (if structure or impulse or emprise or mutation or zones.len() == 0 or zone_lines != none { () } else { zones_per_line }) {
         let row = cells.slice(start, start + count)
         start += count
         rows.push(if count == 1 {
@@ -117,6 +120,16 @@
             )
           })
         })
+      }
+      if zone_lines != none {
+        for (numbers, effect) in zone_lines {
+          rows.push(grid(
+            columns: (auto, 1fr),
+            column-gutter: 1.6mm,
+            align: (center + horizon, left + horizon),
+            numbers.map(zone_block).join(h(0.5mm)), effect,
+          ))
+        }
       }
       if structure and activation != none {
         // One effect for all three zones: the three numbers side by side.

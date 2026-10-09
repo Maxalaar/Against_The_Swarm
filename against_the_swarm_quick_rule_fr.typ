@@ -137,7 +137,7 @@ Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaq
   [X+1], [La valeur de X, plus 1.],
 )
 
-Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour.
+Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour. Quels que soient les malus, un atout a toujours au moins une utilisation par tour.
 
 === Lire l'effet
 
@@ -309,7 +309,7 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 === Étape 1 — Activation
 
-Tous les permanents de l'Essaim qui ne sont pas déjà activés s'activent, dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
+Tous les permanents de l'Essaim qui ne sont pas déjà activés s'activent, dans l'ordre choisi par les joueurs et en respectant le mot-clé *Patience* : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
 
 Sauf mention contraire, une engeance créée par un effet entre en jeu *déjà activée* : elle ne s'activera pas avant d'avoir été désactivée, à la fin du tour de l'Essaim.
 
@@ -486,4 +486,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
 
   [Blindage X],
   [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
+
+  [Patience X],
+  [Pendant l'activation de l'Essaim, une engeance ne peut s'activer que lorsque toutes les engeances de Patience inférieure se sont activées. Une engeance sans ce mot-clé a Patience 0.],
 )

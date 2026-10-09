@@ -24,6 +24,14 @@
 #import "card_content/swarm/alpha.typ": alpha
 #import "card_content/swarm/matriarch.typ": matriarch
 #import "card_content/swarm/hydra.typ": hydra
+#import "card_content/swarm/beater.typ": beater
+#import "card_content/swarm/scavenger.typ": scavenger
+#import "card_content/swarm/herald.typ": herald
+#import "card_content/swarm/mimic.typ": mimic
+#import "card_content/swarm/bodyguard.typ": bodyguard
+#import "card_content/swarm/saboteur.typ": saboteur
+#import "card_content/swarm/titan.typ": titan
+#import "card_content/swarm/queen.typ": queen
 
 // Structures: creatures that never move
 #import "card_content/swarm/nest.typ": nest
@@ -50,6 +58,10 @@
 #import "card_content/swarm/fog.typ": fog
 #import "card_content/swarm/infested_ground.typ": infested_ground
 #import "card_content/swarm/eclipse.typ": eclipse
+#import "card_content/swarm/isolation.typ": isolation
+#import "card_content/swarm/hunger.typ": hunger
+#import "card_content/swarm/corrosion.typ": corrosion
+#import "card_content/swarm/parasite.typ": parasite
 
 // Mutations: cards attached to a creature
 #import "card_content/swarm/carapace.typ": carapace
@@ -62,6 +74,8 @@
 #import "card_content/swarm/camouflage.typ": camouflage
 #import "card_content/swarm/frenzy.typ": frenzy
 #import "card_content/swarm/apex.typ": apex
+#import "card_content/swarm/pack_instinct.typ": pack_instinct
+#import "card_content/swarm/leader.typ": leader
 
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
@@ -90,6 +104,14 @@
   alpha,
   matriarch,
   hydra,
+  beater,
+  scavenger,
+  herald,
+  mimic,
+  bodyguard,
+  saboteur,
+  titan,
+  queen,
   nest,
   psychic_relay,
   bait,
@@ -110,6 +132,10 @@
   fog,
   infested_ground,
   eclipse,
+  isolation,
+  hunger,
+  corrosion,
+  parasite,
   carapace,
   hypertrophy,
   claws,
@@ -120,6 +146,8 @@
   camouflage,
   frenzy,
   apex,
+  pack_instinct,
+  leader,
   broodling,
   spitter,
   warrior,
