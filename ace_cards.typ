@@ -36,6 +36,19 @@
 #import "card_content/equipment/dodge.typ": dodge
 #import "card_content/equipment/loaded_die.typ": loaded_die
 #import "card_content/equipment/covering_fire.typ": covering_fire
+#import "card_content/equipment/laser.typ": laser
+#import "card_content/equipment/calibrator.typ": calibrator
+#import "card_content/equipment/arc.typ": arc
+#import "card_content/equipment/harpoon.typ": harpoon
+#import "card_content/equipment/scythe.typ": scythe
+#import "card_content/equipment/assault_rifle.typ": assault_rifle
+#import "card_content/equipment/cleaver.typ": cleaver
+#import "card_content/equipment/scope.typ": scope
+#import "card_content/equipment/magazine.typ": magazine
+#import "card_content/equipment/composure.typ": composure
+#import "card_content/equipment/taunt.typ": taunt
+#import "card_content/equipment/riposte.typ": riposte
+#import "card_content/equipment/second_wind.typ": second_wind
 
 #let all-cards = (
   pistol,
@@ -66,6 +79,19 @@
   dodge,
   loaded_die,
   covering_fire,
+  laser,
+  calibrator,
+  arc,
+  harpoon,
+  scythe,
+  assault_rifle,
+  cleaver,
+  scope,
+  magazine,
+  composure,
+  taunt,
+  riposte,
+  second_wind,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)

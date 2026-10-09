@@ -135,6 +135,7 @@ Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaq
   [_(vide)_], [N'importe quelle valeur.],
   [X], [N'importe quelle valeur, mais tous les dés marqués X doivent être identiques. Deux dés X forment donc une paire. Si l'effet mentionne X, il vaut la valeur de ces dés.],
   [X+1], [La valeur de X, plus 1.],
+  [Y], [N'importe quelle valeur, sans lien avec X. Si l'effet mentionne X et Y, le joueur choisit quel dé est X et lequel est Y.],
 )
 
 Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour. Quels que soient les malus, un atout a toujours au moins une utilisation par tour.
@@ -149,6 +150,7 @@ Les effets suivent toujours le même ordre : on désigne d'abord les cibles, pui
 - « D'une même zone » : toutes les cibles doivent se trouver dans la même zone du même secteur.
 - « Dont N au maximum par zone » : le joueur ne peut pas choisir plus de N cibles dans une même zone.
 - « À portée N » : chaque cible doit être à portée N ou moins.
+- « À portée exactement N » : la cible doit être à portée N, ni plus près ni plus loin.
 - Seules les engeances subissent les dégâts des atouts. Un effet qui inflige des dégâts sans préciser de cible vise donc une seule engeance.
 
 === Activer un atout
