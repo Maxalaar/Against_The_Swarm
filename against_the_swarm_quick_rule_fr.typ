@@ -158,11 +158,14 @@ Les effets suivent toujours le même ordre : on désigne d'abord les cibles, pui
 - « Dont N au maximum par zone » : le joueur ne peut pas choisir plus de N cibles dans une même zone.
 - « À portée N » : chaque cible doit être à portée N ou moins.
 - « À portée exactement N » : la cible doit être à portée N, ni plus près ni plus loin.
+- « Ces dégâts ignorent le Blindage » : le mot-clé Blindage de la cible ne les réduit pas.
 - Seules les engeances subissent les dégâts des atouts. Un effet qui inflige des dégâts sans préciser de cible vise donc une seule engeance.
 
 === Activer un atout
 
-Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est *activée* : on la pivote à 90° pour le montrer, et elle ne peut plus servir tant qu'elle n'est pas désactivée, à la fin du tour des joueurs. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
+Une carte est soit *prête*, soit *épuisée*. Activer une carte, c'est appliquer son effet ; elle devient ensuite épuisée. Cela vaut pour les atouts comme pour les cartes de l'Essaim.
+
+Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est *épuisée* : on la pivote à 90° pour le montrer, et elle ne peut plus servir tant qu'elle n'est pas redevenue prête, à la fin du tour des joueurs. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
 
 #block(
   fill: luma(240),
@@ -313,7 +316,7 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 + La Garde de chaque joueur est remise à zéro.
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
-+ Une fois que tous les joueurs ont déclaré une fin de tour, tous les atouts activés sont désactivés : on les remet droits, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
++ Une fois que tous les joueurs ont déclaré une fin de tour, tous les atouts épuisés redeviennent prêts : on les remet droits, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
 
 // --- Tour de l'Essaim ---
 
@@ -321,9 +324,9 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 === Étape 1 — Activation
 
-Tous les permanents de l'Essaim qui ne sont pas déjà activés s'activent, dans l'ordre choisi par les joueurs et en respectant le mot-clé *Patience* : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
+Tous les permanents de l'Essaim qui ne sont pas épuisés s'activent, dans l'ordre choisi par les joueurs et en respectant le mot-clé *Patience* : quand un permanent s'active, son effet d'activation est appliqué, puis il devient *épuisé* : on le pivote à 90°.
 
-Sauf mention contraire, une engeance créée par un effet entre en jeu *déjà activée* : elle ne s'activera pas avant d'avoir été désactivée, à la fin du tour de l'Essaim.
+Sauf mention contraire, une engeance créée par un effet entre en jeu *épuisée* : elle ne s'activera pas avant d'être redevenue prête, à la fin du tour de l'Essaim.
 
 === Étape 2 — Invasion
 
@@ -371,7 +374,7 @@ Une *Mutation* est une carte Essaim qui s'attache à une engeance pour la modifi
 
 Une *Impulsion* est une carte Essaim sans Attaque ni Endurance : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les engeances, et compte normalement dans le tirage d'invasion.
 
-Quand un effet dit qu'une engeance s'active, elle applique son effet d'activation, même si elle est déjà activée.
+Quand un effet dit qu'une engeance s'active, elle applique son effet d'activation, même si elle est épuisée.
 
 Quand une carte dit « choisissez », ce sont toujours les joueurs qui choisissent. Il en va de même pour toute égalité ou ambiguïté dans un effet de l'Essaim.
 
@@ -394,7 +397,7 @@ Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, d�
 
 === Étape 3 — Fin du tour
 
-Tous les permanents de l'Essaim activés sont désactivés : on les remet droits.
+Tous les permanents de l'Essaim épuisés redeviennent prêts : on les remet droits.
 
 // --- Mort et résurrection ---
 
@@ -471,6 +474,9 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
 
   [Armer X],
   [Placez X marqueurs sur cet atout, sans dépasser le maximum qu'il indique.],
+
+  [Paralyser X],
+  [Épuisez une engeance dont la Menace est de X ou moins. Elle n'applique pas son effet.],
 
   [Garde X],
   [Le joueur ajoute X points de Garde sur sa carte de suivi. La Garde est remise à zéro au début du tour des joueurs.],

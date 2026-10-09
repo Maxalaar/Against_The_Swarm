@@ -5,6 +5,6 @@
   kind: "Atout, Matériel",
   slots: 1,
   dice: ("X",),
-  effect: [Activez une engeance à portée~2 dont la Menace est inférieure ou égale à X.],
+  effect: [Paralyser X à portée~2.],
   flavor: [Reste là. Ne bouge pas.],
 )

@@ -5,6 +5,6 @@
   kind: "Atout, Matériel",
   slots: 1,
   dice: (),
-  effect: [Vos Armes de Tir ont 1~utilisation de plus.],
+  effect: [Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer vos Armes de Tir.],
   flavor: [On n'a jamais trop de balles. On a trop peu de poches.],
 )

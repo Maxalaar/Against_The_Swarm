@@ -5,6 +5,6 @@
   kind: "Atout, Matériel",
   slots: 1,
   dice: (),
-  effect: [Vos Armes de Mêlée infligent +1~dégât.],
+  effect: [Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer vos Armes de Mêlée.],
   flavor: [Elle chante quand elle coupe.],
 )
