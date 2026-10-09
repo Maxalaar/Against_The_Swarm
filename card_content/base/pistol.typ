@@ -5,6 +5,6 @@
   kind: "Atout, Arme",
   charge: 1,
   dice: ("4+",),
-  effect: [Infligez 2~dégâts à une engeance à portée~2.],
+  effect: [Infligez 2~dégâts à portée~2.],
   uses: 3,
 )

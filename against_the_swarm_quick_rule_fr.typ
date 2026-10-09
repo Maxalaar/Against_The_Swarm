@@ -147,6 +147,7 @@ Les effets suivent toujours le même ordre : on désigne d'abord les cibles, pui
 - « D'une même zone » : toutes les cibles doivent se trouver dans la même zone du même secteur.
 - « Dont N au maximum par zone » : le joueur ne peut pas choisir plus de N cibles dans une même zone.
 - « À portée N » : chaque cible doit être à portée N ou moins.
+- Seules les engeances subissent les dégâts des atouts. Un effet qui inflige des dégâts sans préciser de cible vise donc une seule engeance.
 
 === Activer un atout
 
@@ -163,7 +164,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   #text(size: 9.5pt)[
     Type : Atout, Arme — Charge : 1 \
     Coût : un dé 4+, trois points noirs (3 utilisations par tour) \
-    Effet : Infligez 2 dégâts à une engeance à portée 2.
+    Effet : Infligez 2 dégâts à portée 2.
   ]
 ]
 
@@ -178,7 +179,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   [*Nom*], [*Coût*], [*Effet*],
   [Coup de crosse],
   [Un dé vide],
-  [Infligez 1 dégât à une engeance à portée 1.],
+  [Infligez 1 dégât à portée 1.],
 
   [Déplacement],
   [Un dé 4+],

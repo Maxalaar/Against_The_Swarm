@@ -4,5 +4,5 @@
   "Coup de crosse",
   kind: "Atout, Base",
   dice: ("",),
-  effect: [Infligez 1~dégât à une engeance à portée~1.],
+  effect: [Infligez 1~dégât à portée~1.],
 )
