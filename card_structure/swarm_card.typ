@@ -16,6 +16,7 @@
 // - `emprise`: true marks an Emprise, a lasting effect on a sector with no zone or stats.
 //   Players remove it by paying `removal`: either dice labels, as on asset cards,
 //   or a number, the total to reach with any dice.
+// - `type_line`: replaces the type line under the name, for one-off cards.
 // - `passive`: optional always-on text, printed under the zone lines. Pass an array
 //   to give several abilities; each gets its own paragraph.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
@@ -30,6 +31,7 @@
   impulse: false,
   emprise: false,
   mutation: false,
+  type_line: none,
   removal: none,
   activation: none,
   passive: none,
@@ -72,7 +74,7 @@
     frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
-      text(size: 7pt)[#if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if mutation [Essaim, Mutation] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
+      text(size: 7pt)[#if type_line != none [#type_line] else if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if mutation [Essaim, Mutation] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
     }))
     if threat != none {
       frame(width - margin - corner_box, margin, corner_box, 8.5mm, number(threat))
@@ -92,7 +94,7 @@
       let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
       let start = 0
       let rows = ()
-      for count in (if structure or impulse or emprise or mutation { () } else { zones_per_line }) {
+      for count in (if structure or impulse or emprise or mutation or zones.len() == 0 { () } else { zones_per_line }) {
         let row = cells.slice(start, start + count)
         start += count
         rows.push(if count == 1 {

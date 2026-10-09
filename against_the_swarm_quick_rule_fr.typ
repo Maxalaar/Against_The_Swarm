@@ -73,7 +73,7 @@ Le jeu utilise deux piles, chacune avec sa propre défausse :
 
 Quand une pile est vide, on mélange sa défausse pour former une nouvelle pile.
 
-Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont gardées à part et n'entrent en jeu que lorsqu'une autre carte les crée. Un jeton détruit retourne dans la réserve de jetons.
+Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont gardées à part et n'entrent en jeu que lorsqu'une autre carte les crée. Un jeton détruit retourne dans la réserve de jetons. Quand un effet crée un jeton *Copie*, ce jeton reprend tout de la créature copiée, sauf les valeurs que l'effet remplace. S'il manque une carte pour représenter un jeton, les joueurs utilisent ce qu'ils ont sous la main.
 
 *Avant la première vague :*
 

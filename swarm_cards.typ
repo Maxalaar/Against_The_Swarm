@@ -68,6 +68,10 @@
 #import "card_content/swarm/spitter.typ": spitter
 #import "card_content/swarm/warrior.typ": warrior
 #import "card_content/swarm/bubo.typ": bubo
+#import "card_content/swarm/copy.typ": copy
+
+// Infestation: one per player, sets the number of invasion draws
+#import "card_content/swarm/infestation.typ": infestation
 
 #let all-cards = (
   swarmer,
@@ -120,6 +124,8 @@
   spitter,
   warrior,
   bubo,
+  copy,
+  infestation,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)
