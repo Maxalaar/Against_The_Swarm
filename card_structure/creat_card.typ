@@ -3,7 +3,6 @@
 #let creat_card(
   name,
   cost: none,
-  cost_label: none,
   type: none,
   capacity: none,
   behavior: none,
@@ -150,16 +149,8 @@
         stroke: (thickness: 0.5mm, paint: black)
       )
     
-      if cost_label != none {
-        content(
-          (card_width - horizontal_margin - cost_box_width/2, cost_box_top - 1.7mm),
-          anchor: "center",
-          text(size: 4.5pt)[#cost_label],
-        )
-      }
-
       content(
-        (card_width - horizontal_margin - cost_box_width/2, (cost_box_top + cost_box_bottom)/2 - (if cost_label != none { 0.9mm } else { 0mm })),
+        (card_width - horizontal_margin - cost_box_width/2, (cost_box_top + cost_box_bottom)/2),
         anchor: "center",
         text(size: 11pt, weight: "bold")[#cost],
       )

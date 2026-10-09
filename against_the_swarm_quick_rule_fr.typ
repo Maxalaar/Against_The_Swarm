@@ -304,13 +304,13 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 === Structure des cartes de l'Essaim
 
 Chaque carte Essaim de type créature indique :
-- *Menace* : valeur comptée lors du tirage d'invasion.
-- *ATT* : points d'attaque, dégâts infligés quand la créature attaque.
-- *PV* : points de vie, c'est-à-dire le seuil de dégâts à atteindre en une seule salve pour la détruire. Une créature détruite est placée dans la défausse Essaim.
-- *Effet* : ce qui se passe quand la carte entre en jeu. Par défaut, les créatures arrivent en zone 3.
-- *Activation* : ce qui se passe quand le permanent s'active chaque tour.
+- *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
+- *Activation*, dans le cadre de texte : trois lignes numérotées 3, 2 et 1. Quand la créature s'active, elle applique la ligne de la zone où elle se trouve.
+- *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
+- *ATT*, dans l'encart en bas à gauche : dégâts infligés quand la créature attaque.
+- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en une seule salve pour la détruire. Une créature détruite est placée dans la défausse Essaim.
 
-Sur les cartes, ATT et PV sont notés en bas sous la forme ATT/PV, et la Menace en haut à droite. Les jetons n'ont pas de valeur de Menace.
+Sauf indication contraire, une créature entre en jeu en zone 3.
 
 Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
@@ -323,10 +323,10 @@ Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, défin
   *Exemple — Bombarde*
 
   #text(size: 9.5pt)[
-    Type : Créature \
     Menace : 3 | ATT : 3 | PV : 3 \
-    Effet : entre en jeu en zone 3. \
-    Activation : si en zone 1 ou 2, Recule. Si en zone 3, Attaque.
+    Zone 3 : Attaque. \
+    Zone 2 : Recule. \
+    Zone 1 : Recule.
   ]
 ]
 
