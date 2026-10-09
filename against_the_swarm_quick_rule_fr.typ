@@ -317,20 +317,12 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 Chaque carte Essaim de type créature indique :
 - *Rang d'évolution*, en chiffre romain à gauche du nom : le moment de la partie où la carte rejoint la pile. Les jetons n'en ont pas.
 - *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
-- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve.
+- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand les trois blocs sont regroupés devant un seul effet, cet effet s'applique quelle que soit la zone.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
 - *ATT*, dans l'encart en bas à gauche : dégâts infligés quand la créature attaque.
 - *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une créature détruite est placée dans la défausse Essaim.
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
-
-=== Structures
-
-Une *Structure* est une créature qui ne bouge jamais d'elle-même. Tout ce qui cible une créature peut cibler une Structure.
-
-- Sauf indication contraire, elle entre en jeu en zone 3 et y reste.
-- Son effet d'activation est le même dans les trois zones : sur la carte, les blocs 3, 2 et 1 sont regroupés devant un seul effet.
-- Les joueurs peuvent la déplacer avec *Déplacer*, comme n'importe quelle créature.
 
 Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
