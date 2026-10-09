@@ -35,7 +35,6 @@
     // The spacer centres the text in the space left under the dice (and dots).
     capacity: ([#v(if uses > 1 { 4.2mm } else { 0.5mm }) #align(center, effect)],),
     capacity_text_size: 9.5pt,
-    flavor: flavor,
     background_color: rgb("#c5d3e0"),
   )
   let size = measure(card)
@@ -44,6 +43,13 @@
   box({
     card
     place(top + left, dy: seam - die_size / 2, box(width: size.width, align(center, dice.map(die).join(h(gap)))))
+    // Flavor sits at the bottom of the text box, away from the rules text.
+    if flavor != none {
+      place(top + left, dx: (size.width - 55mm) / 2, dy: seam + 26.5mm, box(width: 55mm, height: 7mm, align(center + bottom, {
+        set par(leading: 0.3em)
+        text(size: 7.5pt, style: "italic", fill: rgb("#555555"), flavor)
+      })))
+    }
     if uses > 1 {
       let dot = box(circle(radius: 0.9mm, fill: black))
       place(top + left, dy: seam + die_size / 2 + 1.1mm, box(width: size.width, align(center, range(uses).map(_ => dot).join(h(1mm)))))
