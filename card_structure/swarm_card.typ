@@ -79,11 +79,16 @@
             ..row.first()
           )
         } else {
-          grid(
-            columns: (1fr,) * count,
-            align: center + horizon,
-            ..row.map(cell => grid(columns: 2, column-gutter: 1.2mm, align: horizon, ..cell))
-          )
+          // Several zones on one line: spread them out, slightly smaller text.
+          block(width: 100%, inset: (x: 0.5mm), {
+            set text(size: 8.5pt)
+            grid(
+              columns: (auto,) * count,
+              column-gutter: 1fr,
+              align: center + horizon,
+              ..row.map(cell => grid(columns: 2, column-gutter: 1mm, align: horizon, ..cell))
+            )
+          })
         })
       }
       stack(dir: ttb, spacing: 1.4mm, ..rows)
@@ -108,6 +113,6 @@
 }
 
 // Zone actions shared by most creatures.
-#let advance = [*Avance 1.*]
-#let retreat = [*Recule 1.*]
+#let advance = [*Avance~1.*]
+#let retreat = [*Recule~1.*]
 #let attack = [*Attaque.*]
