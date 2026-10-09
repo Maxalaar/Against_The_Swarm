@@ -59,6 +59,10 @@
 #import "card_content/equipment/fistful.typ": fistful
 #import "card_content/equipment/amplifier.typ": amplifier
 #import "card_content/equipment/mine.typ": mine
+#import "card_content/equipment/guided_missile.typ": guided_missile
+#import "card_content/equipment/demolition_charge.typ": demolition_charge
+#import "card_content/equipment/time_bomb.typ": time_bomb
+#import "card_content/equipment/orbital_bombardment.typ": orbital_bombardment
 
 #let all-cards = (
   pistol,
@@ -112,6 +116,10 @@
   fistful,
   amplifier,
   mine,
+  guided_missile,
+  demolition_charge,
+  time_bomb,
+  orbital_bombardment,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)
