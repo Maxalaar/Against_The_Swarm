@@ -324,6 +324,14 @@ Chaque carte Essaim de type créature indique :
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
 
+=== Structures
+
+Une *Structure* est une créature qui ne bouge jamais d'elle-même. Tout ce qui cible une créature peut cibler une Structure.
+
+- Sauf indication contraire, elle entre en jeu en zone 3 et y reste.
+- Son effet d'activation est le même dans les trois zones : sur la carte, les blocs 3, 2 et 1 sont regroupés devant un seul effet.
+- Les joueurs peuvent la déplacer avec *Déplacer*, comme n'importe quelle créature.
+
 Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
 #block(

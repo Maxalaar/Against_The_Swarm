@@ -25,6 +25,15 @@
 #import "card_content/swarm/matriarch.typ": matriarch
 #import "card_content/swarm/hydra.typ": hydra
 
+// Structures: creatures that never move
+#import "card_content/swarm/nest.typ": nest
+#import "card_content/swarm/psychic_relay.typ": psychic_relay
+#import "card_content/swarm/bait.typ": bait
+#import "card_content/swarm/rampart.typ": rampart
+#import "card_content/swarm/artillery.typ": artillery
+#import "card_content/swarm/rage_gland.typ": rage_gland
+#import "card_content/swarm/hive.typ": hive
+
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
 #import "card_content/swarm/spitter.typ": spitter
@@ -48,6 +57,13 @@
   alpha,
   matriarch,
   hydra,
+  nest,
+  psychic_relay,
+  bait,
+  rampart,
+  artillery,
+  rage_gland,
+  hive,
   broodling,
   spitter,
   warrior,

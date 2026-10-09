@@ -5,6 +5,8 @@
 // - `zones_per_line`: how the three zones are split over lines, in order 3, 2, 1.
 //   (3,) puts them all on one line, (2, 1) gives zone 1 a line of its own,
 //   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
+// - `structure`: true marks a Structure, a creature that never moves. It takes
+//   `activation` instead of `zones`: one effect, applied whatever its zone.
 // - `passive`: optional always-on text, printed under the zone lines.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
 #let swarm_card(
@@ -14,6 +16,8 @@
   token: false,
   zones: (),
   zones_per_line: (3,),
+  structure: false,
+  activation: none,
   passive: none,
   flavor: none,
   attack: none,
@@ -54,7 +58,7 @@
     frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
-      text(size: 7pt)[#if token [Essaim, Créature, Jeton] else [Essaim, Créature]]
+      text(size: 7pt)[#if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
     }))
     if threat != none {
       frame(width - margin - corner_box, margin, corner_box, 8.5mm, number(threat))
@@ -74,7 +78,7 @@
       let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
       let start = 0
       let rows = ()
-      for count in zones_per_line {
+      for count in (if structure { () } else { zones_per_line }) {
         let row = cells.slice(start, start + count)
         start += count
         rows.push(if count == 1 {
@@ -98,11 +102,23 @@
           })
         })
       }
-      stack(dir: ttb, spacing: 1.4mm, ..rows)
+      if structure and activation != none {
+        // One effect for all three zones: the three numbers side by side.
+        rows.push(grid(
+          columns: (auto, 1fr),
+          column-gutter: 1.6mm,
+          align: (center + horizon, left + horizon),
+          range(3).map(i => zone_block(3 - i)).join(h(0.5mm)), activation,
+        ))
+      }
+      let has_lines = rows.len() > 0
+      if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
       if passive != none {
-        v(1.2mm, weak: true)
-        line(length: 100%, stroke: 0.4pt + luma(130))
-        v(1.2mm, weak: true)
+        if has_lines {
+          v(1.2mm, weak: true)
+          line(length: 100%, stroke: 0.4pt + luma(130))
+          v(1.2mm, weak: true)
+        }
         text(size: 8.5pt, passive)
       }
     })
