@@ -5,4 +5,5 @@
   kind: "Atout, Base",
   dice: ("4+",),
   effect: [Déplacer 1.],
+  flavor: [Pas là. Là.],
 )

@@ -7,4 +7,5 @@
   dice: ("4+",),
   effect: [Infligez 2~dégâts à portée~2.],
   uses: 3,
+  flavor: [Il ne vous a jamais lâché. Il ne vous a jamais sauvé non plus.],
 )

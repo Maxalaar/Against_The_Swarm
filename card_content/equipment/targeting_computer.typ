@@ -6,4 +6,5 @@
   charge: 1,
   dice: ("5+",),
   effect: [Réglez un autre de vos dés sur la face de votre choix.],
+  flavor: [Il a toujours raison. C'est agaçant.],
 )

@@ -139,6 +139,8 @@ Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaq
 
 Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour. Quels que soient les malus, un atout a toujours au moins une utilisation par tour.
 
+Un atout sans aucun dé dessiné n'a pas de coût : son effet s'applique tout seul, au moment indiqué par son texte, sans qu'on l'active.
+
 === Lire l'effet
 
 Les effets suivent toujours le même ordre : on désigne d'abord les cibles, puis on applique l'effet.
@@ -325,7 +327,7 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 
 Chaque carte Essaim de type engeance indique :
 - *Rang d'évolution*, en chiffre romain à gauche du nom : le moment de la partie où la carte rejoint la pile. Les jetons n'en ont pas.
-- *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
+- *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de carré : leur Menace vaut 0.
 - *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand l'engeance s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand plusieurs blocs sont regroupés devant un même effet, cet effet vaut pour chacune de ces zones.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les engeances n'en ont pas.
 - *Attaque*, dans l'encart en bas à gauche : dégâts infligés quand l'engeance attaque.

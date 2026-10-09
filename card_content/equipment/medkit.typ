@@ -6,4 +6,5 @@
   charge: 1,
   dice: ("X", "X",),
   effect: [Soin 2 sur vous ou un joueur adjacent.],
+  flavor: [Ça va piquer.],
 )

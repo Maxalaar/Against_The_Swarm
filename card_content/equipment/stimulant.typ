@@ -6,4 +6,5 @@
   charge: 1,
   dice: ("",),
   effect: [Relancez jusqu'à 2 autres dés.],
+  flavor: [Ça brûle. C'est que ça marche.],
 )

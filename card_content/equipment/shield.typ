@@ -6,4 +6,5 @@
   charge: 2,
   dice: ("3+",),
   effect: [Garde 3.],
+  flavor: [Derrière moi.],
 )
