@@ -4,6 +4,6 @@
   "Stimulant",
   kind: "Atout, Matériel",
   charge: 1,
-  dice: ("?",),
+  dice: ("",),
   effect: [Relancez jusqu'à 2 autres dés.],
 )

@@ -1,6 +1,6 @@
 #import "creat_card.typ": creat_card
 
-// Die icon with its condition written inside: "4+", "2−", "6", "X", "X+1", "?" (any die).
+// Die icon with its condition written inside: "4+", "2−", "6", "X", "X+1"; an empty label means any die.
 #let die(label, size: 8mm) = box(
   width: size,
   height: size,

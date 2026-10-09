@@ -5,5 +5,5 @@
   kind: "Atout, Matériel",
   charge: 1,
   dice: ("3+",),
-  effect: [Déplacer 1 sur jusqu'à 2 créatures différentes.],
+  effect: [Ciblez jusqu'à 2 créatures à portée~2. Déplacer 1 chacune.],
 )

@@ -4,7 +4,7 @@
   "Radio",
   kind: "Atout, Matériel",
   charge: 1,
-  dice: ("?",),
+  dice: ("",),
   effect: [Donnez ce dé à un autre joueur : il l'ajoute à sa réserve avec la même valeur.],
   uses: 2,
 )

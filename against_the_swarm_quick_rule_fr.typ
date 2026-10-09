@@ -123,7 +123,7 @@ Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaq
   [6], [Exactement cette valeur.],
   [4+], [Cette valeur ou plus.],
   [2−], [Cette valeur ou moins.],
-  [?], [N'importe quelle valeur.],
+  [_(vide)_], [N'importe quelle valeur.],
   [X], [N'importe quelle valeur, mais tous les dés marqués X doivent être identiques. Deux dés X forment donc une paire. Si l'effet mentionne X, il vaut la valeur de ces dés.],
   [X+1], [La valeur de X, plus 1.],
 )
@@ -168,7 +168,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   inset: 6pt,
   [*Nom*], [*Coût*], [*Effet*],
   [Coup de crosse],
-  [Un dé ?],
+  [Un dé vide],
   [Infligez 1 dégât à une créature à portée 1.],
 
   [Déplacement],
