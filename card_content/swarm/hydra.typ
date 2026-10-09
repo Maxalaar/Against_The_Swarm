@@ -2,11 +2,11 @@
 
 #let hydra = swarm_card(
   "Hydre",
-  rank: 1,
-  threat: 3,
+  rank: 3,
+  threat: 5,
   zones: (advance, advance, attack),
-  passive: [Quand elle est détruite, créez 2~jetons Essaimé dans sa zone.],
+  passive: [Chaque fois qu'une activation lui inflige des dégâts, créez 1~jeton Essaimé dans sa zone.],
   flavor: [Coupez-la en deux, vous en aurez deux.],
-  attack: 2,
-  health: 3,
+  attack: 3,
+  health: 5,
 )

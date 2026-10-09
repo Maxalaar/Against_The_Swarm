@@ -142,7 +142,7 @@ Les effets suivent toujours le même ordre : on désigne d'abord les cibles, pui
 
 === Activer un atout
 
-Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est pivotée à 90° et ne peut plus être activée jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
+Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est *activée* : on la pivote à 90° pour le montrer, et elle ne peut plus servir jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
 
 #block(
   fill: luma(240),
@@ -205,20 +205,20 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   *Exemple :* un atout à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
-// --- Dégâts et salves ---
+// --- Dégâts et tirs combinés ---
 
-= Dégâts et salves
+= Dégâts et tirs combinés
 
 On ne note jamais les blessures des créatures de l'Essaim. Une créature est soit intacte, soit détruite.
 
 *Seuil* : une créature est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à ses PV. Sinon, les dégâts sont perdus et la créature reste intacte.
 
-*Salve* : pour additionner des dégâts, un ou plusieurs joueurs déclarent une salve. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, puis les résolvent en une seule fois. Chaque créature additionne les dégâts de toutes les activations de la salve qui la touchent, puis compare ce total à ses PV.
+*Tir combiné* : pour additionner des dégâts, un ou plusieurs joueurs déclarent un tir combiné. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque créature additionne les dégâts de toutes les activations du tir combiné qui la touchent, puis compare ce total à ses PV.
 
-- Une salve peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
-- Les dés et les utilisations dépensés dans une salve sont perdus, même si elle ne détruit rien.
-- Une fois la salve résolue, il ne reste aucune trace des dégâts : une nouvelle salve repart de zéro.
-- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien à la salve.
+- Un tir combiné peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
+- Les dés et les utilisations dépensés dans un tir combiné sont perdus, même s'il ne détruit rien.
+- Une fois le tir combiné résolu, il ne reste aucune trace des dégâts : le suivant repart de zéro.
+- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien au tir combiné.
 
 #block(
   fill: luma(240),
@@ -226,9 +226,9 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en salve infligent 4 dégâts : il est détruit.
+  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en tir combiné infligent 4 dégâts : il est détruit.
 
-  *Exemple 2 :* une zone contient quatre créatures à 2 PV. Une salve combine une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
+  *Exemple 2 :* une zone contient quatre créatures à 2 PV. Un tir combiné associe une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
 
 Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
@@ -290,7 +290,7 @@ Les jetons n'ont pas de rang d'évolution.
 
 Tous les joueurs jouent *simultanément*. La communication est libre.
 
-+ Toutes les cartes d'atout et de base pivotées sont remises à l'endroit (réinitialisation des utilisations).
++ Toutes les cartes d'atout et de base activées sont redressées (réinitialisation des utilisations).
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
 + Une fois que tous les joueurs ont déclaré une fin de tour, on passe au tour de l'Essaim.
@@ -301,9 +301,9 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 === Étape 1 — Activation
 
-Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord remis à l'endroit (réinitialisation). Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, il est pivoté à 90° et son effet d'activation est appliqué.
+Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord remis à l'endroit (réinitialisation). Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
 
-Une créature créée par un effet entre en jeu *pivotée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera redressée au début du tour de l'Essaim suivant, comme les autres.
+Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera redressée au début du tour de l'Essaim suivant, comme les autres.
 
 === Étape 2 — Invasion
 
@@ -320,7 +320,7 @@ Chaque carte Essaim de type créature indique :
 - *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
 - *ATT*, dans l'encart en bas à gauche : dégâts infligés quand la créature attaque.
-- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en une seule salve pour la détruire. Une créature détruite est placée dans la défausse Essaim.
+- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une créature détruite est placée dans la défausse Essaim.
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
 
@@ -416,7 +416,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
   [Garde X],
-  [La carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
+  [La carte reste activée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
 
   [Soin X],
   [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
@@ -440,4 +440,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
 
   [Attaque],
   [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
+
+  [Blindage X],
+  [Chaque activation d'atout inflige X dégâts de moins à cette créature. Dans un tir combiné, la réduction s'applique à chaque activation séparément.],
 )

@@ -15,7 +15,7 @@
 #import "card_content/swarm/burrower.typ": burrower
 #import "card_content/swarm/carrier.typ": carrier
 #import "card_content/swarm/brooder.typ": brooder
-#import "card_content/swarm/hydra.typ": hydra
+#import "card_content/swarm/pod.typ": pod
 #import "card_content/swarm/jammer.typ": jammer
 
 // Evolution ranks II and above, added to the pile as waves go by
@@ -23,6 +23,7 @@
 #import "card_content/swarm/ironclad.typ": ironclad
 #import "card_content/swarm/alpha.typ": alpha
 #import "card_content/swarm/matriarch.typ": matriarch
+#import "card_content/swarm/hydra.typ": hydra
 
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
@@ -40,12 +41,13 @@
   burrower,
   carrier,
   brooder,
-  hydra,
+  pod,
   jammer,
   colossus,
   ironclad,
   alpha,
   matriarch,
+  hydra,
   broodling,
   spitter,
   warrior,

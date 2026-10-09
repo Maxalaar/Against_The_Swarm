@@ -5,8 +5,8 @@
   rank: 2,
   threat: 4,
   zones: (advance, advance, attack),
-  passive: [Les activations qui infligent 1~dégât n'ont aucun effet sur les autres créatures de sa zone.],
-  flavor: [Sa carapace couvre toute la meute.],
+  passive: [*Blindage~1.*],
+  flavor: [Les balles ricochent. Il faut frapper plus fort.],
   attack: 2,
   health: 3,
 )
