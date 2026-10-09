@@ -4,6 +4,7 @@
   "Cracheur",
   token: true,
   zones: (advance, attack, retreat),
+  inline_zones: true,
   flavor: [Possède un jet corrosif à courte portée lui permettant de harceler les positions ennemies.],
   attack: 1,
   health: 1,

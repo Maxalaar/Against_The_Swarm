@@ -4,6 +4,7 @@
   "Essaimé",
   token: true,
   zones: (advance, advance, attack),
+  inline_zones: true,
   flavor: [Générés en masse, ils forment la chair sacrifiable de toute force d’invasion.],
   attack: 1,
   health: 1,

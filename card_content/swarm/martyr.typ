@@ -4,6 +4,7 @@
   "Martyre",
   threat: 2,
   zones: (advance, advance, attack),
+  inline_zones: true,
   passive: [Quand il meurt en zone~1, il inflige 2~dégâts au joueur du secteur.],
   flavor: [Qu’importe qu’un corps tombe, tant que l’essaim avance.],
   attack: 2,
