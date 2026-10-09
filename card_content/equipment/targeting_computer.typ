@@ -3,7 +3,7 @@
 #let targeting_computer = equipment_card(
   "Calculateur de tir",
   kind: "Atout, Matériel",
-  storage: 1,
-  cost: [un 1 ou un 2],
-  effect: [Placez un de vos autres dés sur la face de votre choix.],
+  charge: 1,
+  dice: ("2−",),
+  effect: [Réglez un autre de vos dés sur la face de votre choix.],
 )

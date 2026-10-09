@@ -3,7 +3,6 @@
 #let rifle_butt = equipment_card(
   "Coup de crosse",
   kind: "Carte de base",
-  storage: 0,
-  cost: [un dé quelconque],
-  effect: [Dégât 1 à une cible à portée 1.],
+  dice: ("?",),
+  effect: [Infligez 1~dégât à une créature à portée~1.],
 )

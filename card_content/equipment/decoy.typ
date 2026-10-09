@@ -3,7 +3,7 @@
 #let decoy = equipment_card(
   "Leurre",
   kind: "Atout, Matériel",
-  storage: 1,
-  cost: [un dé 3+],
-  effect: [Déplacer 1, sur 2 créatures maximum.],
+  charge: 1,
+  dice: ("3+",),
+  effect: [Déplacer 1 sur jusqu'à 2 créatures différentes.],
 )

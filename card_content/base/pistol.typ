@@ -3,8 +3,8 @@
 #let pistol = equipment_card(
   "Pistolet",
   kind: "Atout, Arme",
-  storage: 1,
-  cost: [un dé 4+],
-  effect: [Dégât 2 à une cible à portée 2.],
+  charge: 1,
+  dice: ("4+",),
+  effect: [Infligez 2~dégâts à une créature à portée~2.],
   uses: 3,
 )

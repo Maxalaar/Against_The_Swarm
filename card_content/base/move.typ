@@ -3,7 +3,6 @@
 #let move = equipment_card(
   "Déplacement",
   kind: "Carte de base",
-  storage: 0,
-  cost: [un dé 4+],
+  dice: ("4+",),
   effect: [Déplacer 1.],
 )

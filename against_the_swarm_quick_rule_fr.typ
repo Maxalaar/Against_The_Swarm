@@ -96,8 +96,8 @@ Nombre de points de vie maximum. Au début de chaque vague, le joueur commence a
 *PA — Points d'Action* (base 5) \
 Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts.
 
-*PS — Points de Stockage* (base 5) \
-Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Stockage de son arsenal ne peut pas dépasser sa valeur de PS.
+*Charge max* (base 5) \
+Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Charge de son arsenal ne peut pas dépasser sa Charge max.
 
 // --- Arsenal ---
 
@@ -106,13 +106,40 @@ Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Sto
 L'ensemble des atouts qu'un joueur porte s'appelle son *arsenal*.
 
 Chaque atout possède :
-- Un *Stockage* : nombre de PS que l'atout occupe dans l'arsenal.
-- Une ou plusieurs *capacités*, chacune se caractérisant par :
-  - Un *coût* : un ou plusieurs d6 avec des résultats spécifiques à obtenir. « Un dé 4+ » demande un dé affichant 4 ou plus ; « une paire » demande deux dés de même valeur.
-  - Un *effet* : déclenché quand le joueur paie le coût.
-  - Un *nombre d'utilisations max par tour* (1 par défaut, indiqué sur la carte si différent).
+- Une *Charge* : la place que l'atout occupe dans l'arsenal, indiquée dans le carré en haut à droite. Une carte sans carré a une Charge de 0.
+- Une *capacité*, composée d'un coût, d'un effet et d'un nombre d'utilisations.
 
-Quand un effet indique « N créatures maximum », le joueur choisit lui-même les créatures touchées, sans jamais dépasser ce nombre.
+=== Lire le coût
+
+Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaque dé dessiné est un dé que le joueur doit dépenser, et ce qui est écrit dedans indique la valeur exigée.
+
+#table(
+  columns: (auto, 1fr),
+  align: (center, left),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
+  inset: 6pt,
+  [*Dé*], [*Valeur exigée*],
+  [6], [Exactement cette valeur.],
+  [4+], [Cette valeur ou plus.],
+  [2−], [Cette valeur ou moins.],
+  [?], [N'importe quelle valeur.],
+  [X], [N'importe quelle valeur, mais tous les dés marqués X doivent être identiques. Deux dés X forment donc une paire. Si l'effet mentionne X, il vaut la valeur de ces dés.],
+  [X+1], [La valeur de X, plus 1.],
+)
+
+Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour.
+
+=== Lire l'effet
+
+Les effets suivent toujours le même ordre : on désigne d'abord les cibles, puis on applique l'effet.
+
+- « Jusqu'à N créatures » : le joueur choisit les créatures, sans dépasser ce nombre.
+- « D'une même zone » : toutes les cibles doivent se trouver dans la même zone du même secteur.
+- « Dont N au maximum par zone » : le joueur ne peut pas choisir plus de N cibles dans une même zone.
+- « À portée N » : chaque cible doit être à portée N ou moins.
+
+=== Activer un atout
 
 Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est pivotée à 90° et ne peut plus être activée jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
 
@@ -125,13 +152,13 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   *Exemple — Pistolet* #h(1fr) _(donnée à tous les joueurs en début de partie)_
 
   #text(size: 9.5pt)[
-    Type : Arme — Stockage : 1 \
-    Coût : un dé affichant 4+ \
-    Effet : Dégât 2 à une cible à portée 2. 3 utilisations par tour.
+    Type : Atout, Arme — Charge : 1 \
+    Coût : un dé 4+, trois points noirs (3 utilisations par tour) \
+    Effet : Infligez 2 dégâts à une créature à portée 2.
   ]
 ]
 
-=== Cartes de base _(Stockage 0, données à tous les joueurs)_
+=== Cartes de base _(Charge 0, données à tous les joueurs)_
 
 #table(
   columns: (auto, auto, 1fr),
@@ -141,16 +168,16 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   inset: 6pt,
   [*Nom*], [*Coût*], [*Effet*],
   [Coup de crosse],
-  [N'importe quel résultat],
-  [Dégât 1 à une cible à portée 1.],
+  [Un dé ?],
+  [Infligez 1 dégât à une créature à portée 1.],
 
   [Déplacement],
-  [Un dé affichant 4+],
+  [Un dé 4+],
   [Déplacer 1.],
 
   [Réanimation],
-  [Deux dés affichant 6, 6],
-  [Fait revivre un joueur adjacent à 1 PV. Ce joueur réduit ses PA de 2 pour le reste de la vague (minimum 1 PA).],
+  [Deux dés 6],
+  [Un joueur adjacent revient en jeu à 1 PV. Il perd 2 PA jusqu'à la fin de la vague (minimum 1 PA).],
 )
 
 // --- Champ de bataille ---
@@ -330,7 +357,7 @@ Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mor
 
 + *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à son arsenal (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
 + *Échange* : chaque joueur peut donner un atout de son arsenal à un autre joueur de son choix.
-+ *Défausse* : chaque joueur retire de son arsenal les atouts de son choix jusqu'à ce que la somme des valeurs de Stockage ne dépasse plus sa valeur de PS.
++ *Défausse* : chaque joueur retire de son arsenal les atouts de son choix jusqu'à ce que la somme des valeurs de Charge ne dépasse plus sa Charge max.
 
 // --- Fin de partie ---
 
@@ -371,9 +398,6 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
   inset: 6pt,
   [*Mot-clé*], [*Effet*],
-
-  [Dégât X],
-  [Inflige X dégâts à chaque cible désignée par la carte. Ces dégâts suivent les règles du seuil et des salves.],
 
   [Déplacer X],
   [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],

@@ -1,24 +1,51 @@
 #import "creat_card.typ": creat_card
 
+// Die icon with its condition written inside: "4+", "2−", "6", "X", "X+1", "?" (any die).
+#let die(label, size: 8mm) = box(
+  width: size,
+  height: size,
+  radius: size * 0.2,
+  stroke: 0.9pt + black,
+  fill: white,
+  align(
+    center + horizon,
+    text(size: if label.clusters().len() > 2 { 8pt } else { 11.5pt }, weight: "bold")[#label],
+  ),
+)
+
 // Asset card ("Atout") or starting card.
-// `uses` is only printed above 1, which is the default in the rules.
+// - `charge`: room the card takes in the player's set; the corner box is hidden at 0.
+// - `dice`: the cost, one label per die, drawn on the seam between art and text.
+// - `uses`: maximum uses per turn; shown as one dot per use, only above 1.
 #let equipment_card(
   name,
   kind: "Atout, Matériel",
-  storage: 0,
-  cost: none,
+  charge: 0,
+  dice: (),
   effect: none,
   uses: 1,
   flavor: none,
-) = creat_card(
-  name,
-  cost: storage,
-  cost_label: "Stockage",
-  type: (kind,),
-  capacity: (
-    [*Coût :* #cost],
-    if uses > 1 [#effect #uses utilisations.] else [#effect],
-  ),
-  flavor: flavor,
-  background_color: rgb("#c5d3e0"),
-)
+) = context {
+  let die_size = 8mm
+  let gap = 1.2mm
+  let card = creat_card(
+    name,
+    cost: if charge > 0 { charge } else { none },
+    type: (kind,),
+    capacity: ([#v(if uses > 1 { 5mm } else { 3.5mm }) #align(center, effect)],),
+    capacity_text_size: 9.5pt,
+    flavor: flavor,
+    background_color: rgb("#c5d3e0"),
+  )
+  let size = measure(card)
+  // The seam sits 51.25mm below the top edge of the 88mm card.
+  let seam = (size.height - 88mm) / 2 + 51.25mm
+  box({
+    card
+    place(top + left, dy: seam - die_size / 2, box(width: size.width, align(center, dice.map(die).join(h(gap)))))
+    if uses > 1 {
+      let dot = box(circle(radius: 0.9mm, fill: black))
+      place(top + left, dy: seam + die_size / 2 + 1.1mm, box(width: size.width, align(center, range(uses).map(_ => dot).join(h(1mm)))))
+    }
+  })
+}

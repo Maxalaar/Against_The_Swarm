@@ -3,7 +3,7 @@
 #let sniper_rifle = equipment_card(
   "Fusil de précision",
   kind: "Atout, Arme",
-  storage: 2,
-  cost: [un 6],
-  effect: [Dégât 4 à une cible à portée 4.],
+  charge: 2,
+  dice: ("6",),
+  effect: [Infligez 4~dégâts à une créature à portée~4.],
 )
