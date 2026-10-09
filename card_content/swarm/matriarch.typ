@@ -2,6 +2,7 @@
 
 #let matriarch = swarm_card(
   "Matriarche",
+  rank: 3,
   threat: 5,
   zones: ([Crée 1~jeton Guerrier dans cette zone.], retreat, attack),
   zones_per_line: (1, 2),

@@ -2,6 +2,7 @@
 
 #let bombard = swarm_card(
   "Bombarde",
+  rank: 1,
   threat: 3,
   zones: (attack, retreat, retreat),
   flavor: [Lance à longue portée des jets corrosifs qui consument chair et acier.],

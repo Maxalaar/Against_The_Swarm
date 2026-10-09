@@ -77,6 +77,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 
 *Avant la première vague :*
 
++ Former la pile Essaim avec les seules cartes de rang d'évolution I. Mettre de côté les cartes des rangs II, III et IV, triées par rang.
 + Mélanger séparément la pile d'atouts et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
 + Chaque joueur prend sa *carte d'As* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
@@ -259,21 +260,29 @@ Le niveau de menace commence à 6 et augmente de 1 tous les 2 vagues à partir d
 Le nombre de rounds à tenir commence à 5 et augmente de 1 tous les 2 vagues à partir de la vague 3.
 
 #table(
-  columns: (1fr, 1fr, 1fr),
+  columns: (1fr, 1fr, 1fr, 1.3fr),
   align: center,
   stroke: 0.5pt,
   fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
   inset: 6pt,
-  [*Vague*], [*Rounds à tenir*], [*Niveau de menace*],
-  [1], [5], [6],
-  [2], [5], [7],
-  [3], [6], [7],
-  [4], [6], [8],
-  [5], [7], [8],
-  [6], [7], [9],
-  [7], [8], [9],
-  [8], [8], [10],
+  [*Vague*], [*Rounds à tenir*], [*Niveau de menace*], [*Rang ajouté à la pile*],
+  [1], [5], [6], [I (pile de départ)],
+  [2], [5], [7], [],
+  [3], [6], [7], [II],
+  [4], [6], [8], [],
+  [5], [7], [8], [III],
+  [6], [7], [9], [],
+  [7], [8], [9], [IV],
+  [8], [8], [10], [],
 )
+
+=== Rang d'évolution
+
+Chaque carte de la pile Essaim porte un *rang d'évolution*, de I à IV, indiqué à gauche de son nom. Plus le rang est élevé, plus la créature est dangereuse.
+
+La partie commence avec les seules cartes de rang I. Avant les vagues 3, 5 et 7, on ajoute à la pile Essaim toutes les cartes du rang indiqué dans le tableau, on y ajoute la défausse Essaim, puis on mélange le tout. Aucune carte n'est jamais retirée : l'Essaim garde ses formes anciennes et en gagne de nouvelles.
+
+Les jetons n'ont pas de rang d'évolution.
 
 // --- Tour des joueurs ---
 
@@ -304,6 +313,7 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 === Structure des cartes de l'Essaim
 
 Chaque carte Essaim de type créature indique :
+- *Rang d'évolution*, en chiffre romain à gauche du nom : le moment de la partie où la carte rejoint la pile. Les jetons n'en ont pas.
 - *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
 - *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
@@ -323,7 +333,7 @@ Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, d�
   *Exemple — Bombarde*
 
   #text(size: 9.5pt)[
-    Menace : 3 | ATT : 3 | PV : 3 \
+    Rang d'évolution : I | Menace : 3 | ATT : 3 | PV : 3 \
     Zone 3 : Attaque. \
     Zone 2 : Recule 1. \
     Zone 1 : Recule 1.
@@ -355,6 +365,7 @@ Quand le dernier round d'une vague est tenu, l'Essaim bat en retraite : tous ses
 
 Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
 
++ *Évolution* : avant les vagues 3, 5 et 7, ajouter à la pile Essaim les cartes du nouveau rang d'évolution, puis la mélanger avec sa défausse.
 + *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à son arsenal (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
 + *Échange* : chaque joueur peut donner un atout de son arsenal à un autre joueur de son choix.
 + *Défausse* : chaque joueur retire de son arsenal les atouts de son choix jusqu'à ce que la somme des valeurs de Charge ne dépasse plus sa Charge max.

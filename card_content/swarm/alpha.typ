@@ -2,6 +2,7 @@
 
 #let alpha = swarm_card(
   "Alpha",
+  rank: 2,
   threat: 4,
   zones: (advance, advance, attack),
   passive: [Les autres créatures de sa zone ont +1~PV.],

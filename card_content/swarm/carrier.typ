@@ -2,6 +2,7 @@
 
 #let carrier = swarm_card(
   "Porteur",
+  rank: 1,
   threat: 3,
   zones: (advance, advance, attack),
   passive: [Quand il est détruit, créez 2~jetons Bubon dans sa zone.],

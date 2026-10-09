@@ -2,6 +2,7 @@
 
 #let martyr = swarm_card(
   "Martyre",
+  rank: 1,
   threat: 2,
   zones: (advance, advance, attack),
   passive: [Quand il meurt en zone~1, il inflige 2~dégâts au joueur du secteur.],

@@ -2,6 +2,7 @@
 
 #let ironclad = swarm_card(
   "Cuirassé",
+  rank: 2,
   threat: 4,
   zones: (advance, advance, attack),
   passive: [Les activations qui infligent 1~dégât n'ont aucun effet sur les autres créatures de sa zone.],

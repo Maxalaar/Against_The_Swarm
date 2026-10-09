@@ -5,7 +5,7 @@
   margin: 0.5cm,
 )
 
-// Swarm pile
+// Evolution rank I: the starting pile
 #import "card_content/swarm/swarmer.typ": swarmer
 #import "card_content/swarm/ram.typ": ram
 #import "card_content/swarm/martyr.typ": martyr
@@ -18,7 +18,7 @@
 #import "card_content/swarm/hydra.typ": hydra
 #import "card_content/swarm/jammer.typ": jammer
 
-// Evolved creatures, added to the pile between waves
+// Evolution ranks II and above, added to the pile as waves go by
 #import "card_content/swarm/colossus.typ": colossus
 #import "card_content/swarm/ironclad.typ": ironclad
 #import "card_content/swarm/alpha.typ": alpha

@@ -2,6 +2,7 @@
 
 #let protector = swarm_card(
   "Protecteur",
+  rank: 1,
   threat: 3,
   zones: (advance, advance, attack),
   passive: [Chaque activation inflige 1~dégât de moins aux autres créatures de sa zone.],
