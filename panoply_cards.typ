@@ -67,6 +67,8 @@
 #import "card_content/equipment/glue_trap.typ": glue_trap
 #import "card_content/equipment/stun_grenade.typ": stun_grenade
 #import "card_content/equipment/acid_grenade.typ": acid_grenade
+#import "card_content/equipment/gravity_grenade.typ": gravity_grenade
+#import "card_content/equipment/frag_mine.typ": frag_mine
 
 #let all-cards = (
   pistol,
@@ -128,6 +130,8 @@
   glue_trap,
   stun_grenade,
   acid_grenade,
+  gravity_grenade,
+  frag_mine,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)
