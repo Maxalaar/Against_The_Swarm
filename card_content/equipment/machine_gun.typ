@@ -2,7 +2,7 @@
 
 #let machine_gun = equipment_card(
   "Mitrailleuse",
-  kind: "Atout, Arme",
+  kind: "Atout, Arme, Tir",
   charge: 2,
   dice: ("",),
   effect: [Infligez 1~dégât à portée~2.],

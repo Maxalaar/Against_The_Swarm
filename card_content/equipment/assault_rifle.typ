@@ -2,7 +2,7 @@
 
 #let assault_rifle = equipment_card(
   "Fusil d'assaut",
-  kind: "Atout, Arme",
+  kind: "Atout, Arme, Tir",
   charge: 2,
   dice: ("3+",),
   effect: [Infligez 2~dégâts à portée~3.],

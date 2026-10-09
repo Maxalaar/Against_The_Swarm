@@ -2,7 +2,7 @@
 
 #let sword = equipment_card(
   "Épée",
-  kind: "Atout, Arme",
+  kind: "Atout, Arme, Mêlée",
   charge: 1,
   dice: ("3+",),
   effect: [Infligez 3~dégâts à portée~1.],

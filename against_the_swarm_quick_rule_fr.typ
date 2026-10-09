@@ -81,7 +81,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 + Mélanger séparément la pile d'atouts et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
 + Chaque joueur prend sa *carte d'As* et sa *carte de suivi*, et place devant lui ses trois *atouts de base* : Coup de crosse, Déplacement, Réanimation.
-+ Chaque joueur reçoit une carte *Pistolet* qui constitue son arsenal de départ.
++ Chaque joueur reçoit une carte *Pistolet* qui constitue sa Panoplie de départ.
 + Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'atouts, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
 
@@ -89,7 +89,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 
 = Caractéristiques des joueurs
 
-Les caractéristiques de chaque joueur sont indiquées sur sa *carte d'As* :
+Chaque joueur incarne un *As*. Sa carte d'As indique ses caractéristiques et un passif qui lui est propre. Les valeurs de base ci-dessous varient d'un As à l'autre.
 
 *PV — Points de Vie* (base 5) \
 Nombre de Blessures que le joueur peut encaisser. Au début de chaque vague, il n'a aucune Blessure. Ses PV restants sont ses PV moins ses Blessures : à 0 PV restant, il est mis hors jeu pour la vague en cours.
@@ -98,7 +98,7 @@ Nombre de Blessures que le joueur peut encaisser. Au début de chaque vague, il 
 Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts. Quels que soient les malus, un joueur lance toujours au moins 1 dé.
 
 *Charge max* (base 5) \
-Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Charge de son arsenal ne peut pas dépasser sa Charge max.
+Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Charge de sa Panoplie ne peut pas dépasser sa Charge max.
 
 === Carte de suivi
 
@@ -108,15 +108,16 @@ Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Cha
 
 Quand un joueur subit des dégâts, ils retirent d'abord des points de Garde ; le reste devient des Blessures. Si une valeur dépasse 6, on ajoute un second dé.
 
-// --- Arsenal ---
+// --- Panoplie ---
 
-= L'Arsenal
+= La Panoplie
 
-L'ensemble des atouts qu'un joueur porte s'appelle son *arsenal*.
+L'ensemble des atouts qu'un joueur porte s'appelle sa *Panoplie*.
 
 Chaque atout possède :
-- Une *Charge* : la place que l'atout occupe dans l'arsenal, indiquée dans le carré en haut à droite. Une carte sans carré a une Charge de 0.
+- Une *Charge* : la place que l'atout occupe dans la Panoplie, indiquée dans le carré en haut à droite. Une carte sans carré a une Charge de 0.
 - Une *capacité*, composée d'un coût, d'un effet et d'un nombre d'utilisations.
+- Un *type*, sous son nom : Arme, Matériel ou Technique. Les Armes ont aussi une famille (Mêlée, Tir, Explosif ou Énergie), à laquelle certains atouts donnent des bonus.
 
 === Lire le coût
 
@@ -415,9 +416,9 @@ Quand le dernier round d'une vague est tenu, l'Essaim bat en retraite : tous ses
 Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
 
 + *Évolution* : avant les vagues 3, 5 et 7, ajouter à la pile Essaim les cartes du nouveau rang d'évolution, puis la mélanger avec sa défausse.
-+ *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à son arsenal (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
-+ *Échange* : chaque joueur peut donner un atout de son arsenal à un autre joueur de son choix.
-+ *Défausse* : chaque joueur retire de son arsenal les atouts de son choix jusqu'à ce que la somme des valeurs de Charge ne dépasse plus sa Charge max.
++ *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à sa Panoplie (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
++ *Échange* : chaque joueur peut donner un atout de sa Panoplie à un autre joueur de son choix.
++ *Défausse* : chaque joueur retire de sa Panoplie les atouts de son choix jusqu'à ce que la somme des valeurs de Charge ne dépasse plus sa Charge max.
 
 // --- Fin de partie ---
 

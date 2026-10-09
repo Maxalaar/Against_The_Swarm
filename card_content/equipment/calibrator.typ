@@ -2,7 +2,7 @@
 
 #let calibrator = equipment_card(
   "Calibreur",
-  kind: "Atout, Arme",
+  kind: "Atout, Arme, Tir",
   charge: 2,
   dice: ("X", "Y",),
   effect: [Infligez X~dégâts à portée~Y.],

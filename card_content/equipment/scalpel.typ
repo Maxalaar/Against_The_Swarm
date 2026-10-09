@@ -6,5 +6,5 @@
   charge: 1,
   dice: ("3+",),
   effect: [Détruisez une Mutation attachée à une engeance à portée~2. Soin 2.],
-  flavor: [Ça repousse ? On recoupe.],
+  flavor: [Ça repousse~? On recoupe.],
 )
