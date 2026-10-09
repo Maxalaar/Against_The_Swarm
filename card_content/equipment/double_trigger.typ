@@ -5,6 +5,6 @@
   kind: "Atout, Module",
   slots: 2,
   dice: (),
-  effect: [Chaque fois que vous activez l'atout modifié, vous pouvez l'activer une seconde fois sans payer.],
+  effect: [L'atout modifié applique son effet deux fois, sur les mêmes cibles.],
   flavor: [Pourquoi s'arrêter à une ?],
 )
