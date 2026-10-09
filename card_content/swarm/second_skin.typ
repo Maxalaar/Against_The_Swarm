@@ -6,7 +6,7 @@
   threat: 3,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur qui a la Menace la plus haute.],
+    [Mutez l'engeance de ce secteur qui a la Menace la plus haute.],
     [La prochaine fois qu'elle devrait être détruite, détruisez cette Mutation à la place.],
   ),
   flavor: [Vous n'avez tué que l'enveloppe.],

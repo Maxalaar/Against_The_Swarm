@@ -6,7 +6,7 @@
   threat: 3,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur la plus proche de l'As.],
+    [Mutez l'engeance de ce secteur la plus proche de l'As.],
     [Quand elle est détruite en zone~1, infligez 2~dégâts à l'As de ce secteur.],
   ),
   flavor: [Même morte, elle mord.],

@@ -6,6 +6,6 @@
   threat: 4,
   emprise: true,
   removal: ("X", "X", "X"),
-  passive: [Les créatures qui entrent en jeu dans ce secteur arrivent en zone~2.],
+  passive: [Les engeances qui entrent en jeu dans ce secteur arrivent en zone~2.],
   flavor: [Ils sortent déjà du sol sous vos pieds.],
 )

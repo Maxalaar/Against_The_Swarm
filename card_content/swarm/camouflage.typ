@@ -6,7 +6,7 @@
   threat: 3,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur qui a la Menace la plus haute.],
+    [Mutez l'engeance de ce secteur qui a la Menace la plus haute.],
     [Elle ne peut pas être ciblée depuis un autre secteur.],
   ),
   flavor: [Vos voisins jurent qu'il n'y a rien.],

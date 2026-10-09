@@ -5,7 +5,7 @@
   rank: 2,
   threat: 4,
   zones: (advance, advance, attack),
-  passive: [Les autres créatures de sa zone ont +1~PV.],
+  passive: [Les autres engeances de sa zone ont +1~PV.],
   flavor: [Là où il passe, l'essaim se durcit.],
   attack: 2,
   health: 3,

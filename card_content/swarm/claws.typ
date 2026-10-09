@@ -6,7 +6,7 @@
   threat: 2,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur la plus proche de l'As.],
+    [Mutez l'engeance de ce secteur la plus proche de l'As.],
     [Elle gagne +1~ATT.],
   ),
   flavor: [Elles ont poussé pendant la nuit.],

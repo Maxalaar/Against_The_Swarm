@@ -6,6 +6,6 @@
   threat: 2,
   emprise: true,
   removal: ("X", "X"),
-  passive: [Les As ne peuvent pas déplacer les créatures de ce secteur.],
+  passive: [Les As ne peuvent pas déplacer les engeances de ce secteur.],
   flavor: [Tout colle. Rien ne bouge.],
 )

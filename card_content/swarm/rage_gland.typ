@@ -7,7 +7,7 @@
   structure: true,
   passive: (
     [Entre en jeu en zone~2.],
-    [Les créatures en zone~1 de ce secteur ont +1~ATT.],
+    [Les engeances en zone~1 de ce secteur ont +1~ATT.],
   ),
   flavor: [Son odeur les rend fous.],
   attack: 0,

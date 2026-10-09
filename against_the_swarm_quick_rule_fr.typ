@@ -73,7 +73,7 @@ Le jeu utilise deux piles, chacune avec sa propre défausse :
 
 Quand une pile est vide, on mélange sa défausse pour former une nouvelle pile.
 
-Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont gardées à part et n'entrent en jeu que lorsqu'une autre carte les crée. Un jeton détruit retourne dans la réserve de jetons. Quand un effet crée un jeton *Copie*, ce jeton reprend tout de la créature copiée, sauf les valeurs que l'effet remplace. S'il manque une carte pour représenter un jeton, les joueurs utilisent ce qu'ils ont sous la main.
+Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont gardées à part et n'entrent en jeu que lorsqu'une autre carte les crée. Un jeton détruit retourne dans la réserve de jetons. Un jeton *Copie* reprend tout de ce qu'il copie, sauf ce que l'effet qui l'a créé remplace. S'il manque une carte pour représenter un jeton, les joueurs utilisent ce qu'ils ont sous la main.
 
 *Avant la première vague :*
 
@@ -143,7 +143,7 @@ Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles pa
 
 Les effets suivent toujours le même ordre : on désigne d'abord les cibles, puis on applique l'effet.
 
-- « Jusqu'à N créatures » : le joueur choisit les créatures, sans dépasser ce nombre.
+- « Jusqu'à N engeances » : le joueur choisit les engeances, sans dépasser ce nombre.
 - « D'une même zone » : toutes les cibles doivent se trouver dans la même zone du même secteur.
 - « Dont N au maximum par zone » : le joueur ne peut pas choisir plus de N cibles dans une même zone.
 - « À portée N » : chaque cible doit être à portée N ou moins.
@@ -163,7 +163,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   #text(size: 9.5pt)[
     Type : Atout, Arme — Charge : 1 \
     Coût : un dé 4+, trois points noirs (3 utilisations par tour) \
-    Effet : Infligez 2 dégâts à une créature à portée 2.
+    Effet : Infligez 2 dégâts à une engeance à portée 2.
   ]
 ]
 
@@ -178,7 +178,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   [*Nom*], [*Coût*], [*Effet*],
   [Coup de crosse],
   [Un dé vide],
-  [Infligez 1 dégât à une créature à portée 1.],
+  [Infligez 1 dégât à une engeance à portée 1.],
 
   [Déplacement],
   [Un dé 4+],
@@ -217,11 +217,11 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
 
 = Dégâts et tirs combinés
 
-On ne note jamais les blessures des créatures de l'Essaim. Une créature est soit intacte, soit détruite.
+On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit intacte, soit détruite.
 
-*Seuil* : une créature est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à ses PV. Sinon, les dégâts sont perdus et la créature reste intacte.
+*Seuil* : une engeance est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à ses PV. Sinon, les dégâts sont perdus et l'engeance reste intacte.
 
-*Tir combiné* : pour additionner des dégâts, un ou plusieurs joueurs déclarent un tir combiné. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque créature additionne les dégâts de toutes les activations du tir combiné qui la touchent, puis compare ce total à ses PV.
+*Tir combiné* : pour additionner des dégâts, un ou plusieurs joueurs déclarent un tir combiné. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque engeance additionne les dégâts de toutes les activations du tir combiné qui la touchent, puis compare ce total à ses PV.
 
 - Un tir combiné peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
 - Les dés et les utilisations dépensés dans un tir combiné sont perdus, même s'il ne détruit rien.
@@ -236,7 +236,7 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 )[
   *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en tir combiné infligent 4 dégâts : il est détruit.
 
-  *Exemple 2 :* une zone contient quatre créatures à 2 PV. Un tir combiné associe une arme infligeant 1 dégât aux quatre créatures et une autre infligeant 1 dégât à trois d'entre elles. Trois créatures subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
+  *Exemple 2 :* une zone contient quatre engeances à 2 PV. Un tir combiné associe une arme infligeant 1 dégât aux quatre engeances et une autre infligeant 1 dégât à trois d'entre elles. Trois engeances subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
 
 Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
@@ -286,7 +286,7 @@ Le nombre de rounds à tenir commence à 5 et augmente de 1 tous les 2 vagues à
 
 === Rang d'évolution
 
-Chaque carte de la pile Essaim porte un *rang d'évolution*, de I à IV, indiqué à gauche de son nom. Plus le rang est élevé, plus la créature est dangereuse.
+Chaque carte de la pile Essaim porte un *rang d'évolution*, de I à IV, indiqué à gauche de son nom. Plus le rang est élevé, plus l'engeance est dangereuse.
 
 La partie commence avec les seules cartes de rang I. Avant les vagues 3, 5 et 7, on ajoute à la pile Essaim toutes les cartes du rang indiqué dans le tableau, on y ajoute la défausse Essaim, puis on mélange le tout. Aucune carte n'est jamais retirée : l'Essaim garde ses formes anciennes et en gagne de nouvelles.
 
@@ -311,30 +311,30 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 Tous les permanents de l'Essaim qui ne sont pas déjà activés s'activent, dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
 
-Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'activera pas avant d'avoir été désactivée, à la fin du tour de l'Essaim.
+Sauf mention contraire, une engeance créée par un effet entre en jeu *déjà activée* : elle ne s'activera pas avant d'avoir été désactivée, à la fin du tour de l'Essaim.
 
 === Étape 2 — Invasion
 
-Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cartes Infestation* dans ce secteur. Chaque tirage fonctionne ainsi : on tire des cartes de la pile Essaim jusqu'à ce que la somme des valeurs de Menace atteigne ou dépasse le niveau de menace de la vague. Les cartes créature tirées entrent en jeu en tant que *permanents* dans le secteur concerné. Une carte *Impulsion* n'entre pas en jeu : on applique son effet au secteur concerné, puis on la place dans la défausse Essaim.
+Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cartes Infestation* dans ce secteur. Chaque tirage fonctionne ainsi : on tire des cartes de la pile Essaim jusqu'à ce que la somme des valeurs de Menace atteigne ou dépasse le niveau de menace de la vague. Les cartes engeance tirées entrent en jeu en tant que *permanents* dans le secteur concerné. Une carte *Impulsion* n'entre pas en jeu : on applique son effet au secteur concerné, puis on la place dans la défausse Essaim.
 
 - La carte qui fait dépasser le seuil n'entre pas en jeu immédiatement. Elle est mise de côté avec un d6 indiquant les points de menace déjà consommés. Au prochain tirage d'invasion de ce secteur, elle est comptabilisée en premier avec son coût réduit.
 - Si la pile Essaim est vide, mélanger la défausse Essaim pour former une nouvelle pile.
 
 === Structure des cartes de l'Essaim
 
-Chaque carte Essaim de type créature indique :
+Chaque carte Essaim de type engeance indique :
 - *Rang d'évolution*, en chiffre romain à gauche du nom : le moment de la partie où la carte rejoint la pile. Les jetons n'en ont pas.
 - *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
-- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand les trois blocs sont regroupés devant un seul effet, cet effet s'applique quelle que soit la zone.
-- *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
-- *ATT*, dans l'encart en bas à gauche : dégâts infligés quand la créature attaque.
-- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une créature détruite est placée dans la défausse Essaim.
+- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand l'engeance s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand les trois blocs sont regroupés devant un seul effet, cet effet s'applique quelle que soit la zone.
+- *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les engeances n'en ont pas.
+- *ATT*, dans l'encart en bas à gauche : dégâts infligés quand l'engeance attaque.
+- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une engeance détruite est placée dans la défausse Essaim.
 
-Sauf indication contraire, une créature entre en jeu en zone 3.
+Sauf indication contraire, une engeance entre en jeu en zone 3.
 
 === Emprises
 
-Une *Emprise* est un permanent de l'Essaim qui n'est pas une créature : elle n'a ni zone, ni ATT, ni PV. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
+Une *Emprise* est un permanent de l'Essaim qui n'est pas une engeance : elle n'a ni zone, ni ATT, ni PV. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
 
 Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, qui se lit comme le coût d'un atout. « Total 10+ » demande des dés dont la somme atteint au moins 10.
 
@@ -347,19 +347,19 @@ Une carte Infestation n'est pas une Emprise : rien de ce qui retire ou détruit 
 
 === Mutations
 
-Une *Mutation* est une carte Essaim qui s'attache à une créature pour la modifier. Quand elle est tirée, on la glisse sous la créature désignée par son texte, en laissant dépasser ce texte.
+Une *Mutation* est une carte Essaim qui s'attache à une engeance pour la modifier. Quand elle est tirée, on la glisse sous l'engeance désignée par son texte, en laissant dépasser ce texte.
 
-- La créature mutée est choisie dans le secteur du tirage. « La plus proche de l'As » désigne la créature dans la zone au numéro le plus bas.
-- Les jetons ne peuvent pas être mutés : on les ignore pour choisir la créature.
-- S'il n'y a aucune créature à muter, la Mutation est placée dans la défausse Essaim et sa Menace n'est pas comptée dans le tirage.
-- Une Mutation suit sa créature quand elle est déplacée, et part dans la défausse Essaim quand la créature est détruite.
-- Une créature peut porter plusieurs Mutations. Leurs bonus s'additionnent.
+- L'engeance mutée est choisie dans le secteur du tirage. « La plus proche de l'As » désigne l'engeance dans la zone au numéro le plus bas.
+- Les jetons ne peuvent pas être mutés : on les ignore pour choisir l'engeance.
+- S'il n'y a aucune engeance à muter, la Mutation est placée dans la défausse Essaim et sa Menace n'est pas comptée dans le tirage.
+- Une Mutation suit son engeance quand elle est déplacée, et part dans la défausse Essaim quand l'engeance est détruite.
+- Une engeance peut porter plusieurs Mutations. Leurs bonus s'additionnent.
 
 === Impulsions
 
-Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les créatures, et compte normalement dans le tirage d'invasion.
+Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les engeances, et compte normalement dans le tirage d'invasion.
 
-Quand un effet dit qu'une créature s'active, elle applique son effet d'activation, même si elle est déjà activée.
+Quand un effet dit qu'une engeance s'active, elle applique son effet d'activation, même si elle est déjà activée.
 
 Quand une carte dit « choisissez », ce sont toujours les joueurs qui choisissent. Il en va de même pour toute égalité ou ambiguïté dans un effet de l'Essaim.
 
@@ -456,7 +456,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [*Mot-clé*], [*Effet*],
 
   [Déplacer X],
-  [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
+  [Le joueur choisit une engeance dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
   [Garde X],
   [Le joueur ajoute X points de Garde sur sa carte de suivi. La Garde est remise à zéro au début du tour des joueurs.],
@@ -476,14 +476,14 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [*Mot-clé*], [*Effet*],
 
   [Avance X],
-  [La créature se déplace de X zones vers le joueur (3 → 2 → 1). Elle s'arrête en zone 1.],
+  [L'engeance se déplace de X zones vers le joueur (3 → 2 → 1). Elle s'arrête en zone 1.],
 
   [Recule X],
-  [La créature se déplace de X zones en s'éloignant du joueur (1 → 2 → 3). Elle s'arrête en zone 3.],
+  [L'engeance se déplace de X zones en s'éloignant du joueur (1 → 2 → 3). Elle s'arrête en zone 3.],
 
   [Attaque],
-  [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
+  [L'engeance inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
 
   [Blindage X],
-  [Chaque activation d'atout inflige X dégâts de moins à cette créature. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une créature qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
+  [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
 )

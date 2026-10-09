@@ -6,7 +6,7 @@
   threat: 4,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur qui a l'ATT la plus haute.],
+    [Mutez l'engeance de ce secteur qui a l'ATT la plus haute.],
     [Quand elle s'active, elle s'active une seconde fois.],
   ),
   flavor: [Elle ne s'arrête plus.],

@@ -5,5 +5,5 @@
   kind: "Atout, Arme",
   charge: 2,
   dice: ("3+",),
-  effect: [Ciblez jusqu'à 2 créatures d'une même zone à portée~2. Infligez 2~dégâts à chacune.],
+  effect: [Ciblez jusqu'à 2 engeances d'une même zone à portée~2. Infligez 2~dégâts à chacune.],
 )

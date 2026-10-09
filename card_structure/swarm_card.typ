@@ -74,7 +74,7 @@
     frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
-      text(size: 7pt)[#if type_line != none [#type_line] else if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if mutation [Essaim, Mutation] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
+      text(size: 7pt)[#if type_line != none [#type_line] else if impulse [Essaim, Impulsion] else if emprise [Essaim, Emprise] else if mutation [Essaim, Mutation] else if token [Essaim, Engeance, Jeton] else if structure [Essaim, Engeance, Structure] else [Essaim, Engeance]]
     }))
     if threat != none {
       frame(width - margin - corner_box, margin, corner_box, 8.5mm, number(threat))

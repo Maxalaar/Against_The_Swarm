@@ -6,8 +6,8 @@
   threat: 3,
   mutation: true,
   passive: (
-    [Mutez la créature de ce secteur qui a la Menace la plus haute.],
-    [Quand elle est détruite, créez un jeton qui est une copie de cette créature, sauf qu'il a 1~ATT et 1~PV.],
+    [Mutez l'engeance de ce secteur qui a la Menace la plus haute.],
+    [Quand elle est détruite, créez un jeton qui est une copie de cette engeance, sauf qu'il a 1~ATT et 1~PV.],
   ),
   flavor: [Plus petit. Tout aussi teigneux.],
 )
