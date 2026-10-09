@@ -2,11 +2,10 @@
 
 #let swarmer = swarm_card(
   "Essaimeur",
-  rank: 1,
-  threat: 2,
+  rank: 2,
+  threat: 3,
   zones: (advance, advance, [Crée 1~jeton Essaimé dans cette zone, puis *Attaque*.]),
-  zones_per_line: (2, 1),
-  flavor: [Leur rôle est de répandre l'infestation au plus près de la ligne de front.],
+  flavor: [Là où il s'arrête, ça commence à grouiller.],
   attack: 2,
-  health: 3,
+  endurance: 3,
 )

@@ -5,7 +5,8 @@
   rank: 1,
   threat: 2,
   zones: (advance, advance, attack),
-  passive: [Quand il entre en zone~1 pour la première fois, il inflige 2~dégâts au joueur du secteur.],
+  passive: [Quand il entre en zone~1 pour la première fois, il inflige 2~dégâts à l'As de ce secteur.],
+  flavor: [Il ne freine pas. Il n'a jamais appris.],
   attack: 2,
-  health: 3,
+  endurance: 3,
 )

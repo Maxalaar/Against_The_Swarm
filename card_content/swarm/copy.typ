@@ -4,4 +4,5 @@
   "Copie",
   type_line: [Essaim, Jeton],
   passive: [Ce jeton est une copie.],
+  flavor: [Vous l'avez déjà tué une fois.],
 )

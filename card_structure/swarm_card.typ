@@ -3,12 +3,9 @@
 // Swarm card, 63 x 88 mm.
 // - `rank`: evolution rank, 1 to 4, shown as a Roman numeral left of the name; none hides it.
 // - `threat`: Menace value, top right; tokens have none.
-// - `zones`: what the creature does when it activates in zone 3, zone 2, zone 1.
-// - `zones_per_line`: how the three zones are split over lines, in order 3, 2, 1.
-//   (3,) puts them all on one line, (2, 1) gives zone 1 a line of its own,
-//   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
-// - `zone_lines`: replaces `zones` when several zones share one effect. An array of
-//   (zones, effect) pairs, one per line: (((3, 2), [...]), ((1,), [...])).
+// - `zones`: what the engeance does when it activates in zone 3, zone 2, zone 1.
+//   Neighbouring zones with the same effect are merged under grouped numbers, and the
+//   groups share one line when they fit, otherwise each group gets its own line.
 // - `structure`: true marks a Structure, a creature that never moves. It takes
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
 // - `impulse`: true marks an Impulsion, a one-shot effect that resolves and is discarded.
@@ -21,15 +18,13 @@
 // - `type_line`: replaces the type line under the name, for one-off cards.
 // - `passive`: optional always-on text, printed under the zone lines. Pass an array
 //   to give several abilities; each gets its own paragraph.
-// - `attack` / `health`: bottom-left and bottom-right boxes.
+// - `attack` / `endurance`: bottom-left and bottom-right boxes.
 #let swarm_card(
   name,
   rank: none,
   threat: none,
   token: false,
   zones: (),
-  zones_per_line: (3,),
-  zone_lines: none,
   structure: false,
   impulse: false,
   emprise: false,
@@ -40,7 +35,7 @@
   passive: none,
   flavor: none,
   attack: none,
-  health: none,
+  endurance: none,
 ) = {
   let width = 63mm
   let height = 88mm
@@ -91,55 +86,65 @@
     )
 
     // Text box: one line per zone, always 3, 2, 1, then the passive.
-    frame(margin, 52mm, width - 2 * margin, 26mm, inset: (x: 2mm, y: 1.4mm), {
+    frame(margin, 52mm, width - 2 * margin, 26mm, inset: (x: 2mm, y: 1.4mm), context {
       set text(size: 9pt)
       set par(leading: 0.4em)
-      let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
-      let start = 0
-      let rows = ()
-      for count in (if structure or impulse or emprise or mutation or zones.len() == 0 or zone_lines != none { () } else { zones_per_line }) {
-        let row = cells.slice(start, start + count)
-        start += count
-        rows.push(if count == 1 {
-          // A zone alone on its line: number on the left, text free to wrap.
-          grid(
-            columns: (3.9mm, 1fr),
-            column-gutter: 1.6mm,
-            align: (center + horizon, left + horizon),
-            ..row.first()
-          )
-        } else {
-          // Several zones on one line: spread them out, slightly smaller text.
-          block(width: 100%, inset: (x: 0.5mm), {
-            set text(size: 8.5pt)
-            grid(
-              columns: (auto,) * count,
-              column-gutter: 1fr,
-              align: center + horizon,
-              ..row.map(cell => grid(columns: 2, column-gutter: 1mm, align: horizon, ..cell))
-            )
-          })
-        })
+      // Structures apply one effect in every zone; other kinds of card have no zones.
+      let effects = if structure and activation != none {
+        (activation,) * 3
+      } else if impulse or emprise or mutation {
+        ()
+      } else {
+        zones
       }
-      if zone_lines != none {
-        for (numbers, effect) in zone_lines {
-          rows.push(grid(
-            columns: (auto, 1fr),
-            column-gutter: 1.6mm,
-            align: (center + horizon, left + horizon),
-            numbers.map(zone_block).join(h(0.5mm)), effect,
-          ))
+      // Merge neighbouring zones that share an effect: ((3, 2), effect), ((1,), effect).
+      let groups = ()
+      for (i, effect) in effects.enumerate() {
+        if groups.len() > 0 and groups.last().at(1) == effect {
+          let last = groups.pop()
+          groups.push((last.at(0) + (3 - i,), effect))
+        } else {
+          groups.push(((3 - i,), effect))
         }
       }
-      if structure and activation != none {
-        // One effect for all three zones: the three numbers side by side.
-        rows.push(grid(
-          columns: (auto, 1fr),
-          column-gutter: 1.6mm,
-          align: (center + horizon, left + horizon),
-          range(3).map(i => zone_block(3 - i)).join(h(0.5mm)), activation,
-        ))
+      let numbers(group) = group.at(0).map(zone_block).join(h(0.5mm))
+      let compact(group) = {
+        set text(size: 8.5pt)
+        grid(columns: 2, column-gutter: 1mm, align: horizon, numbers(group), group.at(1))
       }
+      let full_line(group) = grid(
+        columns: (auto, 1fr),
+        column-gutter: 1.6mm,
+        align: (center + horizon, left + horizon),
+        numbers(group), group.at(1),
+      )
+      // Pack the groups into lines: short ones share a line, a long one takes its own.
+      let limit = 55mm
+      let gap = 1.5mm
+      let lines = ()
+      let current = ()
+      let used = 0mm
+      for group in groups {
+        let w = measure(compact(group)).width
+        if current.len() > 0 and used + gap + w > limit {
+          lines.push(current)
+          current = ()
+          used = 0mm
+        }
+        used += if current.len() > 0 { gap + w } else { w }
+        current.push(group)
+      }
+      if current.len() > 0 { lines.push(current) }
+      let rows = lines.map(line => if line.len() == 1 {
+        full_line(line.first())
+      } else {
+        block(width: 100%, inset: (x: 0.5mm), grid(
+          columns: (auto,) * line.len(),
+          column-gutter: 1fr,
+          align: center + horizon,
+          ..line.map(compact)
+        ))
+      })
       let has_lines = rows.len() > 0
       if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
       if removal != none { v(3.6mm) }
@@ -173,10 +178,10 @@
     }
 
     // Bottom row: attack, flavor, health. Cards without stats give the flavor the full width.
-    let has_stats = attack != none or health != none
+    let has_stats = attack != none or endurance != none
     if has_stats {
       frame(margin, 79.5mm, corner_box, 7mm, number(attack))
-      frame(width - margin - corner_box, 79.5mm, corner_box, 7mm, number(health))
+      frame(width - margin - corner_box, 79.5mm, corner_box, 7mm, number(endurance))
     }
     if flavor != none {
       let flavor_x = if has_stats { 2 * margin + corner_box } else { margin }

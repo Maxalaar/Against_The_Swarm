@@ -6,6 +6,6 @@
   threat: 3,
   emprise: true,
   removal: 10,
-  passive: [Quand il s'active, créez 1~jeton Essaimé en zone~2 de ce secteur.],
+  passive: [Quand il s'active, il crée 1~jeton Essaimé en zone~2 de ce secteur.],
   flavor: [Ils ne passent plus par la porte.],
 )

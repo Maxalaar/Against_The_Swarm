@@ -5,7 +5,7 @@
   rank: 2,
   threat: 3,
   emprise: true,
-  removal: ("5+", "5+"),
+  removal: ("4+", "4+"),
   passive: [La portée des atouts de l'As de ce secteur est réduite de 1.],
   flavor: [On tire sur des ombres.],
 )

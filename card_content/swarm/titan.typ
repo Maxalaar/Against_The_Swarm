@@ -3,10 +3,10 @@
 #let titan = swarm_card(
   "Titan",
   rank: 4,
-  threat: 6,
+  threat: 7,
   zones: (advance, advance, attack),
   passive: [*Blindage~1.*],
   flavor: [Le sol le sent arriver avant vous.],
   attack: 5,
-  health: 7,
+  endurance: 7,
 )

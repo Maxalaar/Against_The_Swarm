@@ -4,7 +4,7 @@
   "Essaimé",
   token: true,
   zones: (advance, advance, attack),
-  flavor: [Générés en masse, ils forment la chair sacrifiable de toute force d’invasion.],
+  flavor: [Un seul ne fait pas peur. Il n'y en a jamais un seul.],
   attack: 1,
-  health: 1,
+  endurance: 1,
 )

@@ -2,11 +2,11 @@
 
 #let jammer = swarm_card(
   "Brouilleur",
-  rank: 1,
+  rank: 2,
   threat: 3,
   zones: (advance, advance, attack),
   passive: [Tant qu'il est en zone~1, l'As de ce secteur a −1~PA.],
   flavor: [Son cri vrille les nerfs et brouille les réflexes.],
   attack: 1,
-  health: 3,
+  endurance: 3,
 )

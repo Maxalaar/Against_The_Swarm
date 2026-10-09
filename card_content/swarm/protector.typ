@@ -2,11 +2,11 @@
 
 #let protector = swarm_card(
   "Protecteur",
-  rank: 1,
-  threat: 3,
+  rank: 2,
+  threat: 4,
   zones: (advance, advance, attack),
   passive: [Les autres engeances de sa zone ont *Blindage~1*.],
-  flavor: [Cet organisme projette un bouclier psychique, émanation de la volonté de l’esprit-ruche.],
+  flavor: [Tirez. Il adore ça.],
   attack: 1,
-  health: 3,
+  endurance: 4,
 )

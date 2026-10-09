@@ -219,7 +219,7 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
 
 On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit intacte, soit détruite.
 
-*Seuil* : une engeance est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à ses PV. Sinon, les dégâts sont perdus et l'engeance reste intacte.
+*Seuil* : une engeance est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à son Endurance. Sinon, les dégâts sont perdus et l'engeance reste intacte.
 
 *Tir combiné* : pour additionner des dégâts, un ou plusieurs joueurs déclarent un tir combiné. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque engeance additionne les dégâts de toutes les activations du tir combiné qui la touchent, puis compare ce total à ses PV.
 
@@ -234,12 +234,12 @@ On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple 1 :* un Guerrier a 3 PV. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en tir combiné infligent 4 dégâts : il est détruit.
+  *Exemple 1 :* un Guerrier a 3 d'Endurance. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en tir combiné infligent 4 dégâts : il est détruit.
 
-  *Exemple 2 :* une zone contient quatre engeances à 2 PV. Un tir combiné associe une arme infligeant 1 dégât aux quatre engeances et une autre infligeant 1 dégât à trois d'entre elles. Trois engeances subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
+  *Exemple 2 :* une zone contient quatre engeances à 2 d'Endurance. Un tir combiné associe une arme infligeant 1 dégât aux quatre engeances et une autre infligeant 1 dégât à trois d'entre elles. Trois engeances subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
 
-Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
+Les joueurs, eux, n'ont pas d'Endurance mais des PV : les dégâts qu'ils subissent s'accumulent en Blessures jusqu'à la fin de la vague.
 
 // --- Structure d'une partie ---
 
@@ -325,16 +325,16 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 Chaque carte Essaim de type engeance indique :
 - *Rang d'évolution*, en chiffre romain à gauche du nom : le moment de la partie où la carte rejoint la pile. Les jetons n'en ont pas.
 - *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
-- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand l'engeance s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand les trois blocs sont regroupés devant un seul effet, cet effet s'applique quelle que soit la zone.
+- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand l'engeance s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand plusieurs blocs sont regroupés devant un même effet, cet effet vaut pour chacune de ces zones.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les engeances n'en ont pas.
-- *ATT*, dans l'encart en bas à gauche : dégâts infligés quand l'engeance attaque.
-- *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une engeance détruite est placée dans la défausse Essaim.
+- *Attaque*, dans l'encart en bas à gauche : dégâts infligés quand l'engeance attaque.
+- *Endurance*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une engeance détruite est placée dans la défausse Essaim.
 
 Sauf indication contraire, une engeance entre en jeu en zone 3.
 
 === Emprises
 
-Une *Emprise* est un permanent de l'Essaim qui n'est pas une engeance : elle n'a ni zone, ni ATT, ni PV. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
+Une *Emprise* est un permanent de l'Essaim qui n'est pas une engeance : elle n'a ni zone, ni Attaque, ni Endurance. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
 
 Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, qui se lit comme le coût d'un atout. « Total 10+ » demande des dés dont la somme atteint au moins 10.
 
@@ -357,7 +357,7 @@ Une *Mutation* est une carte Essaim qui s'attache à une engeance pour la modifi
 
 === Impulsions
 
-Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les engeances, et compte normalement dans le tirage d'invasion.
+Une *Impulsion* est une carte Essaim sans Attaque ni Endurance : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les engeances, et compte normalement dans le tirage d'invasion.
 
 Quand un effet dit qu'une engeance s'active, elle applique son effet d'activation, même si elle est déjà activée.
 
@@ -374,10 +374,9 @@ Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, d�
   *Exemple — Bombarde*
 
   #text(size: 9.5pt)[
-    Rang d'évolution : I | Menace : 3 | ATT : 3 | PV : 3 \
+    Rang d'évolution : I | Menace : 3 | Attaque : 2 | Endurance : 2 \
     Zone 3 : Attaque. \
-    Zone 2 : Recule 1. \
-    Zone 1 : Recule 1.
+    Zones 2 et 1 : Recule 1.
   ]
 ]
 
@@ -482,7 +481,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [L'engeance se déplace de X zones en s'éloignant du joueur (1 → 2 → 3). Elle s'arrête en zone 3.],
 
   [Attaque],
-  [L'engeance inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
+  [L'engeance inflige son Attaque en dégâts à l'As du secteur où elle se trouve.],
 
   [Blindage X],
   [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],

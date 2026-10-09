@@ -7,7 +7,7 @@
   mutation: true,
   passive: (
     [Mutez l'engeance de ce secteur la plus proche de l'As.],
-    [Elle gagne +1~ATT.],
+    [Elle gagne +1~Attaque.],
   ),
   flavor: [Elles ont poussé pendant la nuit.],
 )

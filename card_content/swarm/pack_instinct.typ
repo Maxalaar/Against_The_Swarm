@@ -6,8 +6,8 @@
   threat: 3,
   mutation: true,
   passive: (
-    [Mutez l'engeance de ce secteur qui a l'ATT la plus haute.],
-    [Elle gagne +1~ATT pour chaque autre engeance de sa zone.],
+    [Mutez l'engeance de ce secteur qui a l'Attaque la plus haute.],
+    [Elle gagne +1~Attaque pour chaque autre engeance de sa zone.],
   ),
   flavor: [Seule, elle hésite. À dix, jamais.],
 )

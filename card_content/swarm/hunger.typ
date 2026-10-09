@@ -6,6 +6,6 @@
   threat: 3,
   emprise: true,
   removal: 12,
-  passive: [Chaque fois qu'une engeance non‑jeton est détruite dans ce secteur, créez 1~jeton Essaimé en zone~3 de ce secteur.],
+  passive: [Chaque fois qu'une engeance non‑jeton est détruite dans ce secteur, elle crée 1~jeton Essaimé en zone~3 de ce secteur.],
   flavor: [Rien ne se perd. Tout se mange.],
 )

@@ -8,5 +8,5 @@
   passive: [Le niveau de menace de ce secteur augmente de 1.],
   flavor: [Il appelle. Et l'essaim répond.],
   attack: 0,
-  health: 3,
+  endurance: 3,
 )

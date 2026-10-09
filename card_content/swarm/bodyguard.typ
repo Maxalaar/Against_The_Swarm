@@ -8,5 +8,5 @@
   passive: [L'autre engeance de ce secteur qui a la Menace la plus haute ne peut pas être ciblée.],
   flavor: [Il faudra lui passer dessus.],
   attack: 2,
-  health: 3,
+  endurance: 3,
 )

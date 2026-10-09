@@ -5,7 +5,7 @@
   rank: 1,
   threat: 3,
   zones: (attack, retreat, retreat),
-  flavor: [Lance à longue portée des jets corrosifs qui consument chair et acier.],
-  attack: 3,
-  health: 3,
+  flavor: [Elle ne s'approche jamais. Elle n'en a pas besoin.],
+  attack: 2,
+  endurance: 2,
 )

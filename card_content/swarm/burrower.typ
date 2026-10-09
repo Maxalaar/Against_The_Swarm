@@ -5,8 +5,8 @@
   rank: 1,
   threat: 2,
   zones: (advance, advance, attack),
-  passive: [Entre en jeu en zone~2.],
+  passive: [Entre en jeu en zone~1.],
   flavor: [Le sol tremble, puis il s'ouvre.],
-  attack: 2,
-  health: 2,
+  attack: 1,
+  endurance: 2,
 )

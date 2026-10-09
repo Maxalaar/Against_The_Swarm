@@ -7,5 +7,5 @@
   zones: ([*Avance~2.*], advance, attack),
   flavor: [On l'entend bondir. On ne le voit jamais atterrir.],
   attack: 2,
-  health: 2,
+  endurance: 2,
 )

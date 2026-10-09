@@ -6,6 +6,6 @@
   threat: 2,
   emprise: true,
   removal: ("4+", "4+"),
-  passive: [Au début du tour des joueurs, infligez 1~dégât à l'As de ce secteur.],
+  passive: [Au début du tour des joueurs, elle inflige 1~dégât à l'As de ce secteur.],
   flavor: [On ne la voit pas. On la tousse.],
 )

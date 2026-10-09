@@ -8,5 +8,5 @@
   passive: [*Blindage~1.*],
   flavor: [Les balles ricochent. Il faut frapper plus fort.],
   attack: 2,
-  health: 3,
+  endurance: 3,
 )

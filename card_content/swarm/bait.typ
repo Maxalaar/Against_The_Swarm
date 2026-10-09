@@ -11,5 +11,5 @@
   ),
   flavor: [Impossible de regarder ailleurs.],
   attack: 0,
-  health: 3,
+  endurance: 3,
 )

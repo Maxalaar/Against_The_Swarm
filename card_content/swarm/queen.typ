@@ -4,12 +4,9 @@
   "Reine",
   rank: 4,
   threat: 7,
-  zone_lines: (
-    ((3,), [Chaque autre engeance de ce secteur s'active.]),
-    ((2, 1), retreat),
-  ),
+  zones: ([Chaque autre engeance de ce secteur s'active.], retreat, retreat),
   passive: [*Patience~2.*],
   flavor: [Tant qu'elle pense, ils obéissent.],
   attack: 2,
-  health: 6,
+  endurance: 6,
 )

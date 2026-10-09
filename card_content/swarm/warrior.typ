@@ -4,7 +4,7 @@
   "Guerrier",
   token: true,
   zones: (advance, advance, attack),
-  flavor: [Les guerriers forment l'armature solide d'une force de l'essaim.],
+  flavor: [L'essaim en fait des milliers. Un seul suffit à vous tuer.],
   attack: 3,
-  health: 3,
+  endurance: 3,
 )

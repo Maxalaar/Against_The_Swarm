@@ -38,7 +38,6 @@
 #import "card_content/swarm/psychic_relay.typ": psychic_relay
 #import "card_content/swarm/bait.typ": bait
 #import "card_content/swarm/rampart.typ": rampart
-#import "card_content/swarm/artillery.typ": artillery
 #import "card_content/swarm/rage_gland.typ": rage_gland
 #import "card_content/swarm/hive.typ": hive
 
@@ -116,7 +115,6 @@
   psychic_relay,
   bait,
   rampart,
-  artillery,
   rage_gland,
   hive,
   swarm_cloud,

@@ -6,8 +6,8 @@
   threat: 2,
   mutation: true,
   passive: (
-    [Mutez l'engeance de ce secteur qui a le moins de PV.],
-    [Elle gagne +3~PV.],
+    [Mutez l'engeance de ce secteur qui a l'Endurance la plus basse.],
+    [Elle gagne +2~Endurance.],
   ),
   flavor: [Hier c'était la plus chétive.],
 )

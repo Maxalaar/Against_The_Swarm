@@ -8,5 +8,5 @@
   activation: [Crée 1~jeton Essaimé dans cette zone.],
   flavor: [Tant qu'il est là, il en sortira d'autres.],
   attack: 0,
-  health: 3,
+  endurance: 3,
 )
