@@ -345,6 +345,16 @@ Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, q
 
 Une carte Infestation n'est pas une Emprise : rien de ce qui retire ou détruit une Emprise ne peut l'affecter.
 
+=== Mutations
+
+Une *Mutation* est une carte Essaim qui s'attache à une créature pour la modifier. Quand elle est tirée, on la glisse sous la créature désignée par son texte, en laissant dépasser ce texte.
+
+- La créature mutée est choisie dans le secteur du tirage. « La plus proche de l'As » désigne la créature dans la zone au numéro le plus bas.
+- Les jetons ne peuvent pas être mutés : on les ignore pour choisir la créature.
+- S'il n'y a aucune créature à muter, la Mutation est placée dans la défausse Essaim et sa Menace n'est pas comptée dans le tirage.
+- Une Mutation suit sa créature quand elle est déplacée, et part dans la défausse Essaim quand la créature est détruite.
+- Une créature peut porter plusieurs Mutations. Leurs bonus s'additionnent.
+
 === Impulsions
 
 Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les créatures, et compte normalement dans le tirage d'invasion.
@@ -475,5 +485,5 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
 
   [Blindage X],
-  [Chaque activation d'atout inflige X dégâts de moins à cette créature. Dans un tir combiné, la réduction s'applique à chaque activation séparément.],
+  [Chaque activation d'atout inflige X dégâts de moins à cette créature. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une créature qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
 )

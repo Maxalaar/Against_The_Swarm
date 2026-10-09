@@ -51,6 +51,18 @@
 #import "card_content/swarm/infested_ground.typ": infested_ground
 #import "card_content/swarm/eclipse.typ": eclipse
 
+// Mutations: cards attached to a creature
+#import "card_content/swarm/carapace.typ": carapace
+#import "card_content/swarm/hypertrophy.typ": hypertrophy
+#import "card_content/swarm/claws.typ": claws
+#import "card_content/swarm/second_skin.typ": second_skin
+#import "card_content/swarm/egg_sac.typ": egg_sac
+#import "card_content/swarm/acid_blood.typ": acid_blood
+#import "card_content/swarm/offspring.typ": offspring
+#import "card_content/swarm/camouflage.typ": camouflage
+#import "card_content/swarm/frenzy.typ": frenzy
+#import "card_content/swarm/apex.typ": apex
+
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
 #import "card_content/swarm/spitter.typ": spitter
@@ -94,6 +106,16 @@
   fog,
   infested_ground,
   eclipse,
+  carapace,
+  hypertrophy,
+  claws,
+  second_skin,
+  egg_sac,
+  acid_blood,
+  offspring,
+  camouflage,
+  frenzy,
+  apex,
   broodling,
   spitter,
   warrior,
