@@ -7,7 +7,8 @@
 //   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
 // - `structure`: true marks a Structure, a creature that never moves. It takes
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
-// - `passive`: optional always-on text, printed under the zone lines.
+// - `passive`: optional always-on text, printed under the zone lines. Pass an array
+//   to give several abilities; each gets its own paragraph.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
 #let swarm_card(
   name,
@@ -113,13 +114,15 @@
       }
       let has_lines = rows.len() > 0
       if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
-      if passive != none {
+      let passives = if type(passive) == array { passive } else if passive != none { (passive,) } else { () }
+      if passives.len() > 0 {
         if has_lines {
           v(1.2mm, weak: true)
           line(length: 100%, stroke: 0.4pt + luma(130))
           v(1.2mm, weak: true)
         }
-        text(size: 8.5pt, passive)
+        set text(size: 8.5pt)
+        stack(dir: ttb, spacing: 2.8mm, ..passives)
       }
     })
 
