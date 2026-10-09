@@ -34,6 +34,14 @@
 #import "card_content/swarm/rage_gland.typ": rage_gland
 #import "card_content/swarm/hive.typ": hive
 
+// Impulses: one-shot effects, resolved then discarded
+#import "card_content/swarm/swarm_cloud.typ": swarm_cloud
+#import "card_content/swarm/rush.typ": rush
+#import "card_content/swarm/jolt.typ": jolt
+#import "card_content/swarm/psychic_attack.typ": psychic_attack
+#import "card_content/swarm/rampage.typ": rampage
+#import "card_content/swarm/tide.typ": tide
+
 // Tokens, never shuffled into the pile
 #import "card_content/swarm/broodling.typ": broodling
 #import "card_content/swarm/spitter.typ": spitter
@@ -64,6 +72,12 @@
   artillery,
   rage_gland,
   hive,
+  swarm_cloud,
+  rush,
+  jolt,
+  psychic_attack,
+  rampage,
+  tide,
   broodling,
   spitter,
   warrior,

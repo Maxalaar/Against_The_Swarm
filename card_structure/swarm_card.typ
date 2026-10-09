@@ -7,6 +7,8 @@
 //   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
 // - `structure`: true marks a Structure, a creature that never moves. It takes
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
+// - `impulse`: true marks an Impulsion, a one-shot effect that resolves and is discarded.
+//   It has no zones, attack or health; its text goes in `passive`.
 // - `passive`: optional always-on text, printed under the zone lines. Pass an array
 //   to give several abilities; each gets its own paragraph.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
@@ -18,6 +20,7 @@
   zones: (),
   zones_per_line: (3,),
   structure: false,
+  impulse: false,
   activation: none,
   passive: none,
   flavor: none,
@@ -59,7 +62,7 @@
     frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
-      text(size: 7pt)[#if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
+      text(size: 7pt)[#if impulse [Essaim, Impulsion] else if token [Essaim, Créature, Jeton] else if structure [Essaim, Créature, Structure] else [Essaim, Créature]]
     }))
     if threat != none {
       frame(width - margin - corner_box, margin, corner_box, 8.5mm, number(threat))
@@ -79,7 +82,7 @@
       let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
       let start = 0
       let rows = ()
-      for count in (if structure { () } else { zones_per_line }) {
+      for count in (if structure or impulse { () } else { zones_per_line }) {
         let row = cells.slice(start, start + count)
         start += count
         rows.push(if count == 1 {
@@ -126,11 +129,15 @@
       }
     })
 
-    // Bottom row: attack, flavor, health.
-    frame(margin, 79.5mm, corner_box, 7mm, number(attack))
-    frame(width - margin - corner_box, 79.5mm, corner_box, 7mm, number(health))
+    // Bottom row: attack, flavor, health. Cards without stats give the flavor the full width.
+    let has_stats = attack != none or health != none
+    if has_stats {
+      frame(margin, 79.5mm, corner_box, 7mm, number(attack))
+      frame(width - margin - corner_box, 79.5mm, corner_box, 7mm, number(health))
+    }
     if flavor != none {
-      frame(2 * margin + corner_box, 79.5mm, width - 4 * margin - 2 * corner_box, 7mm, inset: (x: 1mm), align(center + horizon, {
+      let flavor_x = if has_stats { 2 * margin + corner_box } else { margin }
+      frame(flavor_x, 79.5mm, width - 2 * flavor_x, 7mm, inset: (x: 1mm), align(center + horizon, {
         set par(leading: 0.3em)
         text(size: 6.3pt, style: "italic", flavor)
       }))

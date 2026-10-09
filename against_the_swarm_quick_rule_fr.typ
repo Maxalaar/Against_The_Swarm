@@ -290,7 +290,7 @@ Les jetons n'ont pas de rang d'évolution.
 
 Tous les joueurs jouent *simultanément*. La communication est libre.
 
-+ Toutes les cartes d'atout et de base activées sont redressées (réinitialisation des utilisations).
++ Toutes les cartes d'atout et de base activées sont désactivées : on les remet droites, et leurs utilisations sont de nouveau disponibles.
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
 + Une fois que tous les joueurs ont déclaré une fin de tour, on passe au tour de l'Essaim.
@@ -301,13 +301,13 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 === Étape 1 — Activation
 
-Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord remis à l'endroit (réinitialisation). Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
+Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord désactivés : on les remet droits. Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, son effet d'activation est appliqué et il devient *activé* : on le pivote à 90°.
 
-Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera redressée au début du tour de l'Essaim suivant, comme les autres.
+Sauf mention contraire, une créature créée par un effet entre en jeu *déjà activée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera désactivée au début du tour de l'Essaim suivant, comme les autres.
 
 === Étape 2 — Invasion
 
-Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cartes Infestation* dans ce secteur. Chaque tirage fonctionne ainsi : on tire des cartes de la pile Essaim jusqu'à ce que la somme des valeurs de Menace atteigne ou dépasse le niveau de menace de la vague. Les cartes tirées entrent en jeu en tant que *permanents* dans le secteur concerné.
+Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cartes Infestation* dans ce secteur. Chaque tirage fonctionne ainsi : on tire des cartes de la pile Essaim jusqu'à ce que la somme des valeurs de Menace atteigne ou dépasse le niveau de menace de la vague. Les cartes créature tirées entrent en jeu en tant que *permanents* dans le secteur concerné. Une carte *Impulsion* n'entre pas en jeu : on applique son effet au secteur concerné, puis on la place dans la défausse Essaim.
 
 - La carte qui fait dépasser le seuil n'entre pas en jeu immédiatement. Elle est mise de côté avec un d6 indiquant les points de menace déjà consommés. Au prochain tirage d'invasion de ce secteur, elle est comptabilisée en premier avec son coût réduit.
 - Si la pile Essaim est vide, mélanger la défausse Essaim pour former une nouvelle pile.
@@ -323,6 +323,14 @@ Chaque carte Essaim de type créature indique :
 - *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une créature détruite est placée dans la défausse Essaim.
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
+
+=== Impulsions
+
+Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les créatures, et compte normalement dans le tirage d'invasion.
+
+Quand un effet demande de *désactiver* une créature puis de l'activer, la créature applique de nouveau son effet d'activation, même si elle s'est déjà activée pendant ce tour.
+
+Quand une carte dit « choisissez », ce sont toujours les joueurs qui choisissent. Il en va de même pour toute égalité ou ambiguïté dans un effet de l'Essaim.
 
 Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
@@ -416,7 +424,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
   [Garde X],
-  [La carte reste activée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
+  [La carte reste activée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est désactivée et la Garde restante est perdue.],
 
   [Soin X],
   [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
