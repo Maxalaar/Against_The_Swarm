@@ -5,5 +5,5 @@
   kind: "Carte de base",
   storage: 0,
   cost: [un dé quelconque],
-  effect: [1 dégât à une cible à portée 1.],
+  effect: [Dégât 1 à une cible à portée 1.],
 )

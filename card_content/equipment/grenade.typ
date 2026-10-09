@@ -5,5 +5,5 @@
   kind: "Arme",
   storage: 1,
   cost: [un dé 5+],
-  effect: [2 dégâts à 3 créatures maximum d'une même zone, à portée 2.],
+  effect: [Dégât 2 à 3 créatures maximum d'une même zone, à portée 2.],
 )

@@ -5,6 +5,6 @@
   kind: "Arme",
   storage: 1,
   cost: [un dé 4+],
-  effect: [2 dégâts à une cible à portée 2.],
+  effect: [Dégât 2 à une cible à portée 2.],
   uses: 3,
 )

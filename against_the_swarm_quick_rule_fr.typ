@@ -127,7 +127,7 @@ Quand un joueur active un équipement, il retire immédiatement les dés utilis�
   #text(size: 9.5pt)[
     Type : Arme — Stockage : 1 \
     Coût : un dé affichant 4+ \
-    Effet : inflige 2 dégâts à une cible à portée 2. Max 3 utilisations par tour.
+    Effet : Dégât 2 à une cible à portée 2. 3 utilisations par tour.
   ]
 ]
 
@@ -142,7 +142,7 @@ Quand un joueur active un équipement, il retire immédiatement les dés utilis�
   [*Nom*], [*Coût*], [*Effet*],
   [Coup de crosse],
   [N'importe quel résultat],
-  [Inflige 1 dégât à portée 1. (1 utilisation par tour)],
+  [Dégât 1 à une cible à portée 1.],
 
   [Déplacement],
   [Un dé affichant 4+],
@@ -204,45 +204,6 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 ]
 
 Les PV des joueurs, eux, sont suivis normalement : les dégâts qu'ils subissent se cumulent jusqu'à la fin de la vague.
-
-// --- Mots-clés ---
-
-= Mots-clés
-
-Les cartes utilisent les mots-clés suivants. Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur la carte.
-
-#table(
-  columns: (auto, auto, 1fr),
-  align: (left, left, left),
-  stroke: 0.5pt,
-  fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
-  inset: 6pt,
-  [*Mot-clé*], [*Cartes*], [*Effet*],
-
-  [Déplacer X],
-  [Joueurs],
-  [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
-
-  [Garde X],
-  [Joueurs],
-  [La carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
-
-  [Soin X],
-  [Joueurs],
-  [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
-
-  [Avance],
-  [Essaim],
-  [La créature se déplace d'une zone vers le joueur (3 → 2 → 1).],
-
-  [Recule],
-  [Essaim],
-  [La créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).],
-
-  [Attaque],
-  [Essaim],
-  [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
-)
 
 // --- Structure d'une partie ---
 
@@ -324,7 +285,7 @@ Chaque carte Essaim de type créature indique :
 
 Sur les cartes, ATT et PV sont notés en bas sous la forme ATT/PV, et la Menace en haut à droite. Les jetons n'ont pas de valeur de Menace.
 
-Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, définis dans le tableau des mots-clés.
+Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
 #block(
   fill: luma(240),
@@ -393,4 +354,53 @@ Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mor
   [Standard], [Libre], [Illimité],
   [Difficile], [Libre], [Tour des joueurs limité en temps réel],
   [Expert], [Interdite], [Tour des joueurs limité en temps réel],
+)
+
+// --- Mots-clés ---
+
+= Mots-clés
+
+Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur la carte.
+
+=== Mots-clés des Slayers
+
+#table(
+  columns: (auto, 1fr),
+  align: (left, left),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
+  inset: 6pt,
+  [*Mot-clé*], [*Effet*],
+
+  [Dégât X],
+  [Inflige X dégâts à chaque cible désignée par la carte. Ces dégâts suivent les règles du seuil et des salves.],
+
+  [Déplacer X],
+  [Le joueur choisit une créature dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
+
+  [Garde X],
+  [La carte reste pivotée et le joueur pose dessus un dé hors réserve réglé sur X. Chaque dégât qu'il subit est absorbé par la Garde et fait baisser ce dé de 1, jusqu'à 0. Au début du prochain tour des joueurs, la carte est redressée et la Garde restante est perdue.],
+
+  [Soin X],
+  [Le joueur ciblé regagne X PV, sans dépasser ses PV max. Un joueur à 0 PV ne peut pas être soigné : il doit d'abord être ramené en jeu.],
+)
+
+=== Mots-clés de l'Essaim
+
+#table(
+  columns: (auto, 1fr),
+  align: (left, left),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { luma(210) } else if calc.odd(row) { luma(248) } else { white },
+  inset: 6pt,
+  [*Mot-clé*], [*Effet*],
+
+  [Avance],
+  [La créature se déplace d'une zone vers le joueur (3 → 2 → 1).],
+
+  [Recule],
+  [La créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).],
+
+  [Attaque],
+  [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
 )
