@@ -5,6 +5,6 @@
   rank: 1,
   threat: 2,
   impulse: true,
-  passive: [Désactivez la créature de ce secteur qui a la Menace la plus haute. Elle s'active.],
+  passive: [La créature de ce secteur qui a la Menace la plus haute s'active.],
   flavor: [On la croyait occupée. Elle ne l'était pas.],
 )

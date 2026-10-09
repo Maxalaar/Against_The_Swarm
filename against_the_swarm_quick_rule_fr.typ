@@ -328,7 +328,7 @@ Sauf indication contraire, une créature entre en jeu en zone 3.
 
 Une *Impulsion* est une carte Essaim sans ATT ni PV : c'est un ordre bref de l'esprit-ruche. Elle a un rang d'évolution et une Menace comme les créatures, et compte normalement dans le tirage d'invasion.
 
-Quand un effet demande de *désactiver* une créature puis de l'activer, la créature applique de nouveau son effet d'activation, même si elle s'est déjà activée pendant ce tour.
+Quand un effet dit qu'une créature s'active, elle applique son effet d'activation, même si elle est déjà activée.
 
 Quand une carte dit « choisissez », ce sont toujours les joueurs qui choisissent. Il en va de même pour toute égalité ou ambiguïté dans un effet de l'Essaim.
 

@@ -5,6 +5,6 @@
   rank: 3,
   threat: 4,
   impulse: true,
-  passive: [Choisissez 3~créatures non-jeton de ce secteur. Désactivez-les. Elles s'activent.],
+  passive: [Choisissez 3~créatures non-jeton de ce secteur. Elles s'activent.],
   flavor: [La ruche a donné l'ordre. Tout bouge en même temps.],
 )
