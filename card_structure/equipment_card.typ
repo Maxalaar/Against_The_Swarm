@@ -16,6 +16,7 @@
 // Asset card ("Atout") or starting card.
 // - `charge`: room the card takes in the player's set; the corner box is hidden at 0.
 // - `dice`: the cost, one label per die, drawn on the seam between art and text.
+// - `name_size`: shrink the title for long names.
 // - `uses`: maximum uses per turn; shown as one dot per use, only above 1.
 #let equipment_card(
   name,
@@ -25,12 +26,14 @@
   effect: none,
   uses: 1,
   flavor: none,
+  name_size: 11pt,
 ) = context {
   let die_size = 8mm
   let gap = 1.2mm
   let card = creat_card(
     name,
     cost: if charge > 0 { charge } else { none },
+    name_size: name_size,
     type: (kind,),
     // The spacer centres the text in the space left under the dice (and dots).
     capacity: ([#v(if uses > 1 { 4.2mm } else { 0.5mm }) #align(center, effect)],),

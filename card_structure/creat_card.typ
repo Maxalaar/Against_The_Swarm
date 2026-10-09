@@ -3,6 +3,7 @@
 #let creat_card(
   name,
   cost: none,
+  name_size: 11pt,
   type: none,
   capacity: none,
   behavior: none,
@@ -128,7 +129,7 @@
     content(
       (name_box_center_x, name_box_top - 3mm),
       anchor: "center",
-      text(size: 11pt, weight: "bold")[#name],
+      text(size: name_size, weight: "bold")[#name],
     )
     
     // Type

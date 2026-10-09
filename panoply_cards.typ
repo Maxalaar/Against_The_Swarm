@@ -63,6 +63,7 @@
 #import "card_content/equipment/demolition_charge.typ": demolition_charge
 #import "card_content/equipment/time_bomb.typ": time_bomb
 #import "card_content/equipment/orbital_bombardment.typ": orbital_bombardment
+#import "card_content/equipment/tactical_nuke.typ": tactical_nuke
 
 #let all-cards = (
   pistol,
@@ -120,6 +121,7 @@
   demolition_charge,
   time_bomb,
   orbital_bombardment,
+  tactical_nuke,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)
