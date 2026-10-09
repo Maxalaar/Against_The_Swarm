@@ -11,6 +11,14 @@ Le projet est en phase de conception, en français uniquement.
 - `card_structure/` : le gabarit de carte (63 × 88 mm) et ses deux variantes, Essaim et atout.
 - `swarm_cards.typ` et `ace_cards.typ` : les planches de cartes à imprimer (9 par page A4), l'une pour l'Essaim, l'autre pour les As (cartes de départ et atouts).
 
+## Générer une seule carte
+
+```
+./render_card.sh card_content/swarm/bombard.typ
+```
+
+L'image est écrite dans `build/`.
+
 ## Générer les PDF
 
 Avec [Typst](https://typst.app) installé :
