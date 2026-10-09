@@ -58,6 +58,7 @@
 #import "card_content/equipment/cheater.typ": cheater
 #import "card_content/equipment/fistful.typ": fistful
 #import "card_content/equipment/amplifier.typ": amplifier
+#import "card_content/equipment/mine.typ": mine
 
 #let all-cards = (
   pistol,
@@ -110,6 +111,7 @@
   cheater,
   fistful,
   amplifier,
+  mine,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)

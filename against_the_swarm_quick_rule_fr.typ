@@ -143,6 +143,12 @@ Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles pa
 
 Un atout sans aucun dé dessiné n'a pas de coût : son effet s'applique tout seul, au moment indiqué par son texte, sans qu'on l'active.
 
+=== Marqueurs
+
+Certains atouts accumulent des *marqueurs*. On les compte avec un d6 posé sur la carte, dont la face indique le nombre de marqueurs. Ils restent d'un tour à l'autre, jusqu'à la fin de la vague.
+
+Poser un marqueur passe par l'activation de l'atout, avec son coût et ses utilisations. Retirer un marqueur pour en obtenir l'effet n'est pas une activation : cela ne coûte aucun dé et n'est pas limité par les utilisations.
+
 === Lire l'effet
 
 Les effets suivent toujours le même ordre : on désigne d'abord les cibles, puis on applique l'effet.
@@ -232,7 +238,7 @@ On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit
 - Une attaque combinée peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
 - Les dés et les utilisations dépensés dans une attaque combinée sont perdus, même si elle ne détruit rien.
 - Une fois l'attaque combinée résolue, il ne reste aucune trace des dégâts : la suivante repart de zéro.
-- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien à l'attaque combinée.
+- Dans une attaque combinée, une engeance subit des dégâts une fois pour chaque effet qui la touche : chaque activation d'atout, chaque marqueur retiré. Ce qui se déclenche « chaque fois qu'elle subit des dégâts » se déclenche donc autant de fois, et une réduction de dégâts s'applique à chacun séparément, avant l'addition.
 
 #block(
   fill: luma(240),
@@ -413,7 +419,7 @@ Quand un joueur est ramené à la vie, les joueurs adjacents lui restituent une 
 
 Quand le dernier round d'une vague est tenu, l'Essaim bat en retraite : tous ses permanents encore en jeu sont détruits, ainsi que les cartes mises de côté lors des tirages d'invasion. Les cartes rejoignent la défausse Essaim et les jetons leur réserve. Rien n'est reporté sur la vague suivante.
 
-Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
+Entre chaque vague, tout est remis à zéro : PV, PA, marqueurs, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
 
 + *Évolution* : avant les vagues 3, 5 et 7, ajouter à la pile Essaim les cartes du nouveau rang d'évolution, puis la mélanger avec sa défausse.
 + *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à sa Panoplie (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
@@ -463,6 +469,9 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [Déplacer X],
   [Le joueur choisit une engeance dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
+  [Armer X],
+  [Placez X marqueurs sur cet atout, sans dépasser le maximum qu'il indique.],
+
   [Garde X],
   [Le joueur ajoute X points de Garde sur sa carte de suivi. La Garde est remise à zéro au début du tour des joueurs.],
 
@@ -490,7 +499,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [L'engeance inflige son Attaque en dégâts à l'As du secteur où elle se trouve.],
 
   [Blindage X],
-  [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans une attaque combinée, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
+  [Chaque fois que cette engeance subit des dégâts, elle en subit X de moins. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
 
   [Patience X],
   [Pendant l'activation de l'Essaim, une engeance ne peut s'activer que lorsque toutes les engeances de Patience inférieure se sont activées. Une engeance sans ce mot-clé a Patience 0.],
