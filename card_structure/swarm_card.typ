@@ -108,6 +108,6 @@
 }
 
 // Zone actions shared by most creatures.
-#let advance = [*Avance.*]
-#let retreat = [*Recule.*]
+#let advance = [*Avance 1.*]
+#let retreat = [*Recule 1.*]
 #let attack = [*Attaque.*]

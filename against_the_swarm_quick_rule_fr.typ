@@ -312,7 +312,7 @@ Chaque carte Essaim de type créature indique :
 
 Sauf indication contraire, une créature entre en jeu en zone 3.
 
-Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
+Les activations utilisent les mots-clés *Avance X*, *Recule X* et *Attaque*, définis dans la section Mots-clés, à la fin de ce document.
 
 #block(
   fill: luma(240),
@@ -325,8 +325,8 @@ Les activations utilisent les mots-clés *Avance*, *Recule* et *Attaque*, défin
   #text(size: 9.5pt)[
     Menace : 3 | ATT : 3 | PV : 3 \
     Zone 3 : Attaque. \
-    Zone 2 : Recule. \
-    Zone 1 : Recule.
+    Zone 2 : Recule 1. \
+    Zone 1 : Recule 1.
   ]
 ]
 
@@ -419,11 +419,11 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   inset: 6pt,
   [*Mot-clé*], [*Effet*],
 
-  [Avance],
-  [La créature se déplace d'une zone vers le joueur (3 → 2 → 1).],
+  [Avance X],
+  [La créature se déplace de X zones vers le joueur (3 → 2 → 1). Elle s'arrête en zone 1.],
 
-  [Recule],
-  [La créature se déplace d'une zone en s'éloignant du joueur (1 → 2 → 3).],
+  [Recule X],
+  [La créature se déplace de X zones en s'éloignant du joueur (1 → 2 → 3). Elle s'arrête en zone 3.],
 
   [Attaque],
   [La créature inflige son ATT en dégâts au joueur du secteur où elle se trouve.],
