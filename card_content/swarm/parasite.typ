@@ -6,6 +6,6 @@
   threat: 4,
   emprise: true,
   removal: ("4+",),
-  passive: [Au début du tour des joueurs, l'As de ce secteur active une de ses cartes.],
+  passive: [Au début du tour des joueurs, l'As de ce secteur active un de ses atouts.],
   flavor: [Ce n'est plus tout à fait votre main.],
 )

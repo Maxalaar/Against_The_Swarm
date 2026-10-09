@@ -2,7 +2,7 @@
 
 #let rifle_butt = equipment_card(
   "Coup de crosse",
-  kind: "Carte de base",
+  kind: "Atout, Base",
   dice: ("",),
   effect: [Infligez 1~dégât à une engeance à portée~1.],
 )

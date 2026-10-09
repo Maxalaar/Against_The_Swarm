@@ -80,7 +80,7 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 + Former la pile Essaim avec les seules cartes de rang d'évolution I. Mettre de côté les cartes des rangs II, III et IV, triées par rang.
 + Mélanger séparément la pile d'atouts et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
-+ Chaque joueur prend sa *carte d'As* et sa *carte de suivi*, et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
++ Chaque joueur prend sa *carte d'As* et sa *carte de suivi*, et place devant lui ses trois *atouts de base* : Coup de crosse, Déplacement, Réanimation.
 + Chaque joueur reçoit une carte *Pistolet* qui constitue son arsenal de départ.
 + Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'atouts, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
@@ -167,7 +167,7 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   ]
 ]
 
-=== Cartes de base _(Charge 0, données à tous les joueurs)_
+=== Atouts de base _(type Atout, Base ; Charge 0, donnés à tous les joueurs)_
 
 #table(
   columns: (auto, auto, 1fr),
@@ -301,7 +301,7 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 + La Garde de chaque joueur est remise à zéro.
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
-+ Une fois que tous les joueurs ont déclaré une fin de tour, toutes les cartes d'atout et de base activées sont désactivées : on les remet droites, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
++ Une fois que tous les joueurs ont déclaré une fin de tour, tous les atouts activés sont désactivés : on les remet droits, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
 
 // --- Tour de l'Essaim ---
 
