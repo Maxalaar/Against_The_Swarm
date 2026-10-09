@@ -219,20 +219,20 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   *Exemple :* un atout à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
-// --- Dégâts et tirs combinés ---
+// --- Dégâts et attaques combinées ---
 
-= Dégâts et tirs combinés
+= Dégâts et attaques combinées
 
 On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit intacte, soit détruite.
 
 *Seuil* : une engeance est détruite si elle subit, en une seule fois, des dégâts supérieurs ou égaux à son Endurance. Sinon, les dégâts sont perdus et l'engeance reste intacte.
 
-*Tir combiné* : pour additionner des dégâts, un ou plusieurs joueurs déclarent un tir combiné. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque engeance additionne les dégâts de toutes les activations du tir combiné qui la touchent, puis compare ce total à ses PV.
+*Attaque combinée* : pour additionner des dégâts, un ou plusieurs joueurs déclarent une attaque combinée. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, activent tous les atouts concernés en même temps, puis résolvent le tout en une seule fois. Chaque engeance additionne les dégâts de toutes les activations de l'attaque combinée qui la touchent, puis compare ce total à ses PV.
 
-- Un tir combiné peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
-- Les dés et les utilisations dépensés dans un tir combiné sont perdus, même s'il ne détruit rien.
-- Une fois le tir combiné résolu, il ne reste aucune trace des dégâts : le suivant repart de zéro.
-- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien au tir combiné.
+- Une attaque combinée peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
+- Les dés et les utilisations dépensés dans une attaque combinée sont perdus, même si elle ne détruit rien.
+- Une fois l'attaque combinée résolue, il ne reste aucune trace des dégâts : la suivante repart de zéro.
+- Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien à l'attaque combinée.
 
 #block(
   fill: luma(240),
@@ -240,9 +240,9 @@ On ne note jamais les blessures des engeances de l'Essaim. Une engeance est soit
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple 1 :* un Guerrier a 3 d'Endurance. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en tir combiné infligent 4 dégâts : il est détruit.
+  *Exemple 1 :* un Guerrier a 3 d'Endurance. Un seul tir de Pistolet (2 dégâts) ne lui fait rien. Deux tirs déclarés en attaque combinée infligent 4 dégâts : il est détruit.
 
-  *Exemple 2 :* une zone contient quatre engeances à 2 d'Endurance. Un tir combiné associe une arme infligeant 1 dégât aux quatre engeances et une autre infligeant 1 dégât à trois d'entre elles. Trois engeances subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
+  *Exemple 2 :* une zone contient quatre engeances à 2 d'Endurance. Une attaque combinée associe une arme infligeant 1 dégât aux quatre engeances et une autre infligeant 1 dégât à trois d'entre elles. Trois engeances subissent 2 dégâts et sont détruites ; la quatrième n'en subit qu'un et reste intacte.
 ]
 
 Les joueurs, eux, n'ont pas d'Endurance mais des PV : les dégâts qu'ils subissent s'accumulent en Blessures jusqu'à la fin de la vague.
@@ -334,7 +334,7 @@ Chaque carte Essaim de type engeance indique :
 - *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand l'engeance s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve. Quand plusieurs blocs sont regroupés devant un même effet, cet effet vaut pour chacune de ces zones.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les engeances n'en ont pas.
 - *Attaque*, dans l'encart en bas à gauche : dégâts infligés quand l'engeance attaque.
-- *Endurance*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en un seul tir combiné pour la détruire. Une engeance détruite est placée dans la défausse Essaim.
+- *Endurance*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en une seule attaque combinée pour la détruire. Une engeance détruite est placée dans la défausse Essaim.
 
 Sauf indication contraire, une engeance entre en jeu en zone 3.
 
@@ -490,7 +490,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [L'engeance inflige son Attaque en dégâts à l'As du secteur où elle se trouve.],
 
   [Blindage X],
-  [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans un tir combiné, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
+  [Chaque activation d'atout inflige X dégâts de moins à cette engeance. Dans une attaque combinée, la réduction s'applique à chaque activation séparément. Les Blindages s'additionnent : une engeance qui a Blindage 2 et gagne Blindage 1 a Blindage 3.],
 
   [Patience X],
   [Pendant l'activation de l'Essaim, une engeance ne peut s'activer que lorsque toutes les engeances de Patience inférieure se sont activées. Une engeance sans ce mot-clé a Patience 0.],
