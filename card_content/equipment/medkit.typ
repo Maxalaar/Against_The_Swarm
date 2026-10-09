@@ -2,7 +2,7 @@
 
 #let medkit = equipment_card(
   "Trousse de secours",
-  kind: "Équipement",
+  kind: "Atout, Matériel",
   storage: 1,
   cost: [une paire],
   effect: [Soin 2, sur vous ou un joueur adjacent.],

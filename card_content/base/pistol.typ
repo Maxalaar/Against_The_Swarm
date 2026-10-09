@@ -2,7 +2,7 @@
 
 #let pistol = equipment_card(
   "Pistolet",
-  kind: "Arme",
+  kind: "Atout, Arme",
   storage: 1,
   cost: [un dé 4+],
   effect: [Dégât 2 à une cible à portée 2.],

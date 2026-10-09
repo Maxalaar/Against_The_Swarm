@@ -2,7 +2,7 @@
 
 #let radio = equipment_card(
   "Radio",
-  kind: "Équipement",
+  kind: "Atout, Matériel",
   storage: 1,
   cost: [un dé quelconque],
   effect: [Donnez ce dé à un autre joueur, qui l'ajoute à sa réserve avec la même valeur.],

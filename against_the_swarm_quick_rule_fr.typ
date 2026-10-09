@@ -54,7 +54,7 @@
     radius: 4pt,
     [
       #text(style: "italic")[
-        Quelque part dans les confins de la galaxie, une équipe de combattants d'élite affronte une menace sans fin. L'essaim ne peut pas être vaincu, seulement repoussé. Combien de temps tiendrez-vous ?
+        Quelque part dans les confins de la galaxie, une équipe d'As affronte une menace sans fin. L'essaim ne peut pas être vaincu, seulement repoussé. Combien de temps tiendrez-vous ?
       ]
     ]
   )
@@ -68,7 +68,7 @@
 = Mise en place
 
 Le jeu utilise deux piles, chacune avec sa propre défausse :
-- *Pile d'équipement* : source des cartes proposées lors du draft.
+- *Pile d'atouts* : source des cartes proposées lors du draft.
 - *Pile Essaim* : source des renforts lors de la phase d'invasion.
 
 Quand une pile est vide, on mélange sa défausse pour former une nouvelle pile.
@@ -77,36 +77,36 @@ Les cartes *Jeton* ne sont jamais mélangées dans la pile Essaim : elles sont g
 
 *Avant la première vague :*
 
-+ Mélanger séparément la pile d'équipement et la pile Essaim.
++ Mélanger séparément la pile d'atouts et la pile Essaim.
 + Les joueurs se disposent en boucle autour de la table.
-+ Chaque joueur prend sa *carte de personnage* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
++ Chaque joueur prend sa *carte d'As* et place devant lui ses trois *cartes de base* : Coup de crosse, Déplacement, Réanimation.
 + Chaque joueur reçoit une carte *Pistolet* qui constitue son arsenal de départ.
-+ Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'équipement, en choisir 1 (ou aucune), défausser les cartes non choisies.
++ Chaque joueur effectue deux fois le draft de départ : tirer 3 cartes de la pile d'atouts, en choisir 1 (ou aucune), défausser les cartes non choisies.
 + Chaque joueur place une *carte Infestation* dans son secteur.
 
 // --- Caractéristiques ---
 
 = Caractéristiques des joueurs
 
-Les caractéristiques de chaque joueur sont indiquées sur sa *carte de personnage* :
+Les caractéristiques de chaque joueur sont indiquées sur sa *carte d'As* :
 
 *PV — Points de Vie Max* (base 5) \
 Nombre de points de vie maximum. Au début de chaque vague, le joueur commence avec ses PV au maximum. Les PV peuvent varier au cours d'une vague mais ne peuvent jamais dépasser la valeur max. À 0 PV, le joueur est mis hors jeu pour la vague en cours.
 
 *PA — Points d'Action* (base 5) \
-Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs équipements.
+Nombre de d6 lancés par le joueur à chaque tour. C'est avec ces dés que les joueurs activent leurs atouts.
 
 *PS — Points de Stockage* (base 5) \
-Limite le nombre d'équipements que le joueur peut porter. La somme des valeurs de Stockage de son arsenal ne peut pas dépasser sa valeur de PS.
+Limite le nombre d'atouts que le joueur peut porter. La somme des valeurs de Stockage de son arsenal ne peut pas dépasser sa valeur de PS.
 
 // --- Arsenal ---
 
 = L'Arsenal
 
-L'ensemble des équipements qu'un joueur porte s'appelle son *arsenal*.
+L'ensemble des atouts qu'un joueur porte s'appelle son *arsenal*.
 
-Chaque équipement possède :
-- Un *Stockage* : nombre de PS que l'équipement occupe dans l'arsenal.
+Chaque atout possède :
+- Un *Stockage* : nombre de PS que l'atout occupe dans l'arsenal.
 - Une ou plusieurs *capacités*, chacune se caractérisant par :
   - Un *coût* : un ou plusieurs d6 avec des résultats spécifiques à obtenir. « Un dé 4+ » demande un dé affichant 4 ou plus ; « une paire » demande deux dés de même valeur.
   - Un *effet* : déclenché quand le joueur paie le coût.
@@ -114,7 +114,7 @@ Chaque équipement possède :
 
 Quand un effet indique « N créatures maximum », le joueur choisit lui-même les créatures touchées, sans jamais dépasser ce nombre.
 
-Quand un joueur active un équipement, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est pivotée à 90° et ne peut plus être activée jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres équipements entre elles. Chaque activation peut cependant cibler une cible différente.
+Quand un joueur active un atout, il retire immédiatement les dés utilisés de sa réserve d'activation. Une fois qu'une capacité a été utilisée (une ou plusieurs fois), la carte est pivotée à 90° et ne peut plus être activée jusqu'au début du prochain tour. Si une capacité possède plusieurs utilisations, toutes ses activations doivent être effectuées consécutivement — on ne peut pas intercaler les capacités d'autres atouts entre elles. Chaque activation peut cependant cibler une cible différente.
 
 #block(
   fill: luma(240),
@@ -174,7 +174,7 @@ Un joueur peut cibler un permanent dans un secteur adjacent, mais la portée eff
   radius: 4pt,
   width: 100%,
 )[
-  *Exemple :* un équipement à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
+  *Exemple :* un atout à portée 2 peut atteindre un permanent en zone 1 du secteur voisin (2 − 1 = 1 ✓). Il ne peut pas atteindre la zone 2 du même secteur voisin (portée insuffisante).
 ]
 
 // --- Dégâts et salves ---
@@ -187,7 +187,7 @@ On ne note jamais les blessures des créatures de l'Essaim. Une créature est so
 
 *Salve* : pour additionner des dégâts, un ou plusieurs joueurs déclarent une salve. Ils annoncent ensemble toutes les activations qui en font partie, paient leurs coûts, puis les résolvent en une seule fois. Chaque créature additionne les dégâts de toutes les activations de la salve qui la touchent, puis compare ce total à ses PV.
 
-- Une salve peut mêler plusieurs équipements et plusieurs joueurs, tant que chaque activation respecte sa portée.
+- Une salve peut mêler plusieurs atouts et plusieurs joueurs, tant que chaque activation respecte sa portée.
 - Les dés et les utilisations dépensés dans une salve sont perdus, même si elle ne détruit rien.
 - Une fois la salve résolue, il ne reste aucune trace des dégâts : une nouvelle salve repart de zéro.
 - Quand un effet réduit les dégâts, la réduction s'applique à chaque activation séparément, avant l'addition. Une activation réduite à 0 n'apporte rien à la salve.
@@ -254,9 +254,9 @@ Le nombre de rounds à tenir commence à 5 et augmente de 1 tous les 2 vagues à
 
 Tous les joueurs jouent *simultanément*. La communication est libre.
 
-+ Toutes les cartes d'équipement et de base pivotées sont remises à l'endroit (réinitialisation des utilisations).
++ Toutes les cartes d'atout et de base pivotées sont remises à l'endroit (réinitialisation des utilisations).
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
-+ Les joueurs affectent leurs dés à leurs équipements pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
++ Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
 + Une fois que tous les joueurs ont déclaré une fin de tour, on passe au tour de l'Essaim.
 
 // --- Tour de l'Essaim ---
@@ -328,9 +328,9 @@ Quand le dernier round d'une vague est tenu, l'Essaim bat en retraite : tous ses
 
 Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mort. Chaque joueur récupère sa carte Infestation si elle avait été transmise.
 
-+ *Draft* : chaque joueur tire 3 cartes de la pile d'équipement et peut en ajouter 1 à son arsenal (ou aucune). Les cartes non choisies partent ensuite en défausse équipement.
-+ *Échange* : chaque joueur peut donner un équipement de son arsenal à un autre joueur de son choix.
-+ *Défausse* : chaque joueur retire de son arsenal les équipements de son choix jusqu'à ce que la somme des valeurs de Stockage ne dépasse plus sa valeur de PS.
++ *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à son arsenal (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
++ *Échange* : chaque joueur peut donner un atout de son arsenal à un autre joueur de son choix.
++ *Défausse* : chaque joueur retire de son arsenal les atouts de son choix jusqu'à ce que la somme des valeurs de Stockage ne dépasse plus sa valeur de PS.
 
 // --- Fin de partie ---
 
@@ -362,7 +362,7 @@ Entre chaque vague, tout est remis à zéro : PV, PA, pénalités dues à la mor
 
 Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur la carte.
 
-=== Mots-clés des Slayers
+=== Mots-clés des As
 
 #table(
   columns: (auto, 1fr),

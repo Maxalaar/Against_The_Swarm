@@ -2,7 +2,7 @@
 
 #let grenade = equipment_card(
   "Grenade",
-  kind: "Arme",
+  kind: "Atout, Arme",
   storage: 1,
   cost: [un dé 5+],
   effect: [Dégât 2 à 3 créatures maximum d'une même zone, à portée 2.],

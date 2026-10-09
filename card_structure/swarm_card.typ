@@ -1,6 +1,6 @@
 #import "creat_card.typ": creat_card
 
-// Carte de l'Essaim. `threat` est la Menace ; les jetons n'en ont pas.
+// Swarm card. `threat` is the Menace value; tokens have none.
 #let swarm_card(
   name,
   threat: none,

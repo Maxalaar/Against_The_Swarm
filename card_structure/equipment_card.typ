@@ -1,10 +1,10 @@
 #import "creat_card.typ": creat_card
 
-// Carte d'équipement ou carte de base.
-// `uses` n'est affiché que s'il est supérieur à 1 (1 est la valeur par défaut des règles).
+// Asset card ("Atout") or starting card.
+// `uses` is only printed above 1, which is the default in the rules.
 #let equipment_card(
   name,
-  kind: "Équipement",
+  kind: "Atout, Matériel",
   storage: 0,
   cost: none,
   effect: none,

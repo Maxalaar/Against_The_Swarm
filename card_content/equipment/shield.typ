@@ -2,7 +2,7 @@
 
 #let shield = equipment_card(
   "Bouclier",
-  kind: "Équipement",
+  kind: "Atout, Matériel",
   storage: 2,
   cost: [un dé 3+],
   effect: [Garde 3.],
