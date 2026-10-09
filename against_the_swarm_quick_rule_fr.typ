@@ -303,6 +303,8 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 
 Tous les permanents de l'Essaim présents sur le champ de bataille sont d'abord remis à l'endroit (réinitialisation). Puis ils s'activent dans l'ordre choisi par les joueurs : quand un permanent s'active, il est pivoté à 90° et son effet d'activation est appliqué.
 
+Une créature créée par un effet entre en jeu *pivotée* : elle ne s'active pas pendant ce tour de l'Essaim. Elle sera redressée au début du tour de l'Essaim suivant, comme les autres.
+
 === Étape 2 — Invasion
 
 Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cartes Infestation* dans ce secteur. Chaque tirage fonctionne ainsi : on tire des cartes de la pile Essaim jusqu'à ce que la somme des valeurs de Menace atteigne ou dépasse le niveau de menace de la vague. Les cartes tirées entrent en jeu en tant que *permanents* dans le secteur concerné.
