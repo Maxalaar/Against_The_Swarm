@@ -2,9 +2,9 @@
 
 #let magazine = equipment_card(
   "Chargeur",
-  kind: "Atout, Matériel",
+  kind: "Atout, Module",
   slots: 1,
-  dice: ("",),
-  effect: [Un de vos autres atouts gagne 1~utilisation ce tour.],
+  dice: (),
+  effect: [L'atout modifié a 1~utilisation de plus.],
   flavor: [Encore une. Juste une.],
 )

@@ -117,7 +117,7 @@ L'ensemble des atouts qu'un joueur porte s'appelle sa *Panoplie*.
 Chaque atout possède :
 - Des *emplacements* : la place que l'atout occupe dans la Panoplie, indiquée dans le carré en haut à droite. Une carte sans carré n'occupe aucun emplacement.
 - Une *capacité*, composée d'un coût, d'un effet et d'un nombre d'utilisations.
-- Un *type*, sous son nom : Arme, Matériel ou Technique. Les Armes ont aussi une famille (Mêlée, Tir, Explosif ou Énergie), à laquelle certains atouts donnent des bonus.
+- Un *type*, sous son nom : Arme, Matériel, Technique ou Module. Les Armes ont aussi une famille (Mêlée, Tir, Explosif ou Énergie), à laquelle certains atouts donnent des bonus.
 
 === Lire le coût
 
@@ -142,6 +142,15 @@ Le coût est dessiné sous forme de dés, entre l'illustration et le texte. Chaq
 Les *points noirs* sous les dés indiquent le nombre d'utilisations possibles par tour. Sans point, la capacité ne s'utilise qu'une fois par tour. Quels que soient les malus, un atout a toujours au moins une utilisation par tour.
 
 Un atout sans aucun dé dessiné n'a pas de coût : son effet s'applique tout seul, au moment indiqué par son texte, sans qu'on l'active.
+
+=== Modules
+
+Un *Module* est un atout qui en améliore un autre. On le glisse sous l'atout qu'il modifie, en laissant dépasser son texte ; cet atout est « l'atout modifié ».
+
+- Un Module occupe ses emplacements comme n'importe quel atout.
+- Un atout peut porter autant de Modules qu'on veut.
+- Un joueur peut réorganiser ses Modules à tout moment : les déplacer d'un atout à un autre, ou les détacher. Un Module qui n'est attaché à rien n'a aucun effet.
+- Quand un atout quitte la Panoplie, ses Modules y restent.
 
 === Marqueurs
 

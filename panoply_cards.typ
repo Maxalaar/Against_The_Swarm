@@ -69,6 +69,10 @@
 #import "card_content/equipment/acid_grenade.typ": acid_grenade
 #import "card_content/equipment/gravity_grenade.typ": gravity_grenade
 #import "card_content/equipment/frag_mine.typ": frag_mine
+#import "card_content/equipment/long_barrel.typ": long_barrel
+#import "card_content/equipment/double_trigger.typ": double_trigger
+#import "card_content/equipment/sight.typ": sight
+#import "card_content/equipment/primer.typ": primer
 
 #let all-cards = (
   pistol,
@@ -132,6 +136,10 @@
   acid_grenade,
   gravity_grenade,
   frag_mine,
+  long_barrel,
+  double_trigger,
+  sight,
+  primer,
 )
 
 #paginated_card_grid(all-cards, cards-per-page: 9, columns: 3)

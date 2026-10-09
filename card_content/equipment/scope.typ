@@ -2,9 +2,9 @@
 
 #let scope = equipment_card(
   "Lunette",
-  kind: "Atout, Matériel",
+  kind: "Atout, Module",
   slots: 1,
   dice: (),
-  effect: [Vos Armes ont +1 de portée.],
+  effect: [L'atout modifié a +1 de portée.],
   flavor: [Ils sont plus laids de près.],
 )
