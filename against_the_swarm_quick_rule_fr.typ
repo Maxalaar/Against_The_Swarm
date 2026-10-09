@@ -149,7 +149,7 @@ Un *Module* est un atout qui en améliore un autre. On le glisse sous l'atout qu
 
 - Un Module occupe ses emplacements comme n'importe quel atout.
 - Un atout peut porter autant de Modules qu'on veut.
-- Un joueur peut réorganiser ses Modules à tout moment : les déplacer d'un atout à un autre, ou les détacher. Un Module qui n'est attaché à rien n'a aucun effet.
+- Pendant la phase de préparation, un joueur peut réorganiser ses Modules comme il veut : les déplacer d'un atout à un autre, ou les détacher. Une fois la vague commencée, ils ne bougent plus. Un Module qui n'est attaché à rien n'a aucun effet.
 - Quand un atout quitte la Panoplie, ses Modules y restent.
 
 === Marqueurs
@@ -437,6 +437,7 @@ Entre chaque vague, tout est remis à zéro : PV, PA, marqueurs, pénalités due
 + *Draft* : chaque joueur tire 3 cartes de la pile d'atouts et peut en ajouter 1 à sa Panoplie (ou aucune). Les cartes non choisies partent ensuite en défausse d'atouts.
 + *Échange* : chaque joueur peut donner un atout de sa Panoplie à un autre joueur de son choix.
 + *Défausse* : chaque joueur retire de sa Panoplie les atouts de son choix jusqu'à ce qu'ils tiennent dans les emplacements de son As.
++ *Modules* : chaque joueur attache, déplace ou détache ses Modules. Ils resteront en place pendant toute la vague.
 
 // --- Fin de partie ---
 
