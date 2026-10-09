@@ -1,7 +1,7 @@
 #import "../../card_structure/swarm_card.typ": swarm_card
 
-#let hive_mind = swarm_card(
-  "Esprit-ruche",
+#let crushing_presence = swarm_card(
+  "Présence écrasante",
   rank: 2,
   threat: 3,
   emprise: true,

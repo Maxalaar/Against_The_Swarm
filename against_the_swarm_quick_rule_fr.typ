@@ -339,7 +339,8 @@ Une *Emprise* est un permanent de l'Essaim qui n'est pas une créature : elle n'
 Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, qui se lit comme le coût d'un atout. « Total 10+ » demande des dés dont la somme atteint au moins 10.
 
 - Seuls l'As du secteur et les As des secteurs adjacents peuvent payer.
-- Le coût se paie en une seule fois, par un seul joueur, pendant un seul tour. Deux joueurs ne peuvent pas se partager un coût, et aucun dé ne reste sur la carte d'un tour à l'autre.
+- Un coût en dés précis (une valeur, une paire, un brelan, une suite) se paie en une seule fois, par un seul joueur, pendant un seul tour.
+- Un coût « Total » se paie petit à petit : les dés dépensés restent posés sur la carte, d'un tour à l'autre, jusqu'à ce que leur somme atteigne le total. Plusieurs joueurs peuvent y contribuer.
 - Une Emprise retirée est placée dans la défausse Essaim.
 
 Une carte Infestation n'est pas une Emprise : rien de ce qui retire ou détruit une Emprise ne peut l'affecter.
