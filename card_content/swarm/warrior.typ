@@ -4,7 +4,6 @@
   "Guerrier",
   token: true,
   zones: (advance, advance, attack),
-  inline_zones: true,
   flavor: [Les guerriers forment l'armature solide d'une force de l'essaim.],
   attack: 3,
   health: 3,

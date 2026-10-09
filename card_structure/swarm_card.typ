@@ -1,10 +1,9 @@
 // Swarm card, 63 x 88 mm.
 // - `threat`: Menace value, top right; tokens have none.
 // - `zones`: what the creature does when it activates in zone 3, zone 2, zone 1.
-// - `inline_zones`: true puts the three zones side by side on one line; meant for
-//   short actions such as a single keyword. false (default) gives one line per zone.
-// - `zones_at_bottom`: true pins the zones to the bottom of the text box, with the
-//   passive above them; false (default) puts the zones first.
+// - `zones_per_line`: how the three zones are split over lines, in order 3, 2, 1.
+//   (3,) puts them all on one line, (2, 1) gives zone 1 a line of its own,
+//   (1, 1, 1) gives one line per zone. A zone alone on its line can hold a full sentence.
 // - `passive`: optional always-on text, printed under the zone lines.
 // - `attack` / `health`: bottom-left and bottom-right boxes.
 #let swarm_card(
@@ -12,8 +11,7 @@
   threat: none,
   token: false,
   zones: (),
-  inline_zones: false,
-  zones_at_bottom: false,
+  zones_per_line: (3,),
   passive: none,
   flavor: none,
   attack: none,
@@ -66,42 +64,34 @@
     frame(margin, 52mm, width - 2 * margin, 26mm, inset: (x: 2mm, y: 1.4mm), {
       set text(size: 9pt)
       set par(leading: 0.4em)
-      let zone_lines = if inline_zones {
-        grid(
-          columns: (1fr,) * zones.len(),
-          align: center + horizon,
-          ..zones.enumerate().map(((i, action)) => grid(
-            columns: 2,
-            column-gutter: 1.2mm,
-            align: horizon,
-            zone_block(3 - i), action,
-          ))
-        )
-      } else {
-        grid(
-          columns: (3.9mm, 1fr),
-          column-gutter: 1.6mm,
-          row-gutter: 0.6mm,
-          align: (center + horizon, left + horizon),
-          ..zones.enumerate().map(((i, action)) => (zone_block(3 - i), action)).flatten()
-        )
+      let cells = zones.enumerate().map(((i, action)) => (zone_block(3 - i), action))
+      let start = 0
+      let rows = ()
+      for count in zones_per_line {
+        let row = cells.slice(start, start + count)
+        start += count
+        rows.push(if count == 1 {
+          // A zone alone on its line: number on the left, text free to wrap.
+          grid(
+            columns: (3.9mm, 1fr),
+            column-gutter: 1.6mm,
+            align: (center + horizon, left + horizon),
+            ..row.first()
+          )
+        } else {
+          grid(
+            columns: (1fr,) * count,
+            align: center + horizon,
+            ..row.map(cell => grid(columns: 2, column-gutter: 1.2mm, align: horizon, ..cell))
+          )
+        })
       }
-      let rule = line(length: 100%, stroke: 0.4pt + luma(130))
-      let passive_text = if passive != none { text(size: 8.5pt, passive) }
-      if zones_at_bottom {
-        passive_text
-        place(bottom + left, block(width: 100%, {
-          if passive != none { rule; v(1.2mm, weak: true) }
-          zone_lines
-        }))
-      } else {
-        zone_lines
-        if passive != none {
-          v(1.2mm, weak: true)
-          rule
-          v(1.2mm, weak: true)
-          passive_text
-        }
+      stack(dir: ttb, spacing: 1.4mm, ..rows)
+      if passive != none {
+        v(1.2mm, weak: true)
+        line(length: 100%, stroke: 0.4pt + luma(130))
+        v(1.2mm, weak: true)
+        text(size: 8.5pt, passive)
       }
     })
 

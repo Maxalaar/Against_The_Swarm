@@ -305,7 +305,7 @@ Pour chaque secteur, on effectue autant de tirages d'invasion qu'il y a de *cart
 
 Chaque carte Essaim de type créature indique :
 - *Menace*, dans le carré en haut à droite : valeur comptée lors du tirage d'invasion. Les jetons n'ont pas de Menace, donc pas de carré.
-- *Activation*, dans le cadre de texte : trois lignes numérotées 3, 2 et 1. Quand la créature s'active, elle applique la ligne de la zone où elle se trouve.
+- *Activation*, dans le cadre de texte : trois blocs numérotés 3, 2 et 1, chacun suivi d'un effet. Quand la créature s'active, elle applique l'effet du bloc correspondant à la zone où elle se trouve.
 - *Passif*, sous le filet : un effet permanent ou déclenché, qui ne dépend pas de l'activation. Toutes les créatures n'en ont pas.
 - *ATT*, dans l'encart en bas à gauche : dégâts infligés quand la créature attaque.
 - *PV*, dans l'encart en bas à droite : le seuil de dégâts à atteindre en une seule salve pour la détruire. Une créature détruite est placée dans la défausse Essaim.
