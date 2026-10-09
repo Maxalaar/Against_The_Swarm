@@ -1,4 +1,5 @@
 // Swarm card, 63 x 88 mm.
+// - `rank`: evolution rank, 1 to 4, shown as a Roman numeral left of the name; none hides it.
 // - `threat`: Menace value, top right; tokens have none.
 // - `zones`: what the creature does when it activates in zone 3, zone 2, zone 1.
 // - `zones_per_line`: how the three zones are split over lines, in order 3, 2, 1.
@@ -8,6 +9,7 @@
 // - `attack` / `health`: bottom-left and bottom-right boxes.
 #let swarm_card(
   name,
+  rank: none,
   threat: none,
   token: false,
   zones: (),
@@ -42,9 +44,14 @@
   box(width: width, height: height, {
     place(top + left, rect(width: width, height: height, radius: 2.5mm, fill: rgb("#cfcfca"), stroke: 1mm + black))
 
-    // Top row: name and type, then the threat box.
-    let name_width = if threat != none { width - 3 * margin - corner_box } else { width - 2 * margin }
-    frame(margin, margin, name_width, 8.5mm, align(center + horizon, {
+    // Top row: evolution rank, name and type, threat.
+    let side = corner_box + margin
+    let name_x = margin + if rank != none { side } else { 0mm }
+    let name_width = width - 2 * margin - (if rank != none { side } else { 0mm }) - (if threat != none { side } else { 0mm })
+    if rank != none {
+      frame(margin, margin, corner_box, 8.5mm, number(("I", "II", "III", "IV").at(rank - 1)))
+    }
+    frame(name_x, margin, name_width, 8.5mm, align(center + horizon, {
       text(size: 11pt, weight: "bold")[#name]
       v(-2.3mm)
       text(size: 7pt)[#if token [Essaim, Créature, Jeton] else [Essaim, Créature]]
