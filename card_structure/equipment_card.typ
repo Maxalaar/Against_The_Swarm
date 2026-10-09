@@ -32,7 +32,8 @@
     name,
     cost: if charge > 0 { charge } else { none },
     type: (kind,),
-    capacity: ([#v(if uses > 1 { 5mm } else { 3.5mm }) #align(center, effect)],),
+    // The spacer centres the text in the space left under the dice (and dots).
+    capacity: ([#v(if uses > 1 { 4.2mm } else { 0.5mm }) #align(center, effect)],),
     capacity_text_size: 9.5pt,
     flavor: flavor,
     background_color: rgb("#c5d3e0"),
