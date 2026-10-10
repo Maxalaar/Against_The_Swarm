@@ -280,11 +280,13 @@ Les joueurs, eux, n'ont pas d'Endurance mais des PV : les dégâts qu'ils subiss
   PARTIE
    └── VAGUE
         └── ROUND
-             ├── Tour des joueurs
-             └── Tour de l'Essaim
+             ├── Tour de l'Essaim
+             └── Tour des joueurs
    └── PRÉPARATION (entre chaque vague)
   ```
 ]
+
+Chaque round commence par le *tour de l'Essaim*, suivi du *tour des joueurs*. Au premier round d'une vague, l'Essaim n'a encore rien à activer : son tour se résume à l'invasion.
 
 === Durée et progression des vagues
 
@@ -325,7 +327,7 @@ Tous les joueurs jouent *simultanément*. La communication est libre.
 + La Garde de chaque joueur est remise à zéro.
 + Chaque joueur lance un nombre de dés égal à ses PA. Ces dés constituent sa réserve d'activation.
 + Les joueurs affectent leurs dés à leurs atouts pour les activer. Les dés utilisés sont immédiatement retirés de la réserve et l'effet est appliqué.
-+ Une fois que tous les joueurs ont déclaré une fin de tour, tous les atouts épuisés redeviennent prêts : on les remet droits, et leurs utilisations sont de nouveau disponibles. On passe ensuite au tour de l'Essaim.
++ Une fois que tous les joueurs ont déclaré une fin de tour, tous les atouts épuisés redeviennent prêts : on les remet droits, et leurs utilisations sont de nouveau disponibles. Le round est alors terminé : le suivant commence par le tour de l'Essaim.
 
 // --- Tour de l'Essaim ---
 

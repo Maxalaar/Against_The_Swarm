@@ -47,8 +47,13 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 #field .band { position: absolute; left: 14%; right: 0; height: 33.334%; border-bottom: 2px solid var(--line); pointer-events: none; }
 #field .band.last { border-bottom: 0; }
 #field .band .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; }
-.side { position: absolute; right: 24px; top: 16px; z-index: 100000; width: 176px; display: flex; flex-direction: column; gap: 6px; opacity: .92; }
+.side { position: absolute; right: 24px; top: 16px; z-index: 100000; width: 200px; display: flex; flex-direction: column; gap: 6px; opacity: .92; }
 .side button { border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
+.banner { position: absolute; left: 50%; top: 16px; transform: translateX(-50%); z-index: 100000; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: calc(100% - 470px); background: var(--surface); border: 2px solid var(--accent); border-radius: 14px; padding: 6px 12px; box-shadow: 0 3px 12px var(--shade); }
+.banner .display { font-size: 22px; white-space: nowrap; }
+.draft { display: flex; gap: 12px; justify-content: center; }
+.draft button { flex: 1 1 0; max-width: 240px; padding: 0; border: 0; background: none; }
+.draft img { width: 100%; display: block; border-radius: 10px; box-shadow: 0 2px 8px var(--shade); }
 .side .split { display: flex; gap: 4px; }
 .side .bubble { align-items: center; background: var(--raised); border: 1px solid var(--line); border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
 .side .bubble span { flex: 1; text-align: center; }
@@ -94,6 +99,7 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 
 @media (max-width: 700px) {
   :root { --card: 62px; }
+  .banner { max-width: calc(100% - 24px); top: 8px; }
   .side { left: 20px; right: 20px; top: auto; bottom: 12px; width: auto; flex-direction: row; overflow-x: auto; gap: 4px; font-size: 13px; }
   .side button, .side .split { flex: 0 0 auto; min-height: 32px; }
   .dock { flex-wrap: wrap; gap: 6px; max-height: 46%; overflow-y: auto; }
@@ -135,7 +141,7 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 /* The table knows no rules. It moves cards, shuffles piles, rolls dice and draws invasions.
    Everything fits one fixed screen: no camera. Positions on the mat are fractions of their area.
    One browser tab shows one player's sector. Tabs of the same browser share the game through localStorage. */
-const SAVE_KEY = "against-the-swarm-table-5", SEAT_KEY = "against-the-swarm-seat", SIZE_KEY = "against-the-swarm-card-size";
+const SAVE_KEY = "against-the-swarm-table-6", SEAT_KEY = "against-the-swarm-seat", SIZE_KEY = "against-the-swarm-card-size";
 const FREE_AREAS = ["field"];
 const STRIP = 0.14; /* width of the Emprise strip, a purely graphic mark on the single play area */
 const ZONE_NAMES = ["Zone 3 · Éloignée", "Zone 2 · Proche", "Zone 1 · Contact"];
@@ -216,7 +222,7 @@ function placeDie(area, x, y, extra = {}) {
 }
 function seatPlayer(ace) {
   const sector = state.sectors.length;
-  state.sectors.push({ ace, actionModifier: 0, pending: null, wounds: 0, guard: 0 });
+  state.sectors.push({ ace, actionModifier: 0, pending: null, wounds: 0, guard: 0, invasion: null, draft: null });
   idsOf("asset").filter(id => card(id).starting).forEach(id => place(id, "panoply", 0, 0, { sector }));
   place("swarm/infestation", "field", 0.012, 0.05, { sector });
   return sector;
@@ -224,7 +230,7 @@ function seatPlayer(ace) {
 function newGame(ace) {
   undoStack = []; redoStack = [];
   state = {
-    wave: 1, round: 1, ranks: [1], next: 1, top: 1, items: [], sectors: [],
+    wave: 1, round: 1, phase: "swarm", held: false, ranks: [1], next: 1, top: 1, items: [], sectors: [],
     swarmPile: shuffle(idsOf("swarm").filter(id => card(id).rank === 1)), swarmDiscard: [],
     assetPile: shuffle(idsOf("asset").filter(id => !card(id).starting)), assetDiscard: [],
   };
@@ -270,24 +276,56 @@ function arrive(id, band = 0, extra = {}) {
   const count = cards.filter(item => item.x >= STRIP - 0.03 && Math.floor(item.y * 3 + 0.2) === band).length;
   return place(id, "field", STRIP + 0.015 + (count % 11) * 0.065, band / 3 + 0.045 + (count % 3) * 0.012, extra);
 }
-function invade() {
-  const sector = state.sectors[seat], level = threatLevel(state.wave);
+/* The invasion draw is played by hand: each click on the swarm pile reveals one card and the table only keeps count. */
+function startInvasion() {
+  const sector = state.sectors[seat];
   const draws = mine().filter(item => item.kind === "card" && card(item.id).kind === "infestation").length;
   if (!draws) return toast("Aucune carte Infestation dans ce secteur.");
-  let entered = 0;
-  const enter = id => { arrive(id); entered++; };
-  for (let draw = 0; draw < draws; draw++) {
-    let total = 0;
-    if (sector.pending) { total += Math.max(0, (card(sector.pending.id).threat || 0) - sector.pending.consumed); enter(sector.pending.id); sector.pending = null; }
-    while (total < level) {
-      const id = drawFrom("swarmPile");
-      if (!id) break;
-      const threat = card(id).threat || 0;
-      if (total + threat > level) { sector.pending = { id, consumed: level - total }; break; }
-      total += threat; enter(id);
-    }
+  sector.invasion = { total: 0, draw: 1, draws, done: false };
+  panel = "piles";
+}
+function closeDraw(invasion) {
+  if (invasion.draw < invasion.draws) { invasion.draw++; invasion.total = 0; toast(`Tirage ${invasion.draw} sur ${invasion.draws}.`); }
+  else invasion.done = true;
+}
+function invasionStep() {
+  const sector = state.sectors[seat], invasion = sector.invasion, level = threatLevel(state.wave);
+  if (invasion.done) return;
+  if (invasion.total >= level) return closeDraw(invasion);
+  if (sector.pending) {
+    invasion.total += Math.max(0, (card(sector.pending.id).threat || 0) - sector.pending.consumed);
+    arrive(sector.pending.id); sector.pending = null;
+  } else {
+    const id = drawFrom("swarmPile");
+    if (!id) { toast("La pile Essaim et sa défausse sont vides."); invasion.done = true; return; }
+    const threat = card(id).threat || 0;
+    if (invasion.total + threat > level) {
+      sector.pending = { id, consumed: level - invasion.total }; invasion.total = level;
+      toast(`${card(id).name} dépasse le seuil et reste en attente.`);
+    } else { arrive(id); invasion.total += threat; }
   }
-  toast(`Invasion : ${entered} carte${entered > 1 ? "s" : ""}${sector.pending ? `, ${card(sector.pending.id).name} en attente` : ""}.`);
+  if (invasion.total >= level) closeDraw(invasion);
+}
+function endTurn() {
+  if (state.phase === "swarm") {
+    readyAll("swarm"); state.phase = "players";
+    state.sectors.forEach(sector => { sector.guard = 0; });
+    return;
+  }
+  readyAll("asset");
+  if (state.round >= roundsToHold(state.wave)) { state.held = true; sheet = { type: "held" }; return; }
+  state.round++; state.phase = "swarm";
+}
+function startDraft() {
+  const options = [];
+  for (let n = 0; n < 3; n++) { const id = drawFrom("assetPile"); if (id) options.push(id); }
+  if (!options.length) return toast("La pile d'atouts et sa défausse sont vides.");
+  state.sectors[seat].draft = options;
+}
+function resolveDraft(choice) {
+  const sector = state.sectors[seat];
+  sector.draft.forEach((id, index) => { if (index === choice) place(id, "panoply", 0, 0); else state.assetDiscard.push(id); });
+  sector.draft = null;
 }
 const diceCount = () => Math.max(1, card(state.sectors[seat].ace).ap + state.sectors[seat].actionModifier);
 function rollSector() {
@@ -312,8 +350,8 @@ function nextWave() {
     if (data.set === "swarm" && data.kind !== "infestation") return discardItem(item);
     item.exhausted = false; if (data.set === "asset") item.counter = 0;
   });
-  state.sectors.forEach(sector => { if (sector.pending) state.swarmDiscard.push(sector.pending.id); Object.assign(sector, { pending: null, actionModifier: 0, wounds: 0, guard: 0 }); });
-  state.round = 1; setWave(state.wave + 1);
+  state.sectors.forEach(sector => { if (sector.pending) state.swarmDiscard.push(sector.pending.id); Object.assign(sector, { pending: null, actionModifier: 0, wounds: 0, guard: 0, invasion: null }); });
+  state.round = 1; state.phase = "swarm"; state.held = false; setWave(state.wave + 1);
 }
 function readyAll(set) { state.items.forEach(item => { if (item.kind === "card" && card(item.id).set === set) item.exhausted = false; }); }
 
@@ -347,6 +385,11 @@ function render() {
         <div id="tray" data-area="tray">${inArea("tray").map(itemHtml).join("")}</div>
       </div>
       <div class="slot wide"><span>Panoplie</span><div id="panoply" data-area="panoply">${inArea("panoply").map(itemHtml).join("")}</div></div>`;
+  const invasion = sector.invasion, level = threatLevel(state.wave);
+  const banner = !invasion ? "" : `<div class="banner"><span class="display">${invasion.done ? "Tirage terminé" : `Tirage ${invasion.draw}/${invasion.draws}`}</span>
+      <button class="tiny" data-threat="-1" aria-label="Menace moins">−</button><span class="display">Menace ${invasion.total} / ${level}</span><button class="tiny" data-threat="1" aria-label="Menace plus">+</button>
+      <span>${invasion.done ? "" : sector.pending ? "Cliquez la pile Essaim pour jouer la carte en attente." : "Cliquez la pile Essaim pour retourner une carte."}</span>
+      <button class="${invasion.done ? "primary" : ""}" data-do="close-invasion">${invasion.done ? "Fermer" : "Arrêter"}</button></div>`;
   const pilesPanel = `
       <div class="slot info">
         <select data-seat aria-label="Joueur affiché dans cet onglet">${state.sectors.map((one, index) => `<option value="${index}" ${index === seat ? "selected" : ""}>${escapeHtml(aceName(index))}</option>`).join("")}<option value="add">+ Ajouter un joueur…</option></select>
@@ -354,7 +397,8 @@ function render() {
         <div class="row"><button class="tiny" data-round="-1" aria-label="Round précédent">−</button><span class="value display">Round ${state.round}/${roundsToHold(state.wave)}</span><button class="tiny" data-round="1" aria-label="Round suivant">+</button></div>
       </div>
       <div class="slot info">
-        <span class="value display">Menace ${threatLevel(state.wave)}</span>
+        <span class="value display">Menace ${level}</span>
+        <span>${state.held ? "Vague tenue" : state.phase === "swarm" ? "Tour de l'Essaim" : "Tour des joueurs"}</span>
       </div>
       <div class="slot wide"></div>
       <div class="slot"><div class="piles">${PILES.map(pileHtml).join("")}
@@ -362,9 +406,10 @@ function render() {
   document.getElementById("table").innerHTML = `
     <div class="mat">
       <div class="area" id="field" data-area="field"><div class="strip"><span class="label display">Emprises</span></div>${ZONE_NAMES.map((name, row) => `<div class="band ${row === 2 ? "last" : ""}" style="top:${row * 33.333}%"><span class="label display">${name}</span></div>`).join("")}${inArea("field").map(itemHtml).join("")}</div>
+      ${banner}
       <div class="side">
-        <button class="primary" data-do="invade">Tirage d'invasion</button>
-        <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
+        <button class="primary" data-do="${state.held ? "held" : "end-turn"}">${state.held ? "Vague tenue" : state.phase === "swarm" ? "Fin du tour de l'Essaim" : "Fin du tour des joueurs"}</button>
+        <button data-do="invade" ${invasion ? "disabled" : ""}>Tirage d'invasion</button><button data-do="draft">Draft</button>
         <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
         <div class="split"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
         <div class="split bubble"><button data-size="-10" aria-label="Cartes plus petites">−</button><span>Cartes</span><button data-size="10" aria-label="Cartes plus grandes">+</button></div>
@@ -385,7 +430,13 @@ function frame(title, body) {
   return `<div class="backdrop" data-close><div class="sheet" role="dialog" aria-label="${escapeHtml(title)}"><div class="sheet-head"><h2 class="display">${escapeHtml(title)}</h2><button data-close>Fermer</button></div>${body}</div></div>`;
 }
 function sheetHtml() {
+  const draft = state.sectors[seat].draft;
+  if (draft) return `<div class="backdrop"><div class="sheet" role="dialog" aria-label="Draft"><div class="sheet-head"><h2 class="display">Draft · gardez un atout</h2></div>
+    <div class="draft">${draft.map((id, index) => `<button data-draft="${index}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>
+    <p class="hint">L'atout choisi rejoint la Panoplie, les autres partent à la défausse.</p><button data-draft="-1">Aucun</button></div></div>`;
   if (!sheet) return "";
+  if (sheet.type === "held") return frame(`Vague ${state.wave} tenue`, `<p class="hint">Le dernier round est terminé. Préparer la vague suivante défausse l'Essaim, retire les dés et remet les Blessures à zéro${RANK_ADDED_AT_WAVE[state.wave + 1] ? `, puis ajoute le rang ${ROMAN[RANK_ADDED_AT_WAVE[state.wave + 1]]} à la pile Essaim` : ""}.</p>
+    <button class="primary" data-do="next-wave">Préparer la vague ${state.wave + 1}</button>`);
   if (sheet.type === "ace") return frame("Ajouter un joueur", `<p class="hint">Cet onglet passera sur le nouveau joueur. Les autres onglets gardent le leur.</p>${aceGrid()}`);
   if (sheet.type === "pile") {
     const ids = state[sheet.name].slice().reverse(), discard = sheet.name.endsWith("Discard");
@@ -400,7 +451,7 @@ function sheetHtml() {
   }
   if (sheet.type === "menu") {
     return frame("Menu", `
-      <div style="display:flex;flex-wrap:wrap;gap:8px"><button data-do="next-wave">Vague suivante (défausser l'Essaim, retirer les dés)</button>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><button data-do="next-wave">Passer à la vague suivante maintenant</button>
         ${sheet.confirm ? '<button class="primary" data-do="reset">Confirmer : effacer cette partie</button>' : '<button data-do="ask-reset">Nouvelle partie</button>'}</div>
       <h2 class="display" style="margin:6px 0 0;font-size:22px">Plusieurs joueurs</h2>
       <p class="hint">Un onglet par joueur. Ouvrez cette page dans un autre onglet du même navigateur, puis choisissez ou ajoutez un joueur dans la liste du panneau « Piles ». Les onglets partagent la même partie. Le menu d'une carte permet de l'envoyer chez un autre joueur.</p>
@@ -639,7 +690,9 @@ function bindTable() {
     if (done.node.dataset.pile) {
       const name = done.node.dataset.pile;
       if (name === "tokens") return openSheet({ type: "picker", tokens: true });
-      return name.endsWith("Discard") ? openSheet({ type: "pile", name }) : drawToTable(name);
+      if (name.endsWith("Discard")) return openSheet({ type: "pile", name });
+      const invasion = state.sectors[seat].invasion;
+      return name === "swarmPile" && invasion && !invasion.done ? act(invasionStep) : drawToTable(name);
     }
     const item = state.items.find(other => other.key === Number(done.node.dataset.key));
     if (!item) return;
@@ -670,6 +723,8 @@ document.addEventListener("click", event => {
   if (data.ace) { hidePreview(); return state ? act(() => { setSeat(seatPlayer(data.ace)); sheet = null; }) : newGame(data.ace); }
   if (data.panel) { panel = data.panel; return render(); }
   if (data.do) return command(data.do);
+  if (data.draft) return act(() => resolveDraft(Number(data.draft)));
+  if (data.threat) return act(() => { const invasion = state.sectors[seat].invasion; invasion.total = Math.max(0, invasion.total + Number(data.threat)); });
   if (data.size) return resizeCards(Number(data.size));
   if (data.wave) return act(() => setWave(state.wave + Number(data.wave)));
   if (data.round) return act(() => { state.round = Math.max(1, state.round + Number(data.round)); });
@@ -682,10 +737,12 @@ function command(name) {
   switch (name) {
     case "undo": return undo();
     case "redo": return redo();
-    case "invade": return act(invade);
+    case "invade": return act(startInvasion);
+    case "close-invasion": return act(() => { state.sectors[seat].invasion = null; });
+    case "end-turn": return act(endTurn);
+    case "held": return openSheet({ type: "held" });
+    case "draft": return act(startDraft);
     case "roll": return act(rollSector);
-    case "ready-assets": return act(() => readyAll("asset"));
-    case "ready-swarm": return act(() => readyAll("swarm"));
     case "add-die": return act(() => { const count = inArea("field").filter(item => item.kind === "die").length; placeDie("field", 0.45 + (count % 6) * 0.03, 0.45 + (count % 6) * 0.02); });
     case "add-token": return openSheet({ type: "picker", tokens: true });
     case "add-card": return openSheet({ type: "picker" });
