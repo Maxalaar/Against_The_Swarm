@@ -42,7 +42,7 @@
     set par(leading: 0.35em)
     text(size: size, effect)
   })
-  let text_size = fit(rules, size_steps(9.5pt, 6pt), height: box_height - above - below - 3mm)
+  let text_size = fit(rules, size_steps(15pt, 6pt), height: box_height - above - below - 4.5mm)
   // creat_card centres its text in the whole box, shifted down by half a text size;
   // this spacer moves it to the middle of the free space instead.
   let shift = above - below - text_size

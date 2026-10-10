@@ -166,7 +166,7 @@
       }
       }
       let inner_width = width - 2 * margin - 4mm
-      let factors = (1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6)
+      let factors = range(23).map(i => 1.7 - i * 0.05)
       build(fit(f => block(width: inner_width, build(f)), factors, height: 26mm - 2.8mm))
     })
 

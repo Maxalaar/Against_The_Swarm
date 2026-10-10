@@ -52,7 +52,7 @@
           text(size: 7.5pt * f, style: "italic", fill: rgb("#555555"), flavor)
         }
       }
-      let factors = (1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6)
+      let factors = range(23).map(i => 1.7 - i * 0.05)
       let f = fit(f => block(width: width - 2 * margin - 4mm, body(f)), factors, height: 24.5mm - 3.2mm)
       align(center + horizon, body(f))
     })

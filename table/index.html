@@ -7,7 +7,7 @@
   --bg: #d9cdb6; --surface: #f8f2e6; --raised: #fffaf0; --fg: #2a211b; --muted: #75665a;
   --line: #bfae92; --accent: #b3401f; --accent-fg: #fff7ee; --swarm: #5b6b2c; --asset: #2f5f7a;
   --shade: rgba(42, 33, 27, .5); --mat: #e9dfcb; --mat-alt: #e1d5bd; --mat-ace: #f1e9d8; --die: #fffdf7;
-  --card: 140px;
+  --card: 110px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #14110f; --surface: #25201b; --raised: #302a24; --fg: #efe4d2; --muted: #a8998a;
@@ -90,7 +90,7 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .pile img { width: 100%; height: 100%; display: block; pointer-events: none; }
 
 @media (max-width: 700px) {
-  :root { --card: 72px; }
+  :root { --card: 62px; }
   .side { left: 20px; right: 20px; top: auto; bottom: 12px; width: auto; flex-direction: row; overflow-x: auto; gap: 4px; font-size: 13px; }
   .side button, .side .split { flex: 0 0 auto; min-height: 32px; }
   .dock { flex-wrap: wrap; gap: 6px; max-height: 46%; overflow-y: auto; }
@@ -155,7 +155,7 @@ let cardSize = null;
 let undoStack = [], redoStack = [];
 let sheet = null;
 let panel = "ace";
-let gesture = null, hovered = null, previewTimer = null, toastTimer = null;
+let gesture = null, hovered = null, toastTimer = null;
 
 const app = document.getElementById("app"), overlay = document.getElementById("overlay");
 const preview = document.getElementById("preview"), menu = document.getElementById("menu"), toastBox = document.getElementById("toast");
@@ -337,7 +337,7 @@ function render() {
   const sector = state.sectors[seat], ace = card(sector.ace), count = diceCount();
   const tabs = `<div class="slot tabs"><button data-panel="ace" aria-pressed="${panel === "ace"}">As</button><button data-panel="piles" aria-pressed="${panel === "piles"}">Piles</button></div>`;
   const acePanel = `
-      <div class="slot"><span>${escapeHtml(ace.name)}</span><div class="obj card" data-preview="${sector.ace}" style="cursor:help"><img src="${ace.image}" alt=""></div></div>
+      <div class="slot"><span>${escapeHtml(ace.name)}</span><div class="obj card" data-preview="${sector.ace}"><img src="${ace.image}" alt=""></div></div>
       <div class="slot stats">
         ${counterHtml(`Blessures <small>(${ace.hp - sector.wounds} PV)</small>`, sector.wounds, "wounds")}${counterHtml("Garde", sector.guard, "guard")}
         <div class="counter"><button class="tiny" data-points="-1" aria-label="Un dé de moins">−</button><button class="primary" style="flex:1" data-do="roll">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button class="tiny" data-points="1" aria-label="Un dé de plus">+</button></div>
@@ -418,7 +418,7 @@ function showPreview(id, clientX) {
   const right = clientX < window.innerWidth / 2;
   preview.style.left = right ? "auto" : "16px"; preview.style.right = right ? "16px" : "auto";
 }
-function hidePreview() { clearTimeout(previewTimer); preview.hidden = true; preview.dataset.id = ""; }
+function hidePreview() { preview.hidden = true; }
 function closeMenu() { menu.hidden = true; menu.target = null; }
 function openMenu(html, target, clientX, clientY) {
   menu.innerHTML = html; menu.target = target; menu.hidden = false;
@@ -648,15 +648,6 @@ function bindTable() {
   table.addEventListener("pointercancel", finish);
   table.addEventListener("pointerleave", () => { hovered = null; });
 }
-document.addEventListener("pointermove", event => {
-  if (event.pointerType !== "mouse" || gesture || !menu.hidden) return;
-  const node = event.target.closest && event.target.closest("[data-preview]");
-  const id = node ? node.dataset.preview : "";
-  if (id === (preview.dataset.id || "")) return;
-  hidePreview(); preview.dataset.id = id;
-  if (id) previewTimer = setTimeout(() => showPreview(id, event.clientX), 280);
-});
-
 /* ---------- buttons, sheets, keyboard ---------- */
 document.addEventListener("pointerdown", event => { if (!menu.hidden && !event.target.closest("#menu, #table")) { closeMenu(); hidePreview(); } });
 document.addEventListener("change", event => {
