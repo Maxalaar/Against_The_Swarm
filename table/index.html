@@ -49,7 +49,10 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 #field .band .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; }
 .side { position: absolute; right: 24px; top: 16px; z-index: 100000; width: 176px; display: flex; flex-direction: column; gap: 6px; opacity: .92; }
 .side button { border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
-.side .split { display: flex; gap: 4px; } .side .split button { flex: 1; padding: 4px; font-size: .85em; }
+.side .split { display: flex; gap: 4px; }
+.side .bubble { align-items: center; background: var(--raised); border: 1px solid var(--line); border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
+.side .bubble span { flex: 1; text-align: center; }
+.side .bubble button { flex: 0 0 40px; border: 0; background: transparent; box-shadow: none; font-size: 1.1em; } .side .split button { flex: 1; padding: 4px; font-size: .85em; }
 
 .dock { flex: 0 0 auto; display: flex; gap: 12px; align-items: stretch; padding: 6px 16px calc(6px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 2px solid var(--accent); overflow-x: auto; }
 .dock .slot { display: flex; flex-direction: column; gap: 3px; flex: 0 0 auto; color: var(--muted); font-size: 12px; }
@@ -352,7 +355,6 @@ function render() {
       </div>
       <div class="slot info">
         <span class="value display">Menace ${threatLevel(state.wave)}</span>
-        <div class="row"><button class="tiny" data-size="-10" aria-label="Cartes plus petites">−</button><span style="flex:1">Taille des cartes</span><button class="tiny" data-size="10" aria-label="Cartes plus grandes">+</button></div>
       </div>
       <div class="slot wide"></div>
       <div class="slot"><div class="piles">${PILES.map(pileHtml).join("")}
@@ -365,6 +367,7 @@ function render() {
         <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
         <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
         <div class="split"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
+        <div class="split bubble"><button data-size="-10" aria-label="Cartes plus petites">−</button><span>Cartes</span><button data-size="10" aria-label="Cartes plus grandes">+</button></div>
         <button data-do="menu">Menu</button>
       </div>
     </div>

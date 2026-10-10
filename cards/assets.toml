@@ -169,7 +169,7 @@ name = "Grappin"
 type = "Atout, Matériel"
 slots = 1
 dice = ["3+"]
-effect = "Déplacer 2."
+effect = "Ciblez une engeance de votre secteur ou d'un secteur adjacent. *Déplacer~2.*"
 flavor = "Viens par ici, toi."
 
 [repulsor]
