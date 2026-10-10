@@ -1,0 +1,41 @@
+# Aces: the characters players choose from. One table per card.
+
+[brute]
+name = "La Brute"
+hp = 10
+ap = 4
+slots = 5
+passive = "Vos atouts infligent +1~dégât à portée~1."
+flavor = "Elle règle les problèmes de près."
+
+[sharpshooter]
+name = "La Tireuse"
+hp = 5
+ap = 5
+slots = 5
+passive = "Vos Armes ont +1 de portée."
+flavor = "Si elle vous voit, c'est déjà fini."
+
+[gambler]
+name = "Le Flambeur"
+hp = 5
+ap = 5
+slots = 5
+passive = "Une fois par tour, relancez tous vos dés."
+flavor = "Il mise tout. Tout le temps."
+
+[mechanic]
+name = "La Mécano"
+hp = 5
+ap = 5
+slots = 7
+passive = "Vous avez 7~emplacements."
+flavor = "Elle a toujours ce qu'il faut. Quelque part."
+
+[medic]
+name = "Le Toubib"
+hp = 5
+ap = 5
+slots = 5
+passive = "Quand vous soignez un As, il gagne aussi Garde~1."
+flavor = "Il recoud d'une main et tire de l'autre."

@@ -6,26 +6,42 @@ Le projet est en phase de conception, en français uniquement.
 
 ## Contenu
 
-- `against_the_swarm_quick_rule_fr.typ` : les règles rapides.
-- `card_content/` : une carte par fichier, rangées dans `swarm/`, `base/` et `equipment/`.
-- `card_structure/` : les gabarits de carte (63 × 88 mm) : Essaim, atout et As.
-- `swarm_cards.typ`, `ace_cards.typ` et `panoply_cards.typ` : les planches de cartes à imprimer (9 par page A4), pour l'Essaim, les As et la Panoplie (les atouts).
+- `cards/` : les données des cartes, source unique pour l'impression et la table de test. Un fichier par ensemble : `swarm.toml` (l'Essaim), `assets.toml` (les atouts), `aces.toml` (les As).
+- `rules/` : les règles rapides.
+- `print/` : les planches à imprimer (9 cartes par page A4) et, dans `templates/`, les gabarits de carte (63 × 88 mm).
+- `table/` : la table de test, une page web pour jouer au doigt sur téléphone ou à la souris.
+- `scripts/` : les outils de génération.
+
+## Modifier une carte
+
+Tout se passe dans `cards/`. Les champs de texte acceptent le balisage Typst (`*gras*`, `~` pour une espace insécable).
+
+## Générer les PDF
+
+Avec [Typst](https://typst.app) installé, depuis la racine du projet :
+
+```
+typst compile --root . rules/against_the_swarm_quick_rule_fr.typ
+typst compile --root . print/swarm_cards.typ
+typst compile --root . print/ace_cards.typ
+typst compile --root . print/panoply_cards.typ
+```
 
 ## Générer une seule carte
 
 ```
-./render_card.sh card_content/swarm/bombard.typ
+typst compile --root . print/single_card.typ build/bombard.png --input set=swarm --input id=bombard
 ```
 
-L'image est écrite dans `build/`.
+`set` vaut `swarm`, `asset` ou `ace` ; `id` est le nom de la table dans le fichier de données.
 
-## Générer les PDF
+## Lancer la table de test
 
-Avec [Typst](https://typst.app) installé :
+La table lit les images des cartes, à régénérer après chaque changement dans `cards/` (Python avec Pillow) :
 
 ```
-typst compile against_the_swarm_quick_rule_fr.typ
-typst compile swarm_cards.typ
-typst compile ace_cards.typ
-typst compile panoply_cards.typ
+python3 scripts/export_table_cards.py
+python3 -m http.server --directory table
 ```
+
+Puis ouvrir `http://localhost:8000`. La table ne connaît pas les règles : elle déplace les cartes, tire l'invasion, lance les dés et tient les compteurs.

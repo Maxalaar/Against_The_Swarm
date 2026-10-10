@@ -1,0 +1,539 @@
+# Assets ("atouts"): everything in a player's Panoply. One table per card.
+# Text fields use Typst markup. A blank line in `effect` starts a new paragraph.
+# starting = true marks the cards every player owns from the start.
+
+[pistol]
+name = "Pistolet"
+type = "Atout, Arme, Tir"
+starting = true
+slots = 1
+dice = ["4+"]
+uses = 3
+effect = "Infligez 2~dégâts à portée~2."
+flavor = "Il ne vous a jamais lâché. Il ne vous a jamais sauvé non plus."
+
+[rifle_butt]
+name = "Coup de crosse"
+type = "Atout, Base"
+starting = true
+slots = 0
+dice = [""]
+effect = "Infligez 1~dégât à portée~1."
+flavor = "Quand il n'y a plus rien d'autre."
+
+[move]
+name = "Déplacement"
+type = "Atout, Base"
+starting = true
+slots = 0
+dice = ["4+"]
+effect = "Déplacer 1."
+flavor = "Pas là. Là."
+
+[revive]
+name = "Réanimation"
+type = "Atout, Base"
+starting = true
+slots = 0
+dice = ["6", "6"]
+effect = "Un joueur adjacent revient en jeu avec 1~PV restant. Il perd 2~PA jusqu'à la fin de la vague."
+flavor = "Debout. On n'a pas fini."
+
+[shotgun]
+name = "Fusil à pompe"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = ["3+"]
+effect = "Ciblez jusqu'à 2 engeances d'une même zone à portée~2. Infligez 2~dégâts à chacune."
+flavor = "De près, on ne rate pas."
+
+[sniper_rifle]
+name = "Fusil de précision"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = ["6"]
+effect = "Infligez 4~dégâts à portée~4."
+flavor = "Elle ne saura jamais d'où c'est venu."
+
+[flamethrower]
+name = "Lance-flammes"
+type = "Atout, Arme, Énergie"
+slots = 3
+dice = ["X", "X"]
+uses = 2
+effect = "Ciblez jusqu'à 4 engeances à portée~2, dont 2 au maximum par zone. Infligez 1~dégât à chacune."
+flavor = "Rien ne nettoie comme le feu."
+
+[grenade]
+name = "Grenade"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["5+"]
+effect = "Ciblez jusqu'à 3 engeances d'une même zone à portée~2. Infligez 2~dégâts à chacune."
+flavor = "Comptez jusqu'à trois. Pas quatre."
+
+[stimulant]
+name = "Stimulant"
+type = "Atout, Matériel"
+slots = 1
+dice = [""]
+effect = "Relancez jusqu'à 2 autres dés."
+flavor = "Ça brûle. C'est que ça marche."
+
+[targeting_computer]
+name = "Calculateur de tir"
+type = "Atout, Matériel"
+slots = 1
+dice = ["5+"]
+effect = "Réglez un autre de vos dés sur la face de votre choix."
+flavor = "Il a toujours raison. C'est agaçant."
+
+[shield]
+name = "Bouclier"
+type = "Atout, Matériel"
+slots = 2
+dice = ["3+"]
+effect = "Garde 3."
+flavor = "Derrière moi."
+
+[medkit]
+name = "Trousse de secours"
+type = "Atout, Matériel"
+slots = 1
+dice = ["X", "X"]
+effect = "Soin 2 sur vous ou un joueur adjacent."
+flavor = "Ça va piquer."
+
+[decoy]
+name = "Leurre"
+type = "Atout, Matériel"
+slots = 1
+dice = ["3+"]
+effect = "Ciblez jusqu'à 2 engeances à portée~2. Déplacer 1 chacune."
+flavor = "Par ici, les moches."
+
+[radio]
+name = "Radio"
+type = "Atout, Matériel"
+slots = 1
+dice = [""]
+uses = 2
+effect = "Donnez ce dé à un autre joueur, qui l'ajoute à sa réserve avec la même valeur."
+flavor = "À toi de jouer."
+
+[blunderbuss]
+name = "Pétoire"
+type = "Atout, Arme, Mêlée"
+slots = 1
+dice = ["X"]
+effect = "Infligez X~dégâts à portée~1."
+flavor = "Personne ne sait ce qu'il y a dedans. Pas même elle."
+
+[sword]
+name = "Épée"
+type = "Atout, Arme, Mêlée"
+slots = 1
+dice = ["3+"]
+uses = 2
+effect = "Infligez 3~dégâts à portée~1."
+flavor = "Pas de chargeur. Pas d'excuse."
+
+[hammer]
+name = "Marteau"
+type = "Atout, Arme, Mêlée"
+slots = 2
+dice = ["5+"]
+effect = "Infligez 6~dégâts à portée~1."
+flavor = "Un problème, un coup."
+
+[machine_gun]
+name = "Mitrailleuse"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = [""]
+uses = 5
+effect = "Infligez 1~dégât à portée~2."
+flavor = "Elle ne vise pas. Elle insiste."
+
+[rocket_launcher]
+name = "Lance-roquettes"
+type = "Atout, Arme, Explosif"
+slots = 3
+dice = ["X", "X"]
+effect = "Infligez 6~dégâts à portée~3. Ciblez jusqu'à 2~autres engeances de la même zone. Infligez 3~dégâts à chacune."
+flavor = "Baissez la tête."
+
+[grapple]
+name = "Grappin"
+type = "Atout, Matériel"
+slots = 1
+dice = ["3+"]
+effect = "Déplacer 2."
+flavor = "Viens par ici, toi."
+
+[repulsor]
+name = "Onde répulsive"
+type = "Atout, Matériel"
+slots = 2
+dice = ["4+"]
+effect = "Ciblez jusqu'à 5~engeances à portée~1. Chacune fait Recule~1."
+flavor = "Un peu d'air, s'il vous plaît."
+
+[freezer]
+name = "Givreur"
+type = "Atout, Matériel"
+slots = 1
+dice = ["X"]
+effect = "Paralyser X à portée~2."
+flavor = "Reste là. Ne bouge pas."
+
+[scalpel]
+name = "Scalpel"
+type = "Atout, Matériel"
+slots = 1
+dice = ["3+"]
+effect = "Détruisez une Mutation attachée à une engeance à portée~2. Soin 2."
+flavor = "Ça repousse~? On recoupe."
+
+[detector]
+name = "Détecteur"
+type = "Atout, Matériel"
+slots = 1
+dice = []
+effect = "Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer le coût d'une Emprise."
+flavor = "Il bipe tout le temps. C'est bon signe."
+
+[armor]
+name = "Armure"
+type = "Atout, Matériel"
+slots = 2
+dice = []
+effect = "Au début de votre tour, Garde 1."
+flavor = "Cabossée, rayée, toujours là."
+
+[dodge]
+name = "Esquive"
+type = "Atout, Technique"
+slots = 1
+dice = ["4+"]
+effect = "Garde 2."
+flavor = "Raté."
+
+[loaded_die]
+name = "Dé pipé"
+type = "Atout, Technique"
+slots = 1
+dice = [""]
+uses = 2
+effect = "Ajoutez ou retirez 1 à un autre de vos dés."
+flavor = "La chance, ça se travaille."
+
+[covering_fire]
+name = "Tir de couverture"
+type = "Atout, Technique"
+slots = 1
+dice = ["4+"]
+effect = "Ce tour, votre prochaine activation qui inflige des dégâts à portée~2 ou plus donne autant de Garde, à vous ou à un As adjacent."
+flavor = "Avance, je te couvre."
+
+[laser]
+name = "Laser"
+type = "Atout, Arme, Énergie"
+slots = 3
+dice = ["X", "X+1", "X+2"]
+effect = "Ciblez une engeance à portée exactement~1, une à portée exactement~2 et une à portée exactement~3. Infligez 4~dégâts à chacune."
+flavor = "Tout droit, à travers tout."
+
+[calibrator]
+name = "Calibreur"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = ["X", "Y"]
+effect = "Infligez X~dégâts à portée~Y."
+flavor = "Loin ou fort. Rarement les deux."
+
+[arc]
+name = "Arc électrique"
+type = "Atout, Arme, Énergie"
+slots = 2
+dice = ["4+"]
+effect = "Infligez 2~dégâts à portée~2. Si l'engeance est détruite, recommencez sur une autre engeance de sa zone, jusqu'à 3~fois."
+flavor = "Le premier attire les autres."
+
+[harpoon]
+name = "Harpon"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = ["4+"]
+effect = "Infligez 3~dégâts à portée~3. Si l'engeance survit, Déplacer 2 sur elle."
+flavor = "Elle voulait rester au fond."
+
+[scythe]
+name = "Faux"
+type = "Atout, Arme, Mêlée"
+slots = 2
+dice = ["5+"]
+effect = "Ciblez jusqu'à 3~engeances à portée~1. Infligez 3~dégâts à chacune."
+flavor = "On récolte ce qui dépasse."
+
+[assault_rifle]
+name = "Fusil d'assaut"
+type = "Atout, Arme, Tir"
+slots = 2
+dice = ["3+"]
+uses = 3
+effect = "Infligez 2~dégâts à portée~3."
+flavor = "Trois balles, trois avis tranchés."
+
+[cleaver]
+name = "Couperet"
+type = "Atout, Arme, Mêlée"
+slots = 1
+dice = [""]
+uses = 2
+effect = "Détruisez un jeton à portée~1."
+flavor = "Les petits d'abord."
+
+[scope]
+name = "Lunette"
+type = "Atout, Module"
+slots = 1
+dice = []
+effect = "L'atout modifié a +1 de portée."
+flavor = "Ils sont plus laids de près."
+
+[magazine]
+name = "Chargeur"
+type = "Atout, Module"
+slots = 1
+dice = []
+effect = "L'atout modifié a 1~utilisation de plus."
+flavor = "Encore une. Juste une."
+
+[composure]
+name = "Sang-froid"
+type = "Atout, Technique"
+slots = 1
+dice = []
+effect = "Une fois par tour, relancez un de vos dés."
+flavor = "Respire. Recommence."
+
+[taunt]
+name = "Provocation"
+type = "Atout, Technique"
+slots = 1
+dice = ["3+"]
+effect = "Ciblez jusqu'à 3~engeances d'un secteur adjacent. Elles passent dans la même zone de votre secteur. Garde 2."
+flavor = "Hé~! C'est moi que tu cherches."
+
+[riposte]
+name = "Riposte"
+type = "Atout, Technique"
+slots = 1
+dice = ["4+"]
+effect = "Garde 1. La prochaine engeance qui vous attaque subit 3~dégâts."
+flavor = "Vas-y. Essaie."
+
+[second_wind]
+name = "Second souffle"
+type = "Atout, Technique"
+slots = 1
+dice = ["6"]
+effect = "Lancez 2~dés de plus et ajoutez-les à votre réserve."
+flavor = "Ce n'est jamais fini tant qu'il reste un dé."
+
+[vibro_blade]
+name = "Lame vibrante"
+type = "Atout, Matériel"
+slots = 1
+dice = []
+effect = "Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer vos Armes de Mêlée."
+flavor = "Elle chante quand elle coupe."
+
+[bandolier]
+name = "Bandoulière"
+type = "Atout, Matériel"
+slots = 1
+dice = []
+effect = "Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer vos Armes de Tir."
+flavor = "On n'a jamais trop de balles. On a trop peu de poches."
+
+[frag_charge]
+name = "Charge à fragmentation"
+type = "Atout, Matériel"
+slots = 1
+dice = []
+effect = "Au début de votre tour, lancez 1~dé de plus. Il ne peut servir qu'à payer vos Explosifs."
+flavor = "Il y en a toujours une de plus au fond du sac."
+
+[capacitor]
+name = "Condensateur"
+type = "Atout, Matériel"
+slots = 2
+dice = []
+effect = "Au début de votre tour, lancez 2~dés de plus. Ils ne peuvent servir qu'à payer vos Armes à Énergie."
+flavor = "Ne touchez pas les bornes."
+
+[discipline]
+name = "Discipline"
+type = "Atout, Technique"
+slots = 1
+dice = []
+effect = "Chaque fois que vous activez une Technique, Garde 1."
+flavor = "Mille fois le même geste."
+
+[heavy_hand]
+name = "Main lourde"
+type = "Atout, Technique"
+slots = 1
+dice = []
+effect = "Chacun de vos 6 peut payer comme deux dés de valeur 6."
+flavor = "Quand ça passe, ça passe en force."
+
+[cheater]
+name = "Tricheur"
+type = "Atout, Technique"
+slots = 1
+dice = []
+effect = "Une fois par tour, réglez un de vos dés sur la valeur d'un autre de vos dés."
+flavor = "Quoi~? Ils trichent bien, eux."
+
+[fistful]
+name = "Poignée de dés"
+type = "Atout, Matériel"
+slots = 2
+dice = []
+effect = "Au début de votre tour, lancez 2~dés de plus, puis défaussez tous vos dés qui affichent 4 ou plus."
+flavor = "Pas besoin de viser quand on arrose."
+
+[amplifier]
+name = "Amplificateur"
+type = "Atout, Matériel"
+slots = 1
+dice = []
+effect = "Quand un de vos atouts utilise X, ajoutez 1 à X."
+flavor = "Le bouton va jusqu'à sept."
+
+[mine]
+name = "Mine"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["4+"]
+uses = 2
+effect = "Armer 1, jusqu'à un maximum de 4~marqueurs.\n\nPendant votre tour, vous pouvez retirer 1~marqueur pour infliger 2~dégâts à portée~1, à une engeance qui n'a pas subi de dégâts de cet atout ce tour."
+flavor = "Regarde où tu mets les pattes."
+
+[guided_missile]
+name = "Missile guidé"
+type = "Atout, Arme, Explosif"
+slots = 2
+dice = ["6"]
+effect = "Infligez 5~dégâts à une engeance de votre secteur ou d'un secteur adjacent, quelle que soit sa zone."
+flavor = "Elle peut toujours courir."
+
+[demolition_charge]
+name = "Charge de démolition"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["5+"]
+effect = "Infligez 4~dégâts à portée~1. Si la cible est une Structure, infligez 8~dégâts à la place."
+flavor = "Reculez. Non, plus loin."
+
+[time_bomb]
+name = "Bombe à retardement"
+type = "Atout, Arme, Explosif"
+slots = 2
+dice = [""]
+uses = 2
+effect = "Armer 1. Quand cet atout atteint 3~marqueurs, retirez-les tous. Ciblez jusqu'à 4~engeances d'une même zone à portée~2. Infligez 4~dégâts à chacune."
+flavor = "Tic. Tic. Tic."
+
+[orbital_bombardment]
+name = "Bombardement orbital"
+type = "Atout, Arme, Explosif"
+slots = 3
+dice = ["6", "6"]
+effect = "Choisissez une zone d'un secteur. Ciblez‑y jusqu'à 5~engeances. Infligez 5~dégâts à chacune."
+flavor = "Quelqu'un, là-haut, vous aime bien."
+
+[tactical_nuke]
+name = "Charge nucléaire tactique"
+type = "Atout, Arme, Explosif"
+slots = 3
+dice = ["6"]
+effect = "Armer 1. Quand cet atout atteint 4~marqueurs, retirez-les tous. Choisissez un secteur. Ciblez‑y jusqu'à 10~engeances. Infligez 10~dégâts à chacune, et 5~dégâts à l'As de ce secteur."
+flavor = "On fera le ménage après."
+
+[glue_trap]
+name = "Piège à glu"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = [""]
+uses = 2
+effect = "Armer 1, jusqu'à un maximum de 4~marqueurs.\n\nPendant votre tour, vous pouvez retirer X~marqueurs pour Paralyser X à portée~1."
+flavor = "Plus elle tire, plus ça colle."
+
+[stun_grenade]
+name = "Grenade assourdissante"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["4+"]
+effect = "Ciblez jusqu'à 3~engeances d'une même zone à portée~2. Paralyser 3 sur chacune."
+flavor = "Fermez les yeux. Ouvrez la bouche."
+
+[acid_grenade]
+name = "Grenade corrosive"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["4+"]
+effect = "Ciblez jusqu'à 3~engeances d'une même zone à portée~2. Infligez 2~dégâts à chacune. Ces dégâts ignorent le Blindage."
+flavor = "Les carapaces fondent aussi."
+
+[gravity_grenade]
+name = "Grenade à gravité"
+type = "Atout, Arme, Explosif"
+slots = 1
+dice = ["3+"]
+effect = "Ciblez jusqu'à 4~engeances de votre secteur. Déplacez-les toutes dans une même zone."
+flavor = "Tout le monde au milieu."
+
+[frag_mine]
+name = "Mine à fragmentation"
+type = "Atout, Arme, Explosif"
+slots = 2
+dice = ["4+"]
+uses = 2
+effect = "Armer 1, jusqu'à un maximum de 4~marqueurs.\n\nPendant votre tour, vous pouvez retirer 1~marqueur pour infliger 1~dégât à 3~engeances maximum à portée~1."
+flavor = "Elle ne choisit pas."
+
+[long_barrel]
+name = "Canon long"
+type = "Atout, Module"
+slots = 1
+dice = []
+effect = "L'atout modifié inflige +1~dégât."
+flavor = "Plus long, plus loin, plus fort."
+
+[double_trigger]
+name = "Double détente"
+type = "Atout, Module"
+slots = 2
+dice = []
+effect = "L'atout modifié applique son effet deux fois, sur les mêmes cibles."
+flavor = "Pourquoi s'arrêter à une ?"
+
+[sight]
+name = "Viseur"
+type = "Atout, Module"
+slots = 1
+dice = []
+effect = "Les coûts « N+ » de l'atout modifié sont réduits de 1."
+flavor = "Le point rouge ne ment jamais."
+
+[primer]
+name = "Amorce"
+type = "Atout, Module"
+slots = 1
+dice = []
+effect = "Au début de chaque vague, placez 1~marqueur sur l'atout modifié."
+flavor = "Toujours prête avant vous."

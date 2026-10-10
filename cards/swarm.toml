@@ -1,0 +1,667 @@
+# Swarm cards. One table per card; the key is the card's id.
+# Text fields use Typst markup: *bold*, ~ for a non-breaking space.
+# kind: engeance | structure | token | impulse | emprise | mutation | infestation
+
+[swarmer]
+name = "Essaimeur"
+kind = "engeance"
+rank = 2
+threat = 3
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "Crée 1~jeton Essaimé dans cette zone, puis *Attaque*."]
+flavor = "Là où il s'arrête, ça commence à grouiller."
+
+[ram]
+name = "Bélier"
+kind = "engeance"
+rank = 1
+threat = 2
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = [
+  "Quand il entre en zone~1 pour la première fois, il inflige 2~dégâts à l'As de ce secteur.",
+]
+flavor = "Il ne freine pas. Il n'a jamais appris."
+
+[martyr]
+name = "Martyre"
+kind = "engeance"
+rank = 1
+threat = 2
+attack = 2
+endurance = 2
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Quand il est détruit en zone~1, il inflige 2~dégâts à l'As de ce secteur."]
+flavor = "Le tuer de près, c'est lui rendre service."
+
+[bombard]
+name = "Bombarde"
+kind = "engeance"
+rank = 1
+threat = 3
+attack = 2
+endurance = 2
+zones = ["*Attaque.*", "*Recule~1.*", "*Recule~1.*"]
+flavor = "Elle ne s'approche jamais. Elle n'en a pas besoin."
+
+[protector]
+name = "Protecteur"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 1
+endurance = 4
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Les autres engeances de sa zone ont *Blindage~1*."]
+flavor = "Tirez. Il adore ça."
+
+[leaper]
+name = "Bondisseur"
+kind = "engeance"
+rank = 1
+threat = 2
+attack = 2
+endurance = 2
+zones = ["*Avance~2.*", "*Avance~1.*", "*Attaque.*"]
+flavor = "On l'entend bondir. On ne le voit jamais atterrir."
+
+[burrower]
+name = "Fouisseur"
+kind = "engeance"
+rank = 1
+threat = 2
+attack = 1
+endurance = 2
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Entre en jeu en zone~1."]
+flavor = "Le sol tremble, puis il s'ouvre."
+
+[carrier]
+name = "Porteur"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 1
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Quand il est détruit, il crée 2~jetons Bubon dans sa zone."]
+flavor = "Ce qu'il transporte est pire que lui."
+
+[brooder]
+name = "Couveuse"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 0
+endurance = 3
+zones = ["Crée 1~jeton Cracheur dans cette zone.", "*Recule~1.*", "*Recule~1.*"]
+flavor = "Elle ne se bat pas. Elle fabrique ceux qui se battent."
+
+[pod]
+name = "Gousse"
+kind = "engeance"
+rank = 1
+threat = 3
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Quand elle est détruite, elle crée 2~jetons Essaimé dans sa zone."]
+flavor = "Elle éclate, et ça grouille."
+
+[jammer]
+name = "Brouilleur"
+kind = "engeance"
+rank = 2
+threat = 3
+attack = 1
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Tant qu'il est en zone~1, l'As de ce secteur a −1~PA."]
+flavor = "Son cri vrille les nerfs et brouille les réflexes."
+
+[colossus]
+name = "Colosse"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 4
+endurance = 5
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+flavor = "Une arme ne suffit pas. Deux non plus."
+
+[ironclad]
+name = "Cuirassé"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["*Blindage~1.*"]
+flavor = "Les balles ricochent. Il faut frapper plus fort."
+
+[alpha]
+name = "Alpha"
+kind = "engeance"
+rank = 2
+threat = 4
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Les autres engeances de sa zone ont +1~Endurance."]
+flavor = "Là où il passe, l'essaim se durcit."
+
+[matriarch]
+name = "Matriarche"
+kind = "engeance"
+rank = 3
+threat = 6
+attack = 2
+endurance = 5
+zones = ["Crée 1~jeton Guerrier dans cette zone.", "*Recule~1.*", "*Attaque.*"]
+flavor = "Chaque minute qu'on lui laisse est une armée de plus."
+
+[hydra]
+name = "Hydre"
+kind = "engeance"
+rank = 3
+threat = 5
+attack = 3
+endurance = 5
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["Chaque fois qu'elle subit des dégâts, elle crée 1~jeton Essaimé dans sa zone."]
+flavor = "Coupez-la en deux, vous en aurez deux."
+
+[beater]
+name = "Rabatteur"
+kind = "engeance"
+rank = 1
+threat = 2
+attack = 1
+endurance = 2
+zones = [
+  "Chaque autre engeance de sa zone fait *Avance~1*.",
+  "Chaque autre engeance de sa zone fait *Avance~1*.",
+  "*Attaque.*",
+]
+passive = ["*Patience~1.*"]
+flavor = "Il ne mord pas. Il pousse les autres à mordre."
+
+[scavenger]
+name = "Charognard"
+kind = "engeance"
+rank = 2
+threat = 3
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = [
+  "Quand une autre engeance de ce secteur est détruite, il fait *Avance~1*, ou *Attaque* s'il est en zone~1.",
+]
+flavor = "Chaque cadavre le rapproche."
+
+[herald]
+name = "Héraut"
+kind = "engeance"
+rank = 3
+threat = 4
+attack = 1
+endurance = 3
+zones = [
+  "Choisissez 2~autres engeances non‑jeton de ce secteur. Elles s'activent.",
+  "*Recule~1.*",
+  "*Recule~1.*",
+]
+passive = ["*Patience~1.*"]
+flavor = "Il reste derrière. C'est lui qui donne le rythme."
+
+[mimic]
+name = "Mimique"
+kind = "engeance"
+rank = 2
+threat = 3
+attack = 2
+endurance = 2
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = [
+  "Entre en jeu comme une copie de l'engeance de ce secteur qui a la Menace la plus haute, sauf qu'elle a 2~d'Attaque et 2~d'Endurance.",
+]
+flavor = "Regardez bien. L'une des deux respire trop vite."
+
+[bodyguard]
+name = "Garde du corps"
+kind = "engeance"
+rank = 2
+threat = 3
+attack = 2
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["L'autre engeance de ce secteur qui a la Menace la plus haute ne peut pas être ciblée."]
+flavor = "Il faudra lui passer dessus."
+
+[saboteur]
+name = "Saboteur"
+kind = "engeance"
+rank = 3
+threat = 4
+attack = 2
+endurance = 3
+zones = [
+  "*Avance~1.*",
+  "*Avance~1.*",
+  "*Attaque*, puis l'As de ce secteur active un de ses atouts.",
+]
+flavor = "Il ne vise pas la gorge. Il vise la gâchette."
+
+[titan]
+name = "Titan"
+kind = "engeance"
+rank = 4
+threat = 7
+attack = 5
+endurance = 7
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+passive = ["*Blindage~1.*"]
+flavor = "Le sol le sent arriver avant vous."
+
+[queen]
+name = "Reine"
+kind = "engeance"
+rank = 4
+threat = 7
+attack = 2
+endurance = 6
+zones = ["Chaque autre engeance de ce secteur s'active.", "*Recule~1.*", "*Recule~1.*"]
+passive = ["*Patience~2.*"]
+flavor = "Tant qu'elle pense, ils obéissent."
+
+[nest]
+name = "Nid"
+kind = "structure"
+rank = 1
+threat = 3
+attack = 0
+endurance = 3
+activation = "Crée 1~jeton Essaimé dans cette zone."
+flavor = "Tant qu'il est là, il en sortira d'autres."
+
+[psychic_relay]
+name = "Relais psychique"
+kind = "structure"
+rank = 2
+threat = 3
+attack = 0
+endurance = 3
+passive = ["Le niveau de menace de ce secteur augmente de 1."]
+flavor = "Il appelle. Et l'essaim répond."
+
+[bait]
+name = "Appât"
+kind = "structure"
+rank = 2
+threat = 3
+attack = 0
+endurance = 3
+passive = [
+  "Entre en jeu en zone~2.",
+  "Chaque tour, la première activation de chaque As qui peut cibler l'Appât doit le cibler.",
+]
+flavor = "Impossible de regarder ailleurs."
+
+[rampart]
+name = "Rempart"
+kind = "structure"
+rank = 3
+threat = 4
+attack = 0
+endurance = 4
+passive = ["Les autres engeances de sa zone ont *Blindage~1*."]
+flavor = "Derrière lui, l'essaim prend son temps."
+
+[rage_gland]
+name = "Glande de rage"
+kind = "structure"
+rank = 3
+threat = 4
+attack = 0
+endurance = 4
+passive = ["Entre en jeu en zone~2.", "Les engeances en zone~1 de ce secteur ont +1~Attaque."]
+flavor = "Son odeur les rend fous."
+
+[hive]
+name = "Ruche"
+kind = "structure"
+rank = 4
+threat = 6
+attack = 0
+endurance = 6
+activation = "Crée 2~jetons Guerrier dans cette zone."
+flavor = "On ne repousse pas une ruche. On la rase."
+
+[swarm_cloud]
+name = "Nuée"
+kind = "impulse"
+rank = 1
+threat = 3
+passive = ["Créez 3~jetons Essaimé en zone~3 de ce secteur."]
+flavor = "D'abord un bourdonnement. Puis le ciel s'assombrit."
+
+[rush]
+name = "Ruée"
+kind = "impulse"
+rank = 1
+threat = 1
+passive = ["Chaque jeton de ce secteur fait *Avance~1*."]
+flavor = "Les petits courent toujours devant."
+
+[jolt]
+name = "Sursaut"
+kind = "impulse"
+rank = 1
+threat = 2
+passive = ["L'engeance de ce secteur qui a la Menace la plus haute s'active."]
+flavor = "On la croyait occupée. Elle ne l'était pas."
+
+[psychic_attack]
+name = "Attaque psychique"
+kind = "impulse"
+rank = 2
+threat = 2
+passive = ["Infligez 2~dégâts à l'As de ce secteur."]
+flavor = "Ça ne vient pas de dehors. Ça vient de dedans."
+
+[rampage]
+name = "Déchaînement"
+kind = "impulse"
+rank = 3
+threat = 4
+passive = ["Choisissez 3~engeances non‑jeton de ce secteur. Elles s'activent."]
+flavor = "La ruche a donné l'ordre. Tout bouge en même temps."
+
+[tide]
+name = "Marée"
+kind = "impulse"
+rank = 4
+threat = 5
+passive = ["Créez 2~jetons Essaimé en zone~3 de chaque secteur."]
+flavor = "Il n'y a plus de front. Il y en a partout."
+
+[toxin]
+name = "Toxine"
+kind = "emprise"
+rank = 1
+threat = 2
+removal_dice = ["4+", "4+"]
+passive = ["Au début du tour des joueurs, elle inflige 1~dégât à l'As de ce secteur."]
+flavor = "On ne la voit pas. On la tousse."
+
+[tunnel]
+name = "Tunnel"
+kind = "emprise"
+rank = 1
+threat = 3
+removal_total = 10
+passive = ["Quand il s'active, il crée 1~jeton Essaimé en zone~2 de ce secteur."]
+flavor = "Ils ne passent plus par la porte."
+
+[crushing_presence]
+name = "Présence écrasante"
+kind = "emprise"
+rank = 2
+threat = 3
+removal_dice = ["5+", "5+"]
+passive = ["L'As de ce secteur a −1~PA."]
+flavor = "Une voix de trop dans la tête."
+
+[mucus]
+name = "Mucus"
+kind = "emprise"
+rank = 2
+threat = 2
+removal_dice = ["X", "X"]
+passive = ["Les As ne peuvent pas déplacer les engeances de ce secteur."]
+flavor = "Tout colle. Rien ne bouge."
+
+[fog]
+name = "Brouillard"
+kind = "emprise"
+rank = 2
+threat = 3
+removal_dice = ["4+", "4+"]
+passive = ["La portée des atouts de l'As de ce secteur est réduite de 1."]
+flavor = "On tire sur des ombres."
+
+[infested_ground]
+name = "Terrain infesté"
+kind = "emprise"
+rank = 3
+threat = 4
+removal_dice = ["X", "X", "X"]
+passive = ["Les engeances qui entrent en jeu dans ce secteur arrivent en zone~2."]
+flavor = "Ils sortent déjà du sol sous vos pieds."
+
+[eclipse]
+name = "Éclipse"
+kind = "emprise"
+rank = 4
+threat = 5
+removal_total = 15
+passive = ["Le niveau de menace de ce secteur augmente de 2."]
+flavor = "Quand le ciel se couvre d'ailes."
+
+[isolation]
+name = "Isolement"
+kind = "emprise"
+rank = 2
+threat = 3
+removal_dice = ["5+"]
+passive = ["L'As de ce secteur ne peut cibler que des engeances de son secteur."]
+flavor = "Vous les entendez crier. Vous ne pouvez rien faire."
+
+[hunger]
+name = "Faim"
+kind = "emprise"
+rank = 2
+threat = 3
+removal_total = 12
+passive = [
+  "Chaque fois qu'une engeance non‑jeton est détruite dans ce secteur, elle crée 1~jeton Essaimé en zone~3 de ce secteur.",
+]
+flavor = "Rien ne se perd. Tout se mange."
+
+[corrosion]
+name = "Corrosion"
+kind = "emprise"
+rank = 3
+threat = 4
+removal_dice = ["X", "X", "X"]
+passive = ["Les atouts de l'As de ce secteur ont 1~utilisation de moins."]
+flavor = "Le métal pleure."
+
+[parasite]
+name = "Parasite"
+kind = "emprise"
+rank = 3
+threat = 4
+removal_dice = ["4+"]
+passive = ["Au début du tour des joueurs, l'As de ce secteur active un de ses atouts."]
+flavor = "Ce n'est plus tout à fait votre main."
+
+[carapace]
+name = "Carapace"
+kind = "mutation"
+rank = 2
+threat = 2
+passive = [
+  "Mutez l'engeance de ce secteur qui a l'Endurance la plus haute.",
+  "Elle gagne *Blindage~1*.",
+]
+flavor = "Ce qui ne la tue pas l'épaissit."
+
+[hypertrophy]
+name = "Hypertrophie"
+kind = "mutation"
+rank = 1
+threat = 2
+passive = [
+  "Mutez l'engeance de ce secteur qui a l'Endurance la plus basse.",
+  "Elle gagne +2~Endurance.",
+]
+flavor = "Hier c'était la plus chétive."
+
+[claws]
+name = "Griffes"
+kind = "mutation"
+rank = 1
+threat = 2
+passive = ["Mutez l'engeance de ce secteur la plus proche de l'As.", "Elle gagne +1~Attaque."]
+flavor = "Elles ont poussé pendant la nuit."
+
+[second_skin]
+name = "Seconde peau"
+kind = "mutation"
+rank = 2
+threat = 3
+passive = [
+  "Mutez l'engeance de ce secteur qui a la Menace la plus haute.",
+  "La prochaine fois qu'elle devrait être détruite, détruisez cette Mutation à la place.",
+]
+flavor = "Vous n'avez tué que l'enveloppe."
+
+[egg_sac]
+name = "Poche à œufs"
+kind = "mutation"
+rank = 2
+threat = 2
+passive = [
+  "Mutez l'engeance de ce secteur qui a l'Endurance la plus haute.",
+  "Quand elle est détruite, elle crée 2~jetons Essaimé dans sa zone.",
+]
+flavor = "Ne tirez pas dans le ventre."
+
+[acid_blood]
+name = "Sang acide"
+kind = "mutation"
+rank = 2
+threat = 2
+passive = [
+  "Mutez l'engeance de ce secteur la plus proche de l'As.",
+  "Quand elle est détruite en zone~1, elle inflige 2~dégâts à l'As de ce secteur.",
+]
+flavor = "Même morte, elle mord."
+
+[offspring]
+name = "Rejeton"
+kind = "mutation"
+rank = 2
+threat = 2
+passive = [
+  "Mutez l'engeance de ce secteur qui a la Menace la plus haute.",
+  "Quand elle est détruite, elle crée un jeton Copie de cette engeance, sauf qu'il a 1~d'Attaque et 1~d'Endurance.",
+]
+flavor = "Plus petit. Tout aussi teigneux."
+
+[camouflage]
+name = "Camouflage"
+kind = "mutation"
+rank = 3
+threat = 3
+passive = [
+  "Mutez l'engeance de ce secteur qui a la Menace la plus haute.",
+  "Elle ne peut pas être ciblée depuis un autre secteur.",
+]
+flavor = "Vos voisins jurent qu'il n'y a rien."
+
+[frenzy]
+name = "Frénésie"
+kind = "mutation"
+rank = 3
+threat = 4
+passive = [
+  "Mutez l'engeance de ce secteur qui a l'Attaque la plus haute.",
+  "Quand elle s'active, elle s'active une seconde fois.",
+]
+flavor = "Elle ne s'arrête plus."
+
+[apex]
+name = "Apex"
+kind = "mutation"
+rank = 4
+threat = 5
+passive = [
+  "Mutez l'engeance de ce secteur qui a la Menace la plus haute.",
+  "Elle gagne +2~Attaque, +2~Endurance et *Blindage~1*.",
+]
+flavor = "L'essaim a trouvé sa forme parfaite."
+
+[pack_instinct]
+name = "Instinct de meute"
+kind = "mutation"
+rank = 2
+threat = 3
+passive = [
+  "Mutez l'engeance de ce secteur qui a l'Attaque la plus haute.",
+  "Elle gagne +1~Attaque pour chaque autre engeance de sa zone.",
+]
+flavor = "Seule, elle hésite. À dix, jamais."
+
+[leader]
+name = "Meneuse"
+kind = "mutation"
+rank = 3
+threat = 4
+passive = [
+  "Mutez l'engeance de ce secteur qui a la Menace la plus haute.",
+  "Elle gagne *Patience~1*. Quand elle s'active, une autre engeance de sa zone s'active.",
+]
+flavor = "Elle a appris à attendre son moment."
+
+[broodling]
+name = "Essaimé"
+kind = "token"
+attack = 1
+endurance = 1
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+flavor = "Un seul ne fait pas peur. Il n'y en a jamais un seul."
+
+[spitter]
+name = "Cracheur"
+kind = "token"
+attack = 1
+endurance = 1
+zones = ["*Avance~1.*", "*Attaque.*", "*Recule~1.*"]
+flavor = "Il garde ses distances et vous arrose."
+
+[warrior]
+name = "Guerrier"
+kind = "token"
+attack = 3
+endurance = 3
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque.*"]
+flavor = "L'essaim en fait des milliers. Un seul suffit à vous tuer."
+
+[bubo]
+name = "Bubon"
+kind = "token"
+attack = 3
+endurance = 1
+zones = ["*Avance~1.*", "*Avance~1.*", "*Attaque*, puis est détruit."]
+flavor = "Il n'a qu'une idée en tête, et elle explose."
+
+[copy]
+name = "Copie"
+kind = "token"
+type_line = "Essaim, Jeton"
+passive = ["Ce jeton est une copie."]
+flavor = "Vous l'avez déjà tué une fois."
+
+[infestation]
+name = "Infestation"
+kind = "infestation"
+type_line = "Essaim, Infestation"
+passive = [
+  "Pendant l'invasion, effectuez un tirage d'invasion dans ce secteur pour chaque carte Infestation qui s'y trouve.",
+]
+flavor = "C'est par là qu'ils arrivent. Ils arriveront toujours."

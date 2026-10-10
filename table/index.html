@@ -1,0 +1,601 @@
+<title>Against the Swarm Table</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap">
+<style>
+:root {
+  --bg: #efe6d6; --surface: #f8f2e6; --raised: #fffaf0; --fg: #2a211b; --muted: #75665a;
+  --line: #cdbfa8; --accent: #b3401f; --accent-fg: #fff7ee; --swarm: #5b6b2c; --ok: #2f6f62;
+  --shade: rgba(42, 33, 27, .55); --zone: #e6dbc6;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1b1714; --surface: #25201b; --raised: #302a24; --fg: #efe4d2; --muted: #a8998a;
+  --line: #4a4037; --accent: #e0683f; --accent-fg: #1b1410; --swarm: #a3b860; --ok: #6fbfae;
+  --shade: rgba(0, 0, 0, .65); --zone: #201b17; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1b1714; --surface: #25201b; --raised: #302a24; --fg: #efe4d2; --muted: #a8998a;
+  --line: #4a4037; --accent: #e0683f; --accent-fg: #1b1410; --swarm: #a3b860; --ok: #6fbfae;
+  --shade: rgba(0, 0, 0, .65); --zone: #201b17; color-scheme: dark }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex; flex-direction: column; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+h1, h2, .display { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; letter-spacing: .04em; margin: 0; }
+button { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 10px;
+  min-height: 44px; padding: 8px 12px; cursor: pointer; touch-action: manipulation; }
+button:active { transform: translateY(1px); }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
+button.quiet { background: transparent; }
+button.small { min-height: 36px; padding: 4px 10px; }
+button:disabled { opacity: .4; }
+input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 10px; min-height: 44px; padding: 8px 12px; width: 100%; }
+
+header { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-bottom: 1px solid var(--line); background: var(--surface); }
+header .status { flex: 1; min-width: 0; }
+header .status .display { font-size: 21px; line-height: 1; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+header .status small { color: var(--muted); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tabs { display: flex; gap: 6px; padding: 8px 16px; overflow-x: auto; background: var(--surface); border-bottom: 1px solid var(--line); }
+.tabs button { flex: 1 0 auto; min-height: 40px; display: flex; flex-direction: column; align-items: center; line-height: 1.1; padding: 4px 12px; }
+.tabs button[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
+.tabs small { color: var(--muted); font-variant-numeric: tabular-nums; }
+.tabs .down { color: var(--accent); }
+
+main { flex: 1; overflow-y: auto; padding: 10px 16px 16px; display: flex; flex-direction: column; gap: 10px; }
+.band { background: var(--zone); border: 1px solid var(--line); border-radius: 12px; padding: 6px 8px 8px; }
+.band.swarm { border-left: 4px solid var(--swarm); }
+.band.ace { border-left: 4px solid var(--accent); background: var(--surface); }
+.band-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.band-head .display { font-size: 18px; flex: 1; }
+.band-head small { color: var(--muted); }
+.row { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 6px; min-height: 60px; align-items: flex-start; }
+.row:empty::after { content: "vide"; color: var(--muted); font-style: italic; align-self: center; padding-left: 6px; }
+
+.card { position: relative; flex: 0 0 auto; width: 96px; aspect-ratio: 63 / 88; padding: 0; border: 0; border-radius: 6px; background: none; min-height: 0;
+  box-shadow: 0 1px 4px var(--shade); transition: transform .15s; }
+.card img { display: block; width: 100%; height: 100%; border-radius: 6px; }
+.card.exhausted { transform: rotate(7deg) scale(.94); }
+.card.exhausted img { filter: grayscale(.7) brightness(.8); }
+.card.target { outline: 3px solid var(--accent); outline-offset: 2px; }
+.badge { position: absolute; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 9px; background: var(--fg); color: var(--bg); }
+.badge.state { left: 50%; top: 42%; transform: translateX(-50%); white-space: nowrap; }
+.badge.count { right: -4px; top: -4px; background: var(--accent); color: var(--accent-fg); min-width: 22px; text-align: center; font-size: 13px; }
+.badge.mutation { left: -4px; bottom: -4px; background: var(--swarm); color: var(--bg); }
+.badge.wait { left: 2px; right: 2px; bottom: 2px; text-align: center; border-radius: 4px; }
+
+.counters { display: flex; flex-wrap: wrap; gap: 6px; }
+.counter { display: flex; align-items: center; gap: 4px; background: var(--raised); border: 1px solid var(--line); border-radius: 10px; padding: 2px; }
+.counter span { min-width: 0; white-space: nowrap; text-align: center; font-variant-numeric: tabular-nums; }
+.counter b { font-size: 18px; }
+.counter button { min-width: 32px; min-height: 40px; padding: 0; border: 0; background: transparent; font-size: 20px; }
+.dice { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 0 4px; }
+.die { width: 46px; height: 46px; min-height: 0; padding: 0; border-radius: 9px; font-size: 24px; font-weight: 700; border: 2px solid var(--fg); background: var(--raised); font-variant-numeric: tabular-nums; }
+.die.spent { opacity: .3; border-style: dashed; }
+
+footer { display: flex; gap: 8px; padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); background: var(--surface); }
+footer button { flex: 1; }
+.banner { background: var(--accent); color: var(--accent-fg); padding: 8px 16px; display: flex; align-items: center; gap: 8px; }
+.banner span { flex: 1; }
+
+.backdrop { position: fixed; inset: 0; background: var(--shade); display: flex; align-items: flex-end; justify-content: center; z-index: 10; }
+.sheet { background: var(--surface); width: 100%; max-width: 560px; max-height: 92%; overflow-y: auto; border-radius: 16px 16px 0 0;
+  padding: 12px 16px calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; }
+.sheet-head { display: flex; align-items: center; gap: 8px; }
+.sheet-head h2 { flex: 1; font-size: 24px; }
+.sheet .big { align-self: center; width: min(72%, 300px); border-radius: 10px; box-shadow: 0 2px 10px var(--shade); }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.actions .wide { grid-column: 1 / -1; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+.grid .card { width: 100%; }
+.choice { display: flex; gap: 8px; justify-content: center; }
+.choice .card { width: 31%; max-width: 170px; }
+.log { margin: 0; padding-left: 18px; color: var(--muted); max-height: 40vh; overflow-y: auto; }
+.setup { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.setup h1 { font-size: 44px; line-height: .95; color: var(--accent); }
+.setup label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); }
+.hint { color: var(--muted); margin: 0; }
+.attached { display: flex; gap: 8px; overflow-x: auto; }
+</style>
+
+<div id="app" style="display:contents"></div>
+<div id="overlay"></div>
+
+<script>
+"use strict";
+const SAVE_KEY = "against-the-swarm-table-1";
+const ZONE_NAMES = ["Zone 1 · Contact", "Zone 2 · Proche", "Zone 3 · Éloignée"];
+const RANK_ADDED_AT_WAVE = { 3: 2, 5: 3, 7: 4 };
+const roundsToHold = wave => 5 + Math.floor((wave - 1) / 2);
+const threatLevel = wave => 6 + Math.floor(wave / 2);
+
+let CARDS = {};
+let state = null;
+let history = [];
+let view = { sector: 0, sheet: null, attach: null, setup: { count: 2, aces: [] } };
+
+const app = document.getElementById("app");
+const overlay = document.getElementById("overlay");
+const escapeHtml = text => String(text).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const card = id => CARDS[id];
+const swarmIds = () => Object.keys(CARDS).filter(id => CARDS[id].set === "swarm");
+const assetIds = () => Object.keys(CARDS).filter(id => CARDS[id].set === "asset");
+const aceIds = () => Object.keys(CARDS).filter(id => CARDS[id].set === "ace");
+const rollDie = () => 1 + Math.floor(Math.random() * 6);
+function shuffle(list) {
+  for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
+  return list;
+}
+
+/* ---------- persistence and undo ---------- */
+function save() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (error) { /* storage unavailable */ } }
+function load() { try { const raw = localStorage.getItem(SAVE_KEY); if (raw) state = JSON.parse(raw); } catch (error) { state = null; } }
+function act(change) {
+  history.push(JSON.stringify(state));
+  if (history.length > 60) history.shift();
+  change();
+  save();
+  render();
+}
+function undo() {
+  if (!history.length) return;
+  state = JSON.parse(history.pop());
+  view.sheet = null; view.attach = null;
+  save(); render();
+}
+function note(text) { state.log.unshift(`V${state.wave} R${state.round} — ${text}`); if (state.log.length > 200) state.log.pop(); }
+
+/* ---------- game actions ---------- */
+function newGame(aces) {
+  history = [];
+  const swarm = swarmIds();
+  state = {
+    wave: 1, round: 1, phase: "preparation", next: 1, log: [],
+    pile: shuffle(swarm.filter(id => card(id).rank === 1)),
+    discard: [],
+    assetPile: shuffle(assetIds().filter(id => !card(id).starting)),
+    assetDiscard: [],
+    drafts: [],
+    players: aces.map(ace => ({ ace, wounds: 0, guard: 0, actionModifier: 0, dice: [], assets: [] })),
+    sectors: aces.map(() => ({ zones: [[], [], []], lasting: [], tray: [], pending: null })),
+  };
+  state.players.forEach((player, index) => {
+    assetIds().filter(id => card(id).starting).forEach(id => player.assets.push(instance(id)));
+    state.sectors[index].lasting.push(instance("swarm/infestation"));
+    state.drafts.push({ player: index, options: drawAssets(3) }, { player: index, options: null });
+  });
+  view.sector = 0; view.sheet = null;
+  save(); render();
+}
+function instance(id, exhausted = false) { return { key: state.next++, id, exhausted, counter: 0, mutations: [] }; }
+function drawAssets(count) {
+  const drawn = [];
+  while (drawn.length < count) {
+    if (!state.assetPile.length) { if (!state.assetDiscard.length) break; state.assetPile = shuffle(state.assetDiscard); state.assetDiscard = []; }
+    drawn.push(state.assetPile.pop());
+  }
+  return drawn;
+}
+function drawSwarm() {
+  if (!state.pile.length) { if (!state.discard.length) return null; state.pile = shuffle(state.discard); state.discard = []; note("La défausse Essaim est remélangée."); }
+  return state.pile.pop();
+}
+function toDiscard(item) {
+  if (card(item.id).kind !== "token" && card(item.id).kind !== "infestation") state.discard.push(item.id);
+  item.mutations.forEach(id => state.discard.push(id));
+}
+function enterPlay(sector, id) {
+  const kind = card(id).kind;
+  const item = instance(id);
+  if (kind === "engeance" || kind === "structure" || kind === "token") sector.zones[2].push(item);
+  else if (kind === "emprise" || kind === "infestation") sector.lasting.push(item);
+  else sector.tray.push(item);
+}
+function invade() {
+  const level = threatLevel(state.wave);
+  const report = [];
+  state.sectors.forEach((sector, index) => {
+    const draws = sector.lasting.filter(item => card(item.id).kind === "infestation").length;
+    for (let draw = 0; draw < draws; draw++) {
+      const entry = { sector: index, cards: [], pending: null };
+      let total = 0;
+      if (sector.pending) {
+        total += Math.max(0, (card(sector.pending.id).threat || 0) - sector.pending.consumed);
+        enterPlay(sector, sector.pending.id); entry.cards.push(sector.pending.id); sector.pending = null;
+      }
+      while (total < level) {
+        const id = drawSwarm();
+        if (!id) break;
+        const threat = card(id).threat || 0;
+        if (total + threat > level) { sector.pending = { id, consumed: level - total }; entry.pending = id; break; }
+        total += threat; enterPlay(sector, id); entry.cards.push(id);
+      }
+      report.push(entry);
+    }
+  });
+  state.invaded = true;
+  note(`Invasion (menace ${level}) : ${report.map(e => e.cards.length).reduce((a, b) => a + b, 0)} cartes.`);
+  view.sheet = { type: "invasion", report };
+}
+function rollAll() {
+  state.players.forEach(player => {
+    const count = Math.max(1, card(player.ace).ap + player.actionModifier);
+    player.dice = Array.from({ length: count }, () => ({ value: rollDie(), spent: false }));
+  });
+}
+function endPlayersTurn() {
+  state.players.forEach(player => player.assets.forEach(item => { item.exhausted = false; }));
+  state.phase = "swarm"; state.invaded = false;
+  note("Fin du tour des joueurs.");
+}
+function eachSwarmCard(visit) {
+  state.sectors.forEach(sector => { sector.zones.forEach(zone => zone.forEach(visit)); sector.lasting.forEach(visit); });
+}
+function endSwarmTurn() {
+  eachSwarmCard(item => { item.exhausted = false; });
+  note("Fin du tour de l'Essaim.");
+  if (state.round >= roundsToHold(state.wave)) { state.phase = "held"; return; }
+  state.round++; startPlayersTurn();
+}
+function startPlayersTurn() {
+  state.phase = "players";
+  state.players.forEach(player => { player.guard = 0; });
+  rollAll();
+}
+function nextWave() {
+  state.sectors.forEach(sector => {
+    sector.zones.forEach(zone => zone.forEach(toDiscard));
+    sector.lasting.forEach(toDiscard); sector.tray.forEach(toDiscard);
+    if (sector.pending) state.discard.push(sector.pending.id);
+    sector.zones = [[], [], []]; sector.tray = []; sector.pending = null;
+    sector.lasting = [instance("swarm/infestation")];
+  });
+  state.wave++; state.round = 1; state.phase = "preparation";
+  const rank = RANK_ADDED_AT_WAVE[state.wave];
+  if (rank) {
+    state.pile = shuffle(state.pile.concat(state.discard, swarmIds().filter(id => card(id).rank === rank)));
+    state.discard = [];
+    note(`Le rang ${rank} rejoint la pile Essaim.`);
+  }
+  state.players.forEach((player, index) => {
+    Object.assign(player, { wounds: 0, guard: 0, actionModifier: 0, dice: [] });
+    player.assets.forEach(item => { item.exhausted = false; item.counter = 0; });
+    state.drafts.push({ player: index, options: null });
+  });
+  if (state.drafts.length) state.drafts[0].options = drawAssets(3);
+}
+function resolveDraft(choice) {
+  const draft = state.drafts.shift();
+  draft.options.forEach(id => { if (id === choice) state.players[draft.player].assets.push(instance(id)); else state.assetDiscard.push(id); });
+  if (state.drafts.length) state.drafts[0].options = drawAssets(3);
+}
+function locate(key) {
+  for (const [sectorIndex, sector] of state.sectors.entries()) {
+    const places = [...sector.zones.map((list, zone) => ({ list, place: "zone", zone })), { list: sector.lasting, place: "lasting" }, { list: sector.tray, place: "tray" }];
+    for (const where of places) { const index = where.list.findIndex(item => item.key === key); if (index >= 0) return { ...where, sector, sectorIndex, index, item: where.list[index] }; }
+  }
+  for (const [playerIndex, player] of state.players.entries()) {
+    const index = player.assets.findIndex(item => item.key === key);
+    if (index >= 0) return { place: "asset", list: player.assets, player, playerIndex, index, item: player.assets[index] };
+  }
+  return null;
+}
+
+/* ---------- rendering ---------- */
+function thumb(item, extra = "") {
+  const data = card(item.id);
+  const badges = [];
+  if (item.exhausted) badges.push('<span class="badge state">épuisée</span>');
+  if (item.counter) badges.push(`<span class="badge count">${item.counter}</span>`);
+  if (item.mutations && item.mutations.length) badges.push(`<span class="badge mutation">+${item.mutations.length} mut.</span>`);
+  return `<button class="card ${item.exhausted ? "exhausted" : ""} ${extra}" data-open="${item.key}" aria-label="${escapeHtml(data.name)}">
+    <img src="${data.image}" alt="${escapeHtml(data.name)}" loading="lazy">${badges.join("")}</button>`;
+}
+function plainThumb(id, attributes) {
+  return `<button class="card" ${attributes} aria-label="${escapeHtml(card(id).name)}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}" loading="lazy"></button>`;
+}
+function counter(label, value, name) {
+  return `<div class="counter"><button data-step="${name}" data-by="-1" aria-label="${label} moins">−</button><span>${label} <b>${value}</b></span><button data-step="${name}" data-by="1" aria-label="${label} plus">+</button></div>`;
+}
+
+function render() {
+  const scroll = {};
+  app.querySelectorAll("[data-scroll]").forEach(node => { scroll[node.dataset.scroll] = [node.scrollLeft, node.scrollTop]; });
+  app.innerHTML = state ? renderTable() : renderSetup();
+  app.querySelectorAll("[data-scroll]").forEach(node => { const kept = scroll[node.dataset.scroll]; if (kept) { node.scrollLeft = kept[0]; node.scrollTop = kept[1]; } });
+  overlay.innerHTML = state ? renderSheet() : "";
+}
+
+function renderSetup() {
+  const setup = view.setup;
+  const all = aceIds();
+  while (setup.aces.length < setup.count) setup.aces.push(all[setup.aces.length % all.length]);
+  const pickers = Array.from({ length: setup.count }, (_, index) => `
+    <label>As ${index + 1}
+      <select data-ace="${index}">${all.map(id => `<option value="${id}" ${setup.aces[index] === id ? "selected" : ""}>${escapeHtml(card(id).name)} — ${card(id).hp} PV, ${card(id).ap} PA</option>`).join("")}</select>
+    </label>`).join("");
+  return `<main><div class="setup">
+    <h1>Against<br>the Swarm</h1>
+    <p class="hint">Table de test. Elle déplace les cartes, tire l'invasion et lance les dés. Les règles, c'est vous.</p>
+    <label>Nombre d'As
+      <select data-count>${[1, 2, 3, 4].map(n => `<option ${n === setup.count ? "selected" : ""}>${n}</option>`).join("")}</select>
+    </label>
+    ${pickers}
+    <button class="primary" data-do="start">Commencer</button>
+  </div></main>`;
+}
+
+function renderTable() {
+  const sector = state.sectors[view.sector];
+  const player = state.players[view.sector];
+  const ace = card(player.ace);
+  const phaseName = { preparation: "Préparation", players: "Tour des joueurs", swarm: "Tour de l'Essaim", held: "Vague tenue" }[state.phase];
+  const tabs = state.players.map((p, index) => {
+    const left = card(p.ace).hp - p.wounds;
+    return `<button role="tab" aria-selected="${index === view.sector}" data-sector="${index}">${escapeHtml(card(p.ace).name)}<small class="${left <= 0 ? "down" : ""}">${left <= 0 ? "hors jeu" : left + " PV"}</small></button>`;
+  }).join("");
+  const banner = view.attach ? `<div class="banner"><span>Touchez l'engeance qui reçoit ${escapeHtml(card(locate(view.attach).item.id).name)}.</span><button class="small" data-do="cancel-attach">Annuler</button></div>` : "";
+
+  const lasting = sector.lasting.map(item => thumb(item)).join("") +
+    (sector.pending ? `<button class="card" data-do="pending"><img src="${card(sector.pending.id).image}" alt=""><span class="badge wait">en attente · ${sector.pending.consumed}</span></button>` : "");
+  const tray = sector.tray.length ? `<section class="band swarm"><div class="band-head"><span class="display">À résoudre</span><small>Impulsions et Mutations tirées</small></div>
+    <div class="row" data-scroll="tray">${sector.tray.map(item => thumb(item)).join("")}</div></section>` : "";
+  const zones = [2, 1, 0].map(zone => `<section class="band swarm"><div class="band-head"><span class="display">${ZONE_NAMES[zone]}</span>
+      <small>${sector.zones[zone].length || ""}</small><button class="small" data-add-zone="${zone}" aria-label="Ajouter une carte en ${ZONE_NAMES[zone]}">+</button></div>
+    <div class="row" data-scroll="zone${zone}">${sector.zones[zone].map(item => thumb(item, view.attach ? "target" : "")).join("")}</div></section>`).join("");
+
+  const slots = player.assets.reduce((sum, item) => sum + (card(item.id).slots || 0), 0);
+  const dice = player.dice.map((die, index) => `<button class="die ${die.spent ? "spent" : ""}" data-die="${index}" aria-label="Dé ${die.value}">${die.value}</button>`).join("");
+  const aceBand = `<section class="band ace">
+    <div class="band-head"><span class="display">${escapeHtml(ace.name)}</span><small>${ace.hp} PV · ${Math.max(1, ace.ap + player.actionModifier)} PA · ${slots}/${ace.slots} empl.</small></div>
+    <div class="counters">${counter("Blessures", player.wounds, "wounds")}${counter("Garde", player.guard, "guard")}${counter("PA", (player.actionModifier > 0 ? "+" : "") + player.actionModifier, "actionModifier")}</div>
+    <div class="dice">${dice}<button class="small" data-do="add-die">+ dé</button><button class="small" data-do="reroll">Relancer tout</button></div>
+    <div class="row" data-scroll="assets">${plainThumb(player.ace, 'data-do="ace"')}${player.assets.map(item => thumb(item)).join("")}
+      <button class="small" data-do="add-asset" style="align-self:center">+ atout</button></div>
+  </section>`;
+
+  let actions = "";
+  if (state.phase === "preparation") actions = state.drafts.length
+    ? `<button class="primary" data-do="draft">Draft de ${escapeHtml(card(state.players[state.drafts[0].player].ace).name)} (${state.drafts.length} restants)</button>`
+    : `<button class="primary" data-do="begin">Lancer la vague ${state.wave}</button>`;
+  if (state.phase === "players") actions = `<button class="primary" data-do="end-players">Fin du tour des joueurs</button>`;
+  if (state.phase === "swarm") actions = `<button class="${state.invaded ? "" : "primary"}" data-do="invade">Invasion</button><button class="${state.invaded ? "primary" : ""}" data-do="end-swarm">Fin du tour de l'Essaim</button>`;
+  if (state.phase === "held") actions = `<button class="primary" data-do="next-wave">Vague ${state.wave} tenue — préparer la suivante</button>`;
+
+  return `<header>
+      <div class="status"><span class="display">Vague ${state.wave} · Round ${state.round}/${roundsToHold(state.wave)}</span>
+        <small>${phaseName} · menace ${threatLevel(state.wave)} · pile ${state.pile.length} · défausse ${state.discard.length}</small></div>
+      <button class="small" data-do="undo" ${history.length ? "" : "disabled"}>Annuler</button>
+      <button class="small" data-do="menu" aria-label="Menu">☰</button>
+    </header>
+    <nav class="tabs" role="tablist">${tabs}</nav>${banner}
+    <main data-scroll="main">
+      <section class="band swarm"><div class="band-head"><span class="display">Secteur</span><small>Infestation, Emprises, carte en attente</small>
+        <button class="small" data-add-zone="lasting" aria-label="Ajouter une carte au secteur">+</button></div>
+        <div class="row" data-scroll="lasting">${lasting}</div></section>
+      ${tray}${zones}${aceBand}
+    </main>
+    <footer>${actions}</footer>`;
+}
+
+function sheetFrame(title, body) {
+  return `<div class="backdrop" data-close><div class="sheet" role="dialog" aria-label="${escapeHtml(title)}">
+    <div class="sheet-head"><h2>${escapeHtml(title)}</h2><button class="small quiet" data-close aria-label="Fermer">✕</button></div>${body}</div></div>`;
+}
+function renderSheet() {
+  const sheet = view.sheet;
+  if (!sheet) return "";
+  if (sheet.type === "card") {
+    const found = locate(sheet.key);
+    if (!found) { view.sheet = null; return ""; }
+    const item = found.item, data = card(item.id);
+    const buttons = [`<button data-card="exhaust">${item.exhausted ? "Rendre prête" : "Épuiser"}</button>`];
+    if (found.place === "zone") {
+      buttons.push(`<button data-card="destroy" class="primary">Détruire</button>`);
+      buttons.push(`<button data-card="advance" ${found.zone === 0 ? "disabled" : ""}>Avance ↓</button>`);
+      buttons.push(`<button data-card="retreat" ${found.zone === 2 ? "disabled" : ""}>Recule ↑</button>`);
+      buttons.push(`<button data-card="copy" class="wide">Créer une copie épuisée dans cette zone</button>`);
+    } else if (found.place === "tray") {
+      if (data.kind === "mutation") buttons.push(`<button data-card="attach" class="primary">Attacher à une engeance</button>`);
+      buttons.push(`<button data-card="destroy" class="${data.kind === "mutation" ? "wide" : "primary"}">Défausser</button>`);
+    } else if (found.place === "lasting") {
+      buttons.push(`<button data-card="destroy" class="primary">${data.kind === "infestation" ? "Retirer" : "Défausser"}</button>`);
+    } else {
+      buttons.push(`<button data-card="destroy">Retirer de la Panoplie</button>`);
+    }
+    if (found.place !== "asset" && state.sectors.length > 1) {
+      const count = state.sectors.length;
+      const left = (found.sectorIndex + count - 1) % count, right = (found.sectorIndex + 1) % count;
+      buttons.push(`<button data-card="sector" data-to="${left}">← chez ${escapeHtml(card(state.players[left].ace).name)}</button>`);
+      if (right !== left) buttons.push(`<button data-card="sector" data-to="${right}">chez ${escapeHtml(card(state.players[right].ace).name)} →</button>`);
+    }
+    if (found.place === "asset" && state.players.length > 1) {
+      state.players.forEach((p, index) => { if (index !== found.playerIndex) buttons.push(`<button data-card="give" data-to="${index}">Donner à ${escapeHtml(card(p.ace).name)}</button>`); });
+    }
+    const attached = item.mutations.length ? `<p class="hint">Mutations attachées (touchez pour défausser)</p><div class="attached">${item.mutations.map((id, index) => plainThumb(id, `data-card="drop-mutation" data-to="${index}"`)).join("")}</div>` : "";
+    return sheetFrame(data.name, `<img class="big" src="${data.image}" alt="${escapeHtml(data.name)}">
+      <div class="counters" style="justify-content:center">${counter(found.place === "asset" ? "Marqueurs" : "Compteur", item.counter, "card")}</div>
+      <div class="actions">${buttons.join("")}</div>${attached}`);
+  }
+  if (sheet.type === "view") return sheetFrame(card(sheet.id).name, `<img class="big" src="${card(sheet.id).image}" alt="">${sheet.note ? `<p class="hint">${escapeHtml(sheet.note)}</p>` : ""}${sheet.extra || ""}`);
+  if (sheet.type === "die") {
+    const die = state.players[view.sector].dice[sheet.index];
+    if (!die) { view.sheet = null; return ""; }
+    return sheetFrame(`Dé ${die.value}`, `<div class="actions">
+      <button class="primary wide" data-die-do="spend">${die.spent ? "Récupérer ce dé" : "Dépenser ce dé"}</button>
+      <button data-die-do="minus" ${die.value <= 1 ? "disabled" : ""}>−1</button><button data-die-do="plus" ${die.value >= 6 ? "disabled" : ""}>+1</button>
+      <button data-die-do="reroll">Relancer</button><button data-die-do="remove">Retirer</button></div>`);
+  }
+  if (sheet.type === "picker") {
+    const query = (sheet.query || "").toLowerCase();
+    const ids = (sheet.set === "asset" ? assetIds() : swarmIds().sort((a, b) => (card(b).kind === "token") - (card(a).kind === "token")))
+      .filter(id => card(id).name.toLowerCase().includes(query));
+    return sheetFrame(sheet.set === "asset" ? "Ajouter un atout" : "Ajouter une carte", `
+      <input type="search" placeholder="Chercher par nom" value="${escapeHtml(sheet.query || "")}" data-search>
+      <p class="hint">${sheet.set === "asset" ? "La carte rejoint la Panoplie." : "Les jetons sont en premier. Une engeance ajoutée ici entre épuisée."}</p>
+      <div class="grid">${ids.map(id => plainThumb(id, `data-pick="${id}"`)).join("")}</div>`);
+  }
+  if (sheet.type === "draft") {
+    const draft = state.drafts[0];
+    if (!draft) { view.sheet = null; return ""; }
+    const player = state.players[draft.player];
+    const zoom = sheet.zoom ? `<img class="big" src="${card(sheet.zoom).image}" alt="${escapeHtml(card(sheet.zoom).name)}">
+      <button class="primary" data-draft="${sheet.zoom}">Prendre ${escapeHtml(card(sheet.zoom).name)}</button>` : `<p class="hint">Touchez une carte pour la lire.</p>`;
+    return sheetFrame(`Draft · ${card(player.ace).name}`, `<div class="choice">${draft.options.map(id => plainThumb(id, `data-zoom="${id}"`)).join("")}</div>
+      ${zoom}<button data-draft="">Ne rien prendre</button>`);
+  }
+  if (sheet.type === "invasion") {
+    const parts = sheet.report.map(entry => `<p class="hint"><b>${escapeHtml(card(state.players[entry.sector].ace).name)}</b>${entry.pending ? ` · ${escapeHtml(card(entry.pending).name)} reste en attente` : ""}</p>
+      <div class="attached">${entry.cards.map(id => plainThumb(id, `data-zoom-view="${id}"`)).join("") || '<span class="hint">Rien n\'entre en jeu.</span>'}</div>`).join("");
+    return sheetFrame("Invasion", parts + `<button class="primary" data-close>Continuer</button>`);
+  }
+  if (sheet.type === "menu") {
+    return sheetFrame("Menu", `
+      <p class="hint">Pile Essaim ${state.pile.length} · défausse ${state.discard.length} · pile d'atouts ${state.assetPile.length} · défausse ${state.assetDiscard.length}</p>
+      <div class="actions"><button data-do="force-wave">Passer à la vague suivante</button><button data-do="draw-one">Tirer 1 carte Essaim ici</button>
+        ${sheet.confirm ? `<button class="primary wide" data-do="reset">Confirmer : effacer cette partie</button>` : `<button class="wide" data-do="ask-reset">Nouvelle partie</button>`}</div>
+      <h2>Journal</h2><ol class="log">${state.log.map(line => `<li>${escapeHtml(line)}</li>`).join("") || "<li>Rien encore.</li>"}</ol>`);
+  }
+  return "";
+}
+
+/* ---------- events ---------- */
+function open(sheet) { view.sheet = sheet; render(); }
+function close() { view.sheet = null; render(); }
+
+document.addEventListener("change", event => {
+  const target = event.target;
+  if (target.matches("[data-count]")) { view.setup.count = Number(target.value); render(); }
+  if (target.matches("[data-ace]")) view.setup.aces[Number(target.dataset.ace)] = target.value;
+});
+document.addEventListener("input", event => {
+  if (!event.target.matches("[data-search]")) return;
+  view.sheet.query = event.target.value;
+  render();
+  const input = overlay.querySelector("[data-search]");
+  input.focus(); input.setSelectionRange(input.value.length, input.value.length);
+});
+
+document.addEventListener("click", event => {
+  const target = event.target.closest("button, [data-close]");
+  if (!target) return;
+  const data = target.dataset;
+  if ("close" in data) { if (target === event.target || target.tagName === "BUTTON") close(); return; }
+
+  if (data.do) return command(data.do);
+  if (data.sector) { view.sector = Number(data.sector); view.attach = null; return render(); }
+  if (data.open) return openCard(Number(data.open));
+  if (data.addZone) return open({ type: "picker", set: "swarm", zone: data.addZone });
+  if (data.die) return open({ type: "die", index: Number(data.die) });
+  if (data.step) return step(data.step, Number(data.by));
+  if (data.card) return cardAction(data.card, data.to);
+  if (data.dieDo) return dieAction(data.dieDo);
+  if (data.pick) return pick(data.pick);
+  if (data.zoom) { view.sheet.zoom = data.zoom; return render(); }
+  if (data.zoomView) return open({ type: "view", id: data.zoomView });
+  if ("draft" in data) return act(() => { const player = state.drafts[0].player; note(`${card(state.players[player].ace).name} drafte ${data.draft ? card(data.draft).name : "rien"}.`); resolveDraft(data.draft); view.sheet = state.drafts.length ? { type: "draft" } : null; if (state.drafts.length) view.sector = state.drafts[0].player; });
+});
+
+function openCard(key) {
+  if (view.attach) {
+    const host = locate(key), mutation = locate(view.attach);
+    if (host && host.place === "zone" && mutation) {
+      return act(() => { mutation.list.splice(mutation.index, 1); host.item.mutations.push(mutation.item.id); note(`${card(mutation.item.id).name} mute ${card(host.item.id).name}.`); view.attach = null; });
+    }
+    return;
+  }
+  open({ type: "card", key });
+}
+
+function command(name) {
+  const sector = state && state.sectors[view.sector], player = state && state.players[view.sector];
+  switch (name) {
+    case "start": return newGame(view.setup.aces.slice(0, view.setup.count));
+    case "undo": return undo();
+    case "menu": return open({ type: "menu" });
+    case "ask-reset": view.sheet.confirm = true; return render();
+    case "reset": state = null; history = []; view.sheet = null; try { localStorage.removeItem(SAVE_KEY); } catch (error) { /* ignore */ } return render();
+    case "cancel-attach": view.attach = null; return render();
+    case "ace": return open({ type: "view", id: player.ace });
+    case "pending": return open({ type: "view", id: sector.pending.id, note: `En attente. ${sector.pending.consumed} points de menace déjà payés, elle entrera au prochain tirage d'invasion de ce secteur.`, extra: `<button data-do="pending-enter">La faire entrer maintenant</button>` });
+    case "pending-enter": return act(() => { enterPlay(sector, sector.pending.id); sector.pending = null; view.sheet = null; });
+    case "add-asset": return open({ type: "picker", set: "asset" });
+    case "add-die": return act(() => player.dice.push({ value: rollDie(), spent: false }));
+    case "reroll": return act(() => { player.dice.forEach(die => { if (!die.spent) die.value = rollDie(); }); note(`${card(player.ace).name} relance ses dés.`); });
+    case "draft": view.sector = state.drafts[0].player; return open({ type: "draft" });
+    case "begin": return act(() => { startPlayersTurn(); note(`La vague ${state.wave} commence.`); });
+    case "end-players": return act(endPlayersTurn);
+    case "invade": return act(invade);
+    case "end-swarm": return act(endSwarmTurn);
+    case "next-wave": case "force-wave": return act(() => { view.sheet = null; nextWave(); });
+    case "draw-one": return act(() => { const id = drawSwarm(); if (id) { enterPlay(sector, id); note(`Tirage manuel : ${card(id).name}.`); view.sheet = { type: "view", id }; } });
+  }
+}
+
+function step(name, by) {
+  act(() => {
+    if (name === "card") { const found = locate(view.sheet.key); found.item.counter = Math.max(0, found.item.counter + by); return; }
+    const player = state.players[view.sector];
+    player[name] = name === "actionModifier" ? player[name] + by : Math.max(0, player[name] + by);
+  });
+}
+
+function cardAction(name, to) {
+  const found = locate(view.sheet.key);
+  if (!found) return close();
+  const item = found.item, label = card(item.id).name;
+  if (name === "attach") { view.attach = item.key; view.sheet = null; return render(); }
+  act(() => {
+    const here = locate(item.key);
+    switch (name) {
+      case "exhaust": here.item.exhausted = !here.item.exhausted; break;
+      case "advance": case "retreat": {
+        const zone = here.zone + (name === "advance" ? -1 : 1);
+        here.list.splice(here.index, 1); here.sector.zones[zone].push(here.item); break;
+      }
+      case "copy": here.list.push(Object.assign(instance(here.item.id, true), { mutations: here.item.mutations.slice() })); note(`Copie de ${label}.`); break;
+      case "destroy":
+        here.list.splice(here.index, 1);
+        if (here.place === "asset") state.assetDiscard.push(here.item.id); else toDiscard(here.item);
+        note(`${label} quitte le jeu.`); view.sheet = null; break;
+      case "sector": {
+        here.list.splice(here.index, 1);
+        const destination = state.sectors[Number(to)];
+        (here.place === "zone" ? destination.zones[here.zone] : destination[here.place]).push(here.item);
+        note(`${label} passe chez ${card(state.players[Number(to)].ace).name}.`); view.sheet = null; break;
+      }
+      case "give": here.list.splice(here.index, 1); state.players[Number(to)].assets.push(here.item); view.sheet = null; break;
+      case "drop-mutation": state.discard.push(here.item.mutations.splice(Number(to), 1)[0]); break;
+    }
+  });
+}
+
+function dieAction(name) {
+  const index = view.sheet.index;
+  act(() => {
+    const dice = state.players[view.sector].dice, die = dice[index];
+    if (name === "spend") die.spent = !die.spent;
+    if (name === "minus") die.value--;
+    if (name === "plus") die.value++;
+    if (name === "reroll") die.value = rollDie();
+    if (name === "remove") dice.splice(index, 1);
+    if (name !== "minus" && name !== "plus") view.sheet = null;
+  });
+}
+
+function pick(id) {
+  const sheet = view.sheet;
+  act(() => {
+    if (sheet.set === "asset") state.players[view.sector].assets.push(instance(id));
+    else {
+      const sector = state.sectors[view.sector], kind = card(id).kind;
+      const inZone = kind === "engeance" || kind === "structure" || kind === "token";
+      if (inZone) sector.zones[sheet.zone === "lasting" ? 2 : Number(sheet.zone)].push(instance(id, true));
+      else if (kind === "emprise" || kind === "infestation") sector.lasting.push(instance(id));
+      else sector.tray.push(instance(id));
+    }
+    note(`${card(id).name} est ajoutée.`);
+    view.sheet = null;
+  });
+}
+
+fetch("cards.json").then(response => response.json()).then(cards => { CARDS = cards; load(); render(); })
+  .catch(() => { app.innerHTML = '<main><p class="hint">Impossible de charger les cartes.</p></main>'; });
+</script>
