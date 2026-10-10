@@ -28,16 +28,32 @@ button { font: inherit; color: inherit; background: var(--raised); border: 1px s
 button:hover { border-color: var(--accent); }
 button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
 button:disabled { opacity: .4; }
-input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 40px; padding: 6px 10px; width: 100%; }
+input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 36px; padding: 4px 10px; width: 100%; }
 
 .toolbar { display: flex; align-items: center; gap: 6px; padding: 6px 16px; background: var(--surface); border-bottom: 1px solid var(--line); overflow-x: auto; flex: 0 0 auto; }
 .toolbar .group { display: flex; align-items: center; gap: 2px; padding-right: 8px; margin-right: 2px; border-right: 1px solid var(--line); flex: 0 0 auto; }
 .toolbar .group:last-child { border-right: 0; }
 .toolbar .value { font-size: 20px; padding: 0 6px; white-space: nowrap; }
 .toolbar .tiny { min-width: 30px; padding: 0; }
-#viewport { flex: 1; position: relative; overflow: hidden; touch-action: none; cursor: grab; }
+.toolbar select { width: auto; }
+#table { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+#viewport { flex: 1; min-height: 0; position: relative; overflow: hidden; touch-action: none; cursor: grab; }
 #viewport.panning { cursor: grabbing; }
 #world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.side { position: absolute; right: 16px; top: 12px; z-index: 5; display: flex; flex-direction: column; gap: 6px; width: 176px; }
+.side button { border-radius: 18px; box-shadow: 0 1px 4px var(--shade); }
+.side .split { display: flex; gap: 4px; }
+.side .split button { flex: 1; padding: 4px; }
+.side .split .tiny { flex: 0 0 34px; }
+.dock { flex: 0 0 auto; display: flex; gap: 12px; align-items: flex-end; padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); overflow-x: auto; touch-action: none; }
+.dock .slot { display: flex; flex-direction: column; gap: 3px; flex: 0 0 auto; color: var(--muted); font-size: 12px; }
+.dock .spacer { flex: 1; }
+@media (max-width: 700px) {
+  .side { position: static; flex-direction: row; width: auto; overflow-x: auto; padding: 6px 16px; background: var(--surface); border-top: 1px solid var(--line); order: 2; }
+  .side button { flex: 0 0 auto; box-shadow: none; }
+  .dock { order: 3; }
+}
+
 .region { position: absolute; border: 2px solid var(--line); }
 .region .label { position: absolute; left: 12px; top: 6px; font-size: 26px; color: var(--muted); opacity: .8; pointer-events: none; }
 .region.zone { background: var(--mat); border-left: 8px solid var(--swarm); }
@@ -45,14 +61,9 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .region.ace { background: var(--mat-ace); border-left: 8px solid var(--accent); }
 .region.tray { border-style: dashed; border-radius: 12px; }
 .region.tray .label { font-size: 18px; top: 2px; }
-.head { position: absolute; display: flex; align-items: center; gap: 12px; font-size: 20px; }
-.head .display { font-size: 44px; line-height: 1; }
-.head button { font-size: 20px; min-height: 48px; padding: 4px 16px; }
-.head .pending { color: var(--muted); text-decoration: underline dotted; cursor: help; }
-.rollbar { position: absolute; display: flex; align-items: center; gap: 6px; font-size: 20px; }
-.rollbar button { font-size: 20px; min-height: 48px; min-width: 48px; }
 
-.obj { position: absolute; touch-action: none; cursor: pointer; }
+.obj { touch-action: none; cursor: pointer; }
+#world .obj { position: absolute; }
 .card { width: 126px; height: 176px; border-radius: 8px; box-shadow: 0 2px 6px var(--shade); transition: transform .12s; }
 .card img { width: 100%; height: 100%; border-radius: 8px; display: block; pointer-events: none; -webkit-user-drag: none; }
 .card.exhausted { transform: rotate(90deg); }
@@ -63,24 +74,25 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .card.exhausted .count { transform: rotate(-90deg); }
 .die { width: 46px; height: 46px; border-radius: 9px; background: var(--die); color: #2a211b; border: 3px solid #2a211b; font-size: 28px; font-weight: 800;
   display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px var(--shade); font-variant-numeric: tabular-nums; }
-.pile { width: 126px; height: 176px; border-radius: 8px; border: 3px dashed var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; gap: 4px; font-size: 18px; padding: 6px; }
-.pile.full { border: 3px solid var(--fg); color: var(--accent-fg); box-shadow: 4px 4px 0 var(--line), 8px 8px 0 var(--line); }
+.pile { width: 72px; height: 100px; border-radius: 6px; border: 2px dashed var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; color: var(--fg); overflow: hidden; }
+.pile.full { border: 2px solid var(--fg); color: var(--accent-fg); box-shadow: 3px 3px 0 var(--line); }
 .pile.full.swarm { background: var(--swarm); } .pile.full.asset { background: var(--asset); } .pile.full.token { background: var(--muted); }
-.pile.discard.has { border-style: solid; background: var(--mat-ace); }
-.pile b { font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
-.pile .display { font-size: 22px; line-height: 1; }
+.pile.discard.has { border-style: solid; }
+.pile.over { outline: 3px solid var(--accent); outline-offset: 2px; }
+.pile b { font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; pointer-events: none; }
+.pile img { width: 100%; height: 100%; display: block; pointer-events: none; }
 #marquee { position: absolute; border: 2px dashed var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); pointer-events: none; }
 
 #preview { position: fixed; top: 60px; width: min(300px, 62vw); border-radius: 12px; box-shadow: 0 6px 24px var(--shade); pointer-events: none; z-index: 30; }
-#menu { position: fixed; z-index: 40; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px var(--shade); padding: 6px; display: flex; flex-direction: column; gap: 4px; min-width: 190px; }
+#menu { position: fixed; z-index: 40; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px var(--shade); padding: 6px; display: flex; flex-direction: column; gap: 2px; min-width: 190px; }
 #menu button { text-align: left; border-color: transparent; background: transparent; display: flex; justify-content: space-between; gap: 16px; }
 #menu button:hover { background: var(--raised); border-color: var(--line); }
 #menu kbd { color: var(--muted); font: inherit; }
 #menu .line { display: flex; gap: 4px; align-items: center; padding: 0 6px; }
 #menu .line span { flex: 1; }
 #menu .line button { justify-content: center; min-width: 36px; border-color: var(--line); background: var(--raised); }
-#toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 8px 14px; border-radius: 20px;
+#toast { position: fixed; left: 50%; top: 64px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 8px 14px; border-radius: 20px;
   z-index: 50; max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
 .backdrop { position: fixed; inset: 0; background: var(--shade); display: flex; align-items: center; justify-content: center; z-index: 20; padding: 16px; }
 .sheet { background: var(--surface); width: 100%; max-width: 760px; max-height: 100%; overflow-y: auto; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; user-select: text; }
@@ -90,9 +102,8 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .grid button { padding: 0; border: 0; background: none; border-radius: 6px; min-height: 0; }
 .grid img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 1px 4px var(--shade); }
 .hint { color: var(--muted); margin: 0; }
-.setup { max-width: 480px; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; user-select: text; }
+.setup { max-width: 640px; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; user-select: text; }
 .setup h1 { font-size: 48px; line-height: .95; color: var(--accent); margin: 0; }
-.setup label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); }
 .keys { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; }
 .keys dt { font-weight: 700; } .keys dd { margin: 0; color: var(--muted); }
 </style>
@@ -105,30 +116,31 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 
 <script>
 "use strict";
-/* The table knows no rules. It moves cards, shuffles piles, rolls dice and draws invasions. */
-const SAVE_KEY = "against-the-swarm-table-2";
+/* The table knows no rules. It moves cards, shuffles piles, rolls dice and draws invasions.
+   One browser tab shows one player's sector. Tabs of the same browser share the game through localStorage. */
+const SAVE_KEY = "against-the-swarm-table-3", SEAT_KEY = "against-the-swarm-seat";
 const CARD_WIDTH = 126, CARD_HEIGHT = 176, DIE_SIZE = 46;
-const SECTOR_WIDTH = 860, SECTOR_GAP = 40, SECTORS_LEFT = 220, ZONE_HEIGHT = 230, ACE_HEIGHT = 400, HEAD_HEIGHT = 70;
+const SECTOR_WIDTH = 860, ZONE_HEIGHT = 230, ACE_HEIGHT = 400;
 const ZONE_NAMES = ["Zone 3 · Éloignée", "Zone 2 · Proche", "Zone 1 · Contact"];
 const RANK_ADDED_AT_WAVE = { 3: 2, 5: 3, 7: 4 };
 const ROMAN = ["", "I", "II", "III", "IV"];
 const PILES = [
-  { name: "swarmPile", label: "Pile Essaim", kind: "swarm", y: 0 },
-  { name: "swarmDiscard", label: "Défausse Essaim", kind: "swarm", discard: true, y: 210 },
-  { name: "tokens", label: "Jetons", kind: "token", y: 420 },
-  { name: "assetPile", label: "Pile d'atouts", kind: "asset", y: 700 },
-  { name: "assetDiscard", label: "Défausse d'atouts", kind: "asset", discard: true, y: 910 },
+  { name: "swarmPile", label: "Pile Essaim", kind: "swarm" },
+  { name: "swarmDiscard", label: "Défausse Essaim", kind: "swarm", discard: true },
+  { name: "tokens", label: "Jetons", kind: "token" },
+  { name: "assetPile", label: "Pile d'atouts", kind: "asset" },
+  { name: "assetDiscard", label: "Défausse d'atouts", kind: "asset", discard: true },
 ];
 const roundsToHold = wave => 5 + Math.floor((wave - 1) / 2);
 const threatLevel = wave => 6 + Math.floor(wave / 2);
 
 let CARDS = {};
 let state = null;
+let seat = 0;
 let undoStack = [], redoStack = [];
 let view = { x: 0, y: 0, k: 1 };
 let selection = new Set();
 let sheet = null;
-let setup = { count: 2, aces: [] };
 let gesture = null, hovered = null, previewTimer = null, toastTimer = null;
 const pointers = new Map();
 
@@ -138,34 +150,28 @@ const escapeHtml = text => String(text).replace(/[&<>"]/g, c => ({ "&": "&amp;",
 const card = id => CARDS[id];
 const idsOf = set => Object.keys(CARDS).filter(id => CARDS[id].set === set);
 const rollDie = () => 1 + Math.floor(Math.random() * 6);
+const aceName = index => card(state.sectors[index].ace).name;
 function shuffle(list) {
   for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
   return list;
 }
 
-/* ---------- geometry ---------- */
-const sectorLeft = index => SECTORS_LEFT + index * (SECTOR_WIDTH + SECTOR_GAP);
-const zoneRect = (sector, row) => ({ x: sectorLeft(sector), y: row * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ZONE_HEIGHT });
-const aceRect = sector => ({ x: sectorLeft(sector), y: 3 * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ACE_HEIGHT });
-const trayRect = sector => ({ x: sectorLeft(sector) + 20, y: 3 * ZONE_HEIGHT + 300, w: 520, h: 80 });
-const sectorRect = sector => ({ x: sectorLeft(sector), y: -HEAD_HEIGHT, w: SECTOR_WIDTH, h: HEAD_HEIGHT + 3 * ZONE_HEIGHT + ACE_HEIGHT });
-const pileRect = pile => ({ x: 30, y: pile.y, w: CARD_WIDTH, h: CARD_HEIGHT });
-const worldRect = () => ({ x: 0, y: -HEAD_HEIGHT, w: sectorLeft(state.sectors.length) - SECTOR_GAP + 20, h: HEAD_HEIGHT + 3 * ZONE_HEIGHT + ACE_HEIGHT + 20 });
+/* ---------- geometry (one sector per tab, so every sector uses the same coordinates) ---------- */
+const zoneRect = row => ({ x: 0, y: row * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ZONE_HEIGHT });
+const aceRect = () => ({ x: 0, y: 3 * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ACE_HEIGHT });
+const trayRect = () => ({ x: 20, y: 3 * ZONE_HEIGHT + 300, w: 520, h: 80 });
+const sectorRect = () => ({ x: 0, y: 0, w: SECTOR_WIDTH, h: 3 * ZONE_HEIGHT + ACE_HEIGHT });
 const inside = (rect, x, y) => x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
 const sizeOf = item => item.kind === "die" ? [DIE_SIZE, DIE_SIZE] : [CARD_WIDTH, CARD_HEIGHT];
 const centerOf = item => { const [w, h] = sizeOf(item); return [item.x + w / 2, item.y + h / 2]; };
-function toWorld(clientX, clientY) {
-  const box = document.getElementById("viewport").getBoundingClientRect();
-  return [(clientX - box.left - view.x) / view.k, (clientY - box.top - view.y) / view.k];
-}
-function viewCenter() {
-  const box = document.getElementById("viewport").getBoundingClientRect();
-  return toWorld(box.left + box.width / 2, box.top + box.height / 2);
-}
-function fit(rect) {
-  const box = document.getElementById("viewport").getBoundingClientRect();
-  const k = Math.min(box.width / (rect.w + 40), box.height / (rect.h + 40), 1.4);
-  view = { k, x: (box.width - rect.w * k) / 2 - rect.x * k, y: (box.height - rect.h * k) / 2 - rect.y * k };
+const viewportBox = () => document.getElementById("viewport").getBoundingClientRect();
+function toWorld(clientX, clientY) { const box = viewportBox(); return [(clientX - box.left - view.x) / view.k, (clientY - box.top - view.y) / view.k]; }
+function viewCenter() { const box = viewportBox(); return toWorld(box.left + box.width / 2, box.top + box.height / 2); }
+function fit() {
+  const rect = sectorRect(), box = viewportBox(), reserved = window.innerWidth > 700 ? 200 : 0;
+  const width = Math.max(200, box.width - reserved);
+  const k = Math.min(width / (rect.w + 40), box.height / (rect.h + 40), 1.4);
+  view = { k, x: (width - rect.w * k) / 2, y: (box.height - rect.h * k) / 2 };
   applyView();
 }
 function applyView() {
@@ -173,50 +179,63 @@ function applyView() {
   if (world) world.style.transform = `translate(${view.x}px, ${view.y}px) scale(${view.k})`;
 }
 
-/* ---------- persistence, undo, redo ---------- */
+/* ---------- persistence, tab sharing, undo, redo ---------- */
 function save() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (error) { /* storage unavailable */ } }
-function load() { try { const raw = localStorage.getItem(SAVE_KEY); if (raw) state = JSON.parse(raw); } catch (error) { state = null; } }
+function load() { try { const raw = localStorage.getItem(SAVE_KEY); state = raw ? JSON.parse(raw) : null; } catch (error) { state = null; } }
+function loadSeat() { try { seat = Number(sessionStorage.getItem(SEAT_KEY)) || 0; } catch (error) { seat = 0; } clampSeat(); }
+function setSeat(index) { seat = index; clampSeat(); selection.clear(); try { sessionStorage.setItem(SEAT_KEY, String(seat)); } catch (error) { /* ignore */ } }
+function clampSeat() { if (!state || seat >= state.sectors.length || seat < 0) seat = 0; }
+window.addEventListener("storage", event => {
+  if (event.key !== SAVE_KEY || (gesture && gesture.type === "drag")) return;
+  const had = !!state;
+  load(); clampSeat(); selection.clear(); undoStack = []; redoStack = [];
+  if (!state) { app.innerHTML = ""; sheet = null; }
+  render();
+  if (state && !had) fit();
+});
 function commit(before) {
   undoStack.push(before); if (undoStack.length > 80) undoStack.shift();
   redoStack = []; save(); render();
 }
 function act(change) { const before = JSON.stringify(state); change(); commit(before); }
-function undo() { if (!undoStack.length) return; redoStack.push(JSON.stringify(state)); state = JSON.parse(undoStack.pop()); selection.clear(); save(); render(); }
-function redo() { if (!redoStack.length) return; undoStack.push(JSON.stringify(state)); state = JSON.parse(redoStack.pop()); selection.clear(); save(); render(); }
+function undo() { if (!undoStack.length) return; redoStack.push(JSON.stringify(state)); state = JSON.parse(undoStack.pop()); clampSeat(); selection.clear(); save(); render(); }
+function redo() { if (!redoStack.length) return; undoStack.push(JSON.stringify(state)); state = JSON.parse(redoStack.pop()); clampSeat(); selection.clear(); save(); render(); }
 function toast(text) {
   toastBox.textContent = text; toastBox.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { toastBox.hidden = true; }, 3200);
 }
 
 /* ---------- table actions ---------- */
+const mine = () => state.items.filter(item => item.sector === seat);
 function place(id, x, y, extra = {}) {
-  const item = Object.assign({ key: state.next++, kind: "card", id, x, y, z: state.top++, exhausted: false, counter: 0, parent: null }, extra);
+  const item = Object.assign({ key: state.next++, kind: "card", id, sector: seat, x, y, z: state.top++, exhausted: false, counter: 0, parent: null }, extra);
   state.items.push(item); return item;
 }
 function placeDie(x, y, extra = {}) {
-  const item = Object.assign({ key: state.next++, kind: "die", value: rollDie(), x, y, z: state.top++, parent: null }, extra);
+  const item = Object.assign({ key: state.next++, kind: "die", value: rollDie(), sector: seat, x, y, z: state.top++, parent: null }, extra);
   state.items.push(item); return item;
 }
-function newGame(aces) {
+function seatPlayer(ace) {
+  const sector = state.sectors.length, area = aceRect();
+  state.sectors.push({ ace, actionModifier: 0, pending: null });
+  place(ace, area.x + 20, area.y + 50, { sector });
+  idsOf("asset").filter(id => card(id).starting).forEach((id, n) => place(id, area.x + 180 + n * 140, area.y + 50, { sector }));
+  place("swarm/infestation", SECTOR_WIDTH - CARD_WIDTH - 20, 34, { sector });
+  return sector;
+}
+function newGame(ace) {
   undoStack = []; redoStack = []; selection.clear();
   state = {
-    wave: 1, round: 1, ranks: [1], next: 1, top: 1, items: [],
+    wave: 1, round: 1, ranks: [1], next: 1, top: 1, items: [], sectors: [],
     swarmPile: shuffle(idsOf("swarm").filter(id => card(id).rank === 1)), swarmDiscard: [],
     assetPile: shuffle(idsOf("asset").filter(id => !card(id).starting)), assetDiscard: [],
-    sectors: aces.map(ace => ({ ace, actionModifier: 0, pending: null })),
   };
-  aces.forEach((ace, index) => {
-    const area = aceRect(index);
-    place(ace, area.x + 20, area.y + 50);
-    idsOf("asset").filter(id => card(id).starting).forEach((id, n) => place(id, area.x + 180 + n * 140, area.y + 50));
-    place("swarm/infestation", area.x + SECTOR_WIDTH - CARD_WIDTH - 20, 34);
-  });
-  save(); render();
-  fit(window.innerWidth < 700 ? sectorRect(0) : worldRect());
+  setSeat(seatPlayer(ace));
+  save(); render(); fit();
 }
 function drawFrom(name) {
-  const pile = state[name], discardName = name === "swarmPile" ? "swarmDiscard" : "assetDiscard";
-  if (!pile.length) {
+  const discardName = name === "swarmPile" ? "swarmDiscard" : "assetDiscard";
+  if (!state[name].length) {
     if (!state[discardName].length) return null;
     state[name] = shuffle(state[discardName]); state[discardName] = [];
     toast("La défausse est remélangée pour former une nouvelle pile.");
@@ -235,19 +254,20 @@ function discardItem(item) {
   if (data.set === "asset") state.assetDiscard.push(item.id);
   else if (data.set === "swarm" && data.kind !== "token" && data.kind !== "infestation") state.swarmDiscard.push(item.id);
 }
+const belongsToNoPile = data => data.set === "ace" || data.kind === "token" || data.kind === "infestation";
 function returnToPile(item, bottom) {
   const data = card(item.id);
-  if (data.set === "ace" || data.kind === "token" || data.kind === "infestation") return toast("Cette carte n'appartient à aucune pile.");
+  if (belongsToNoPile(data)) return toast("Cette carte n'appartient à aucune pile.");
   removeItem(item);
   const pile = state[data.set === "asset" ? "assetPile" : "swarmPile"];
   if (bottom) pile.unshift(item.id); else pile.push(item.id);
 }
 function itemsIn(rect, filter = () => true) {
-  return state.items.filter(item => { const [x, y] = centerOf(item); return inside(rect, x, y) && filter(item); });
+  return mine().filter(item => { const [x, y] = centerOf(item); return inside(rect, x, y) && filter(item); });
 }
-function invade(sectorIndex) {
-  const sector = state.sectors[sectorIndex], zone = zoneRect(sectorIndex, 0), level = threatLevel(state.wave);
-  const draws = itemsIn(sectorRect(sectorIndex), item => item.kind === "card" && card(item.id).kind === "infestation").length;
+function invade() {
+  const sector = state.sectors[seat], zone = zoneRect(0), level = threatLevel(state.wave);
+  const draws = mine().filter(item => item.kind === "card" && card(item.id).kind === "infestation").length;
   if (!draws) return toast("Aucune carte Infestation dans ce secteur.");
   let slot = itemsIn(zone, item => item.kind === "card").length, entered = 0;
   const enter = id => { place(id, zone.x + 20 + (slot % 10) * 68, zone.y + 40 + (slot % 3) * 6); slot++; entered++; };
@@ -262,13 +282,13 @@ function invade(sectorIndex) {
       total += threat; enter(id);
     }
   }
-  toast(`Invasion chez ${card(sector.ace).name} : ${entered} carte${entered > 1 ? "s" : ""}${sector.pending ? `, ${card(sector.pending.id).name} en attente` : ""}.`);
+  toast(`Invasion : ${entered} carte${entered > 1 ? "s" : ""}${sector.pending ? `, ${card(sector.pending.id).name} en attente` : ""}.`);
 }
-function rollSector(sectorIndex) {
-  const sector = state.sectors[sectorIndex], tray = trayRect(sectorIndex);
+const diceCount = () => Math.max(1, card(state.sectors[seat].ace).ap + state.sectors[seat].actionModifier);
+function rollSector() {
+  const tray = trayRect();
   itemsIn(tray, item => item.kind === "die" && !item.parent).forEach(removeItem);
-  const count = Math.max(1, card(sector.ace).ap + sector.actionModifier);
-  for (let n = 0; n < count; n++) placeDie(tray.x + 14 + n * 56, tray.y + 26);
+  for (let n = 0, count = diceCount(); n < count; n++) placeDie(tray.x + 14 + n * 56, tray.y + 26);
 }
 function setWave(wave) {
   state.wave = Math.max(1, wave);
@@ -302,63 +322,60 @@ function itemHtml(item) {
     <img src="${data.image}" alt="${escapeHtml(data.name)}" draggable="false">${item.counter ? `<span class="count">${item.counter}</span>` : ""}</div>`;
 }
 function pileHtml(pile) {
-  const count = pile.name === "tokens" ? idsOf("swarm").filter(id => card(id).kind === "token").length : state[pile.name].length;
+  const tokens = pile.name === "tokens", count = tokens ? 1 : state[pile.name].length;
   const classes = pile.discard ? `discard ${count ? "has" : ""}` : (count ? `full ${pile.kind}` : "");
-  return `<div class="obj pile ${classes}" data-pile="${pile.name}" style="left:30px;top:${pile.y}px"><span class="display">${pile.label}</span>${pile.name === "tokens" ? "" : `<b>${count}</b>`}</div>`;
+  const top = pile.discard && count ? state[pile.name][count - 1] : null;
+  const face = top ? `<img src="${card(top).image}" alt="">` : (tokens ? '<b>+</b>' : `<b>${count}</b>`);
+  return `<div class="slot"><span>${pile.label}${pile.discard ? ` (${count})` : ""}</span><div class="obj pile ${classes}" data-pile="${pile.name}" ${top ? `data-preview="${top}"` : ""}>${face}</div></div>`;
 }
 function worldHtml() {
-  const regions = state.sectors.map((sector, index) => {
-    const left = sectorLeft(index), ace = card(sector.ace), tray = trayRect(index);
-    const count = Math.max(1, ace.ap + sector.actionModifier);
-    const pending = sector.pending ? `<span class="pending" data-preview="${sector.pending.id}">En attente : ${escapeHtml(card(sector.pending.id).name)} (${sector.pending.consumed} payés)</span>` : "";
-    return `<div class="head" style="left:${left}px;top:${-HEAD_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${HEAD_HEIGHT}px">
-        <span class="display">${escapeHtml(ace.name)}</span><button data-ui data-invade="${index}">Tirage d'invasion</button>${pending}</div>
-      ${ZONE_NAMES.map((name, row) => `<div class="region zone ${row % 2 ? "alt" : ""}" style="left:${left}px;top:${row * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ZONE_HEIGHT}px"><span class="label display">${name}</span></div>`).join("")}
-      <div class="region ace" style="left:${left}px;top:${3 * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ACE_HEIGHT}px"><span class="label display">${escapeHtml(ace.name)} · Panoplie</span></div>
-      <div class="region tray" style="left:${tray.x}px;top:${tray.y}px;width:${tray.w}px;height:${tray.h}px"><span class="label display">Réserve de dés</span></div>
-      <div class="rollbar" style="left:${tray.x + tray.w + 14}px;top:${tray.y + 14}px">
-        <button data-ui data-action-points="${index}" data-by="-1">−</button><button data-ui class="primary" data-roll="${index}">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button data-ui data-action-points="${index}" data-by="1">+</button></div>`;
-  }).join("");
-  return regions + PILES.map(pileHtml).join("") + state.items.map(itemHtml).join("");
+  const tray = trayRect(), name = escapeHtml(aceName(seat));
+  return `${ZONE_NAMES.map((label, row) => `<div class="region zone ${row % 2 ? "alt" : ""}" style="left:0;top:${row * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ZONE_HEIGHT}px"><span class="label display">${label}</span></div>`).join("")}
+    <div class="region ace" style="left:0;top:${3 * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ACE_HEIGHT}px"><span class="label display">${name} · Panoplie</span></div>
+    <div class="region tray" style="left:${tray.x}px;top:${tray.y}px;width:${tray.w}px;height:${tray.h}px"><span class="label display">Réserve de dés</span></div>
+    ${mine().map(itemHtml).join("")}<div id="marquee" hidden></div>`;
 }
 function render() {
   if (!state) { app.innerHTML = setupHtml(); overlay.innerHTML = ""; return; }
-  const jumps = state.sectors.map((sector, index) => `<button data-jump="${index}">${escapeHtml(card(sector.ace).name)}</button>`).join("");
   if (!document.getElementById("viewport")) {
-    app.innerHTML = `<div class="toolbar" id="toolbar"></div><div id="viewport"><div id="world"></div></div>`;
-    bindViewport();
+    app.innerHTML = `<div class="toolbar" id="toolbar"></div><div id="table"><div id="viewport"><div id="world"></div></div><div class="side" id="side" data-ui></div><div class="dock" id="dock"></div></div>`;
+    bindTable();
   }
+  const sector = state.sectors[seat], count = diceCount();
   document.getElementById("toolbar").innerHTML = `
+    <div class="group"><select data-seat aria-label="Joueur affiché dans cet onglet">${state.sectors.map((one, index) => `<option value="${index}" ${index === seat ? "selected" : ""}>${escapeHtml(aceName(index))}</option>`).join("")}<option value="add">+ Ajouter un joueur…</option></select></div>
     <div class="group"><button class="tiny" data-wave="-1" aria-label="Vague précédente">−</button><span class="value display">Vague ${state.wave}</span><button class="tiny" data-wave="1" aria-label="Vague suivante">+</button></div>
     <div class="group"><button class="tiny" data-round="-1" aria-label="Round précédent">−</button><span class="value display">Round ${state.round}/${roundsToHold(state.wave)}</span><button class="tiny" data-round="1" aria-label="Round suivant">+</button></div>
     <div class="group"><span class="value display">Menace ${threatLevel(state.wave)}</span></div>
-    <div class="group"><button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button></div>
-    <div class="group"><button data-do="add-die">+ dé</button><button data-do="add-card">+ carte</button></div>
     <div class="group"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
-    <div class="group"><button data-do="overview">Vue d'ensemble</button>${jumps}</div>
     <div class="group"><button data-do="menu">Menu</button></div>`;
-  document.getElementById("world").innerHTML = worldHtml() + '<div id="marquee" hidden></div>';
+  document.getElementById("side").innerHTML = `
+    <button class="primary" data-do="invade">Tirage d'invasion</button>
+    <div class="split"><button class="tiny" data-points="-1" aria-label="Un dé de moins">−</button><button class="primary" data-do="roll">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button class="tiny" data-points="1" aria-label="Un dé de plus">+</button></div>
+    <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
+    <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
+    <button data-do="fit">Recentrer</button>`;
+  document.getElementById("dock").innerHTML = PILES.map(pileHtml).join("") + `<span class="spacer"></span>
+    <div class="slot"><span>En attente${sector.pending ? ` (${sector.pending.consumed} payés)` : ""}</span><div class="pile" ${sector.pending ? `data-preview="${sector.pending.id}"` : ""}>${sector.pending ? `<img src="${card(sector.pending.id).image}" alt="">` : ""}</div></div>`;
+  document.getElementById("world").innerHTML = worldHtml();
   applyView();
   overlay.innerHTML = sheetHtml();
 }
+const aceGrid = () => `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">${idsOf("ace").map(id => `<button data-ace="${id}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>`;
 function setupHtml() {
-  const all = idsOf("ace");
-  while (setup.aces.length < setup.count) setup.aces.push(all[setup.aces.length % all.length]);
   return `<div class="setup"><h1 class="display">Against<br>the Swarm</h1>
     <p class="hint">Table de test libre. Elle mélange, pioche et lance les dés. Les règles, c'est vous.</p>
-    <label>Nombre d'As<select data-count>${[1, 2, 3, 4].map(n => `<option ${n === setup.count ? "selected" : ""}>${n}</option>`).join("")}</select></label>
-    ${Array.from({ length: setup.count }, (_, index) => `<label>As ${index + 1}<select data-ace="${index}">${all.map(id =>
-      `<option value="${id}" ${setup.aces[index] === id ? "selected" : ""}>${escapeHtml(card(id).name)} — ${card(id).hp} PV, ${card(id).ap} PA</option>`).join("")}</select></label>`).join("")}
-    <button class="primary" data-do="start">Poser la table</button></div>`;
+    <p class="hint">Choisissez votre As pour poser la table en solo. Pour un joueur de plus, ouvrez cette page dans un autre onglet du même navigateur et ajoutez-le depuis la liste des joueurs.</p>
+    ${aceGrid()}</div>`;
 }
 function frame(title, body) {
   return `<div class="backdrop" data-close><div class="sheet" role="dialog" aria-label="${escapeHtml(title)}"><div class="sheet-head"><h2 class="display">${escapeHtml(title)}</h2><button data-close>Fermer</button></div>${body}</div></div>`;
 }
 function sheetHtml() {
   if (!sheet) return "";
+  if (sheet.type === "ace") return frame("Ajouter un joueur", `<p class="hint">Cet onglet passera sur le nouveau joueur. Les autres onglets gardent le leur.</p>${aceGrid()}`);
   if (sheet.type === "pile") {
-    const ids = state[sheet.name].slice().reverse();
-    const discard = sheet.name.endsWith("Discard");
+    const ids = state[sheet.name].slice().reverse(), discard = sheet.name.endsWith("Discard");
     return frame(PILES.find(pile => pile.name === sheet.name).label, `<p class="hint">${discard ? "La plus récente en premier." : "Le dessus de la pile en premier."} Cliquez une carte pour la poser sur la table.</p>
       <div class="grid">${ids.map((id, n) => `<button data-take="${ids.length - 1 - n}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}" loading="lazy"></button>`).join("") || '<p class="hint">Vide.</p>'}</div>`);
   }
@@ -372,6 +389,8 @@ function sheetHtml() {
     return frame("Menu", `
       <div style="display:flex;flex-wrap:wrap;gap:8px"><button data-do="next-wave">Vague suivante (défausser l'Essaim, retirer les dés)</button>
         ${sheet.confirm ? '<button class="primary" data-do="reset">Confirmer : effacer cette partie</button>' : '<button data-do="ask-reset">Nouvelle partie</button>'}</div>
+      <h2 class="display" style="margin:6px 0 0;font-size:22px">Plusieurs joueurs</h2>
+      <p class="hint">Un onglet par joueur. Ouvrez cette page dans un autre onglet du même navigateur, puis choisissez ou ajoutez un joueur dans la liste en haut à gauche. Les onglets partagent la même partie. Le menu d'une carte permet de l'envoyer chez un autre joueur.</p>
       <h2 class="display" style="margin:6px 0 0;font-size:22px">Gestes</h2>
       <dl class="keys">
         <dt>Glisser</dt><dd>Déplacer une carte ou un dé. Lâchée sur une autre carte, elle la suivra. Lâchée sur une pile ou une défausse, elle y va.</dd>
@@ -390,7 +409,7 @@ function showPreview(id, clientX) {
   const right = clientX < window.innerWidth / 2;
   preview.style.left = right ? "auto" : "16px"; preview.style.right = right ? "16px" : "auto";
 }
-function hidePreview() { clearTimeout(previewTimer); preview.hidden = true; }
+function hidePreview() { clearTimeout(previewTimer); preview.hidden = true; preview.dataset.id = ""; }
 function closeMenu() { menu.hidden = true; menu.target = null; }
 function openMenu(html, target, clientX, clientY) {
   menu.innerHTML = html; menu.target = target; menu.hidden = false;
@@ -398,18 +417,20 @@ function openMenu(html, target, clientX, clientY) {
   menu.style.left = Math.max(8, Math.min(clientX, window.innerWidth - box.width - 8)) + "px";
   menu.style.top = Math.max(8, Math.min(clientY, window.innerHeight - box.height - 8)) + "px";
 }
-const entry = (action, label, key = "") => `<button data-menu="${action}"><span>${label}</span><kbd>${key}</kbd></button>`;
+const entry = (action, label, key = "", value = "") => `<button data-menu="${action}" data-value="${value}"><span>${label}</span><kbd>${key}</kbd></button>`;
+const sendEntries = () => state.sectors.map((one, index) => index === seat ? "" : entry("send", `Envoyer chez ${escapeHtml(aceName(index))}`, "", index)).join("");
 function openItemMenu(item, clientX, clientY) {
   if (item.kind === "die") {
     return openMenu(`<div class="line">${[1, 2, 3, 4, 5, 6].map(n => `<button data-menu="value" data-value="${n}">${n}</button>`).join("")}</div>
-      ${entry("reroll", "Relancer", "R")}${entry("remove", "Retirer", "Suppr")}`, item.key, clientX, clientY);
+      ${entry("reroll", "Relancer", "R")}${sendEntries()}${entry("remove", "Retirer", "Suppr")}`, item.key, clientX, clientY);
   }
   const data = card(item.id);
   showPreview(item.id, clientX);
   openMenu(`${entry("exhaust", item.exhausted ? "Rendre prête" : "Épuiser", "T")}
     <div class="line"><span>Compteur ${item.counter}</span><button data-menu="minus">−</button><button data-menu="plus">+</button></div>
-    ${entry("copy", "Copier", "C")}${data.set === "ace" ? "" : entry("discard", data.kind === "token" || data.kind === "infestation" ? "Retirer" : "Défausser", "D")}
-    ${data.set === "ace" || data.kind === "token" || data.kind === "infestation" ? "" : entry("top", "Sur la pile") + entry("bottom", "Sous la pile")}
+    ${entry("copy", "Copier", "C")}${data.set === "ace" ? "" : entry("discard", belongsToNoPile(data) ? "Retirer" : "Défausser", "D")}
+    ${belongsToNoPile(data) ? "" : entry("top", "Sur la pile") + entry("bottom", "Sous la pile")}
+    ${data.set === "ace" ? "" : sendEntries()}
     ${item.parent ? entry("detach", "Détacher") : ""}${entry("front", "Premier plan")}${entry("back", "Arrière-plan")}`, item.key, clientX, clientY);
 }
 function openPileMenu(name, clientX, clientY) {
@@ -441,6 +462,10 @@ function itemAction(key, action, value) {
   const targets = selection.has(key) ? state.items.filter(other => selection.has(other.key)) : [item];
   const goal = !item.exhausted;
   act(() => {
+    if (action === "send") {
+      family(targets).forEach(one => { one.sector = Number(value); one.z = state.top++; selection.delete(one.key); });
+      return toast(`Envoyé chez ${aceName(Number(value))}.`);
+    }
     targets.forEach(one => {
       if (one.kind === "die") {
         if (action === "value") one.value = Number(value);
@@ -462,14 +487,13 @@ function itemAction(key, action, value) {
     });
   });
 }
-function drawToTable(name, at) {
+function drawToTable(name) {
   act(() => {
     const id = drawFrom(name);
     if (!id) return toast("La pile et sa défausse sont vides.");
-    const [x, y] = at || viewCenter(), spread = (state.next % 6) * 22;
-    place(id, x - CARD_WIDTH / 2 + (at ? 0 : spread), y - CARD_HEIGHT / 2 + (at ? 0 : spread));
+    const [x, y] = viewCenter(), spread = (state.next % 6) * 22;
+    place(id, x - CARD_WIDTH / 2 + spread, y - CARD_HEIGHT / 2 + spread);
   });
-  return state.items[state.items.length - 1];
 }
 function openSheet(next) { sheet = next; closeMenu(); hidePreview(); render(); }
 
@@ -480,39 +504,41 @@ function family(roots) {
   while (grew) { grew = false; state.items.forEach(item => { if (item.parent && keys.has(item.parent) && !keys.has(item.key)) { keys.add(item.key); grew = true; } }); }
   return state.items.filter(item => keys.has(item.key));
 }
-function element(key) { return document.querySelector(`#world [data-key="${key}"]`); }
+const element = key => document.querySelector(`#world [data-key="${key}"]`);
+const pileAt = (clientX, clientY) => { const node = document.elementsFromPoint(clientX, clientY).find(one => one.dataset && one.dataset.pile); return node ? node.dataset.pile : null; };
 function startDrag(item, event) {
-  const roots = selection.has(item.key) ? state.items.filter(other => selection.has(other.key)) : [item];
+  const roots = selection.has(item.key) ? mine().filter(other => selection.has(other.key)) : [item];
   const [x, y] = toWorld(event.clientX, event.clientY);
   gesture = { type: "drag", before: gesture.before || JSON.stringify(state), root: item, roots, moving: family(roots).map(one => ({ item: one, dx: one.x - x, dy: one.y - y })) };
   roots.forEach(one => { one.parent = null; });
-  gesture.moving.sort((a, b) => a.item.z - b.item.z).forEach(entry => {
-    entry.item.z = state.top++;
-    const node = element(entry.item.key); if (node) { node.style.zIndex = entry.item.z; node.classList.add("dragging"); }
+  gesture.moving.sort((a, b) => a.item.z - b.item.z).forEach(moved => {
+    moved.item.z = state.top++;
+    const node = element(moved.item.key); if (node) { node.style.zIndex = moved.item.z; node.classList.add("dragging"); }
   });
   hidePreview(); closeMenu();
 }
 function endDrag() {
-  const { root, roots, moving, before } = gesture;
-  const movingKeys = new Set(moving.map(entry => entry.item.key));
-  const [x, y] = gesture.point || centerOf(root);
-  const pile = PILES.find(one => inside(pileRect(one), x, y));
+  const { root, roots, moving, before, client, point } = gesture;
+  const movingKeys = new Set(moving.map(moved => moved.item.key));
+  const name = client ? pileAt(client[0], client[1]) : null, pile = PILES.find(one => one.name === name);
   if (pile) {
-    moving.forEach(entry => {
-      if (entry.item.kind === "die") return removeItem(entry.item);
-      if (card(entry.item.id).set === "ace") { entry.item.x += 170; return; }
-      if (pile.discard || pile.name === "tokens") discardItem(entry.item); else returnToPile(entry.item, false);
+    moving.forEach(moved => {
+      if (moved.item.kind === "die") return removeItem(moved.item);
+      if (card(moved.item.id).set === "ace") { const [x, y] = viewCenter(); moved.item.x = x; moved.item.y = y; return; }
+      if (pile.discard || pile.name === "tokens") discardItem(moved.item); else returnToPile(moved.item, false);
     });
   } else if (roots.length === 1) {
-    const under = state.items.filter(other => other.kind === "card" && !movingKeys.has(other.key) && inside({ x: other.x, y: other.y, w: CARD_WIDTH, h: CARD_HEIGHT }, x, y)).sort((a, b) => b.z - a.z)[0];
+    const [x, y] = point || centerOf(root);
+    const under = mine().filter(other => other.kind === "card" && !movingKeys.has(other.key) && inside({ x: other.x, y: other.y, w: CARD_WIDTH, h: CARD_HEIGHT }, x, y)).sort((a, b) => b.z - a.z)[0];
     if (under) root.parent = under.key;
   }
+  document.querySelectorAll(".pile.over").forEach(node => node.classList.remove("over"));
   commit(before);
 }
-function bindViewport() {
-  const viewport = document.getElementById("viewport");
+function bindTable() {
+  const table = document.getElementById("table"), viewport = document.getElementById("viewport");
   viewport.addEventListener("scroll", () => { viewport.scrollLeft = 0; viewport.scrollTop = 0; });
-  viewport.addEventListener("contextmenu", event => {
+  table.addEventListener("contextmenu", event => {
     event.preventDefault();
     const node = event.target.closest(".obj");
     if (!node) return closeMenu();
@@ -520,15 +546,14 @@ function bindViewport() {
     const item = state.items.find(other => other.key === Number(node.dataset.key));
     if (item) openItemMenu(item, event.clientX, event.clientY);
   });
-  viewport.addEventListener("wheel", event => {
-    event.preventDefault();
-    zoomAt(event.clientX, event.clientY, Math.exp(-event.deltaY * 0.0015));
-  }, { passive: false });
-  viewport.addEventListener("pointerdown", event => {
+  viewport.addEventListener("wheel", event => { event.preventDefault(); zoomAt(event.clientX, event.clientY, Math.exp(-event.deltaY * 0.0015)); }, { passive: false });
+  table.addEventListener("pointerdown", event => {
     if (event.target.closest("[data-ui]") || event.button === 2) return;
+    const node = event.target.closest(".obj"), onMat = !!event.target.closest("#viewport");
+    if (!node && !onMat) return;
     closeMenu(); hidePreview();
     pointers.set(event.pointerId, event);
-    viewport.setPointerCapture(event.pointerId);
+    table.setPointerCapture(event.pointerId);
     if (pointers.size === 2) {
       if (gesture && gesture.type === "drag") endDrag();
       clearTimeout(gesture && gesture.timer);
@@ -536,7 +561,6 @@ function bindViewport() {
       gesture = { type: "pinch", distance: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx: (a.clientX + b.clientX) / 2, cy: (a.clientY + b.clientY) / 2 };
       return;
     }
-    const node = event.target.closest(".obj");
     gesture = { type: "press", node, sx: event.clientX, sy: event.clientY, shift: event.shiftKey };
     if (node && event.pointerType !== "mouse") {
       gesture.timer = setTimeout(() => {
@@ -547,7 +571,7 @@ function bindViewport() {
       }, 480);
     }
   });
-  viewport.addEventListener("pointermove", event => {
+  table.addEventListener("pointermove", event => {
     if (pointers.has(event.pointerId)) pointers.set(event.pointerId, event);
     if (!gesture) return hover(event);
     if (gesture.type === "pinch" && pointers.size >= 2) {
@@ -567,12 +591,12 @@ function bindViewport() {
         else { gesture = { type: "pan", lx: gesture.sx, ly: gesture.sy }; viewport.classList.add("panning"); }
       } else if (node.dataset.pile) {
         const name = node.dataset.pile;
-        if (name.endsWith("Pile")) {
-          const before = JSON.stringify(state);
-          const drawn = drawToTableSilently(name, toWorld(event.clientX, event.clientY));
-          if (!drawn) { gesture = null; return; }
-          gesture = { before }; render(); startDrag(drawn, event);
-        } else { gesture = { type: "pan", lx: gesture.sx, ly: gesture.sy }; }
+        if (!name.endsWith("Pile")) { gesture = null; return; }
+        const before = JSON.stringify(state), id = drawFrom(name);
+        if (!id) { toast("La pile et sa défausse sont vides."); gesture = null; return; }
+        const [x, y] = toWorld(event.clientX, event.clientY);
+        const drawn = place(id, x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2);
+        gesture = { before }; render(); startDrag(drawn, event);
       } else {
         const item = state.items.find(other => other.key === Number(node.dataset.key));
         if (item) startDrag(item, event); else gesture = null;
@@ -584,11 +608,13 @@ function bindViewport() {
       gesture.lx = event.clientX; gesture.ly = event.clientY; applyView();
     } else if (gesture.type === "drag") {
       const [x, y] = toWorld(event.clientX, event.clientY);
-      gesture.point = [x, y];
-      gesture.moving.forEach(entry => {
-        entry.item.x = Math.round(x + entry.dx); entry.item.y = Math.round(y + entry.dy);
-        const node = element(entry.item.key); if (node) { node.style.left = entry.item.x + "px"; node.style.top = entry.item.y + "px"; }
+      gesture.point = [x, y]; gesture.client = [event.clientX, event.clientY];
+      gesture.moving.forEach(moved => {
+        moved.item.x = Math.round(x + moved.dx); moved.item.y = Math.round(y + moved.dy);
+        const node = element(moved.item.key); if (node) { node.style.left = moved.item.x + "px"; node.style.top = moved.item.y + "px"; }
       });
+      const over = pileAt(event.clientX, event.clientY);
+      document.querySelectorAll(".pile[data-pile]").forEach(node => node.classList.toggle("over", node.dataset.pile === over));
     } else if (gesture.type === "marquee") {
       const [x, y] = toWorld(event.clientX, event.clientY);
       const rect = { x: Math.min(x, gesture.x), y: Math.min(y, gesture.y), w: Math.abs(x - gesture.x), h: Math.abs(y - gesture.y) };
@@ -606,16 +632,13 @@ function bindViewport() {
     if (done.type === "pinch") { if (pointers.size < 2) gesture = null; return; }
     if (done.type === "drag") { endDrag(); gesture = null; return; }
     gesture = null;
-    if (done.type === "marquee") {
-      selection = new Set(done.rect ? itemsIn(done.rect).map(item => item.key) : []);
-      return render();
-    }
+    if (done.type === "marquee") { selection = new Set(done.rect ? itemsIn(done.rect).map(item => item.key) : []); return render(); }
     if (done.type !== "press" || event.type === "pointercancel") return;
     if (!done.node) { if (selection.size) { selection.clear(); render(); } return; }
     if (done.node.dataset.pile) {
       const name = done.node.dataset.pile;
       if (name === "tokens") return openSheet({ type: "picker", tokens: true });
-      return name.endsWith("Discard") ? openSheet({ type: "pile", name }) : void drawToTable(name);
+      return name.endsWith("Discard") ? openSheet({ type: "pile", name }) : drawToTable(name);
     }
     const item = state.items.find(other => other.key === Number(done.node.dataset.key));
     if (!item) return;
@@ -623,17 +646,12 @@ function bindViewport() {
     if (done.shift) { if (selection.has(item.key)) selection.delete(item.key); else selection.add(item.key); return render(); }
     act(() => { item.exhausted = !item.exhausted; });
   };
-  viewport.addEventListener("pointerup", finish);
-  viewport.addEventListener("pointercancel", finish);
-  viewport.addEventListener("pointerleave", () => { hovered = null; if (menu.hidden) hidePreview(); });
-}
-function drawToTableSilently(name, at) {
-  const id = drawFrom(name);
-  if (!id) { toast("La pile et sa défausse sont vides."); return null; }
-  return place(id, at[0] - CARD_WIDTH / 2, at[1] - CARD_HEIGHT / 2);
+  table.addEventListener("pointerup", finish);
+  table.addEventListener("pointercancel", finish);
+  table.addEventListener("pointerleave", () => { hovered = null; });
 }
 function zoomAt(clientX, clientY, factor) {
-  const box = document.getElementById("viewport").getBoundingClientRect();
+  const box = viewportBox();
   const k = Math.max(0.12, Math.min(3, view.k * factor)), px = clientX - box.left, py = clientY - box.top;
   view.x = px - (px - view.x) * (k / view.k); view.y = py - (py - view.y) * (k / view.k); view.k = k;
   applyView();
@@ -646,17 +664,18 @@ function hover(event) {
 document.addEventListener("pointermove", event => {
   if (event.pointerType !== "mouse" || gesture || !menu.hidden) return;
   const node = event.target.closest && event.target.closest("[data-preview]");
-  const id = node ? node.dataset.preview : null;
-  if (id === preview.dataset.id) return;
-  preview.dataset.id = id || ""; hidePreview();
+  const id = node ? node.dataset.preview : "";
+  if (id === (preview.dataset.id || "")) return;
+  hidePreview(); preview.dataset.id = id;
   if (id) previewTimer = setTimeout(() => showPreview(id, event.clientX), 280);
 });
 
 /* ---------- buttons, sheets, keyboard ---------- */
-document.addEventListener("pointerdown", event => { if (!menu.hidden && !event.target.closest("#menu, #viewport")) { closeMenu(); hidePreview(); } });
+document.addEventListener("pointerdown", event => { if (!menu.hidden && !event.target.closest("#menu, #table")) { closeMenu(); hidePreview(); } });
 document.addEventListener("change", event => {
-  if (event.target.matches("[data-count]")) { setup.count = Number(event.target.value); render(); }
-  if (event.target.matches("[data-ace]")) setup.aces[Number(event.target.dataset.ace)] = event.target.value;
+  if (!event.target.matches("[data-seat]")) return;
+  if (event.target.value === "add") return openSheet({ type: "ace" });
+  setSeat(Number(event.target.value)); render(); fit();
 });
 document.addEventListener("input", event => {
   if (!event.target.matches("[data-search]")) return;
@@ -668,26 +687,31 @@ document.addEventListener("click", event => {
   if (!target || target.closest("#menu")) return;
   const data = target.dataset;
   if ("close" in data) { if (target === event.target || target.tagName === "BUTTON") { sheet = null; hidePreview(); render(); } return; }
+  if (data.ace) {
+    hidePreview();
+    if (!state) return newGame(data.ace);
+    act(() => { setSeat(seatPlayer(data.ace)); sheet = null; });
+    return fit();
+  }
   if (data.do) return command(data.do);
   if (data.wave) return act(() => setWave(state.wave + Number(data.wave)));
   if (data.round) return act(() => { state.round = Math.max(1, state.round + Number(data.round)); });
-  if (data.jump) return fit(sectorRect(Number(data.jump)));
-  if (data.invade) return act(() => invade(Number(data.invade)));
-  if (data.roll) return act(() => rollSector(Number(data.roll)));
-  if (data.actionPoints) return act(() => { state.sectors[Number(data.actionPoints)].actionModifier += Number(data.by); });
+  if (data.points) return act(() => { state.sectors[seat].actionModifier += Number(data.points); });
   if (data.take) return act(() => { const [id] = state[sheet.name].splice(Number(data.take), 1); const [x, y] = viewCenter(); place(id, x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2); sheet = null; hidePreview(); });
   if (data.pick) return act(() => { const [x, y] = viewCenter(), spread = (state.next % 6) * 22; place(data.pick, x - CARD_WIDTH / 2 + spread, y - CARD_HEIGHT / 2 + spread, { exhausted: !!sheet.tokens }); sheet = null; hidePreview(); });
 });
 function command(name) {
   switch (name) {
-    case "start": return newGame(setup.aces.slice(0, setup.count));
     case "undo": return undo();
     case "redo": return redo();
+    case "invade": return act(invade);
+    case "roll": return act(rollSector);
     case "ready-assets": return act(() => readyAll("asset"));
     case "ready-swarm": return act(() => readyAll("swarm"));
     case "add-die": return act(() => { const [x, y] = viewCenter(); placeDie(x - 23 + (state.next % 5) * 14, y - 23 + (state.next % 5) * 14); });
+    case "add-token": return openSheet({ type: "picker", tokens: true });
     case "add-card": return openSheet({ type: "picker" });
-    case "overview": return fit(worldRect());
+    case "fit": return fit();
     case "menu": return openSheet({ type: "menu" });
     case "next-wave": return act(() => { sheet = null; nextWave(); });
     case "ask-reset": sheet.confirm = true; return render();
@@ -708,7 +732,7 @@ document.addEventListener("keydown", event => {
 });
 
 fetch("cards.json").then(response => response.json()).then(cards => {
-  CARDS = cards; load(); render();
-  if (state) fit(window.innerWidth < 700 ? sectorRect(0) : worldRect());
+  CARDS = cards; load(); loadSeat(); render();
+  if (state) fit();
 }).catch(() => { app.innerHTML = '<p class="hint" style="padding:16px">Impossible de charger les cartes.</p>'; });
 </script>
