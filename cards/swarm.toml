@@ -394,7 +394,7 @@ kind = "emprise"
 rank = 1
 threat = 2
 removal_dice = ["4+", "4+"]
-passive = ["Au début du tour des joueurs, elle inflige 1~dégât à l'As de ce secteur."]
+activation = "Inflige 1~dégât à l'As de ce secteur."
 flavor = "On ne la voit pas. On la tousse."
 
 [tunnel]
@@ -403,7 +403,7 @@ kind = "emprise"
 rank = 1
 threat = 3
 removal_total = 10
-passive = ["Quand il s'active, il crée 1~jeton Essaimé en zone~2 de ce secteur."]
+activation = "Crée 1~jeton Essaimé en zone~2 de ce secteur."
 flavor = "Ils ne passent plus par la porte."
 
 [crushing_presence]
@@ -486,7 +486,7 @@ kind = "emprise"
 rank = 3
 threat = 4
 removal_dice = ["4+"]
-passive = ["Au début du tour des joueurs, l'As de ce secteur active un de ses atouts."]
+activation = "L'As de ce secteur épuise un de ses atouts prêts."
 flavor = "Ce n'est plus tout à fait votre main."
 
 [carapace]

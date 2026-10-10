@@ -9,6 +9,7 @@
 //   groups share one line when they fit, otherwise each group gets its own line.
 // - `structure`: true marks a Structure, a creature that never moves. It takes
 //   `activation` instead of `zones`: one effect, applied whatever its zone.
+//   An Emprise may also have an `activation`, drawn after the activation symbol.
 // - `impulse`: true marks an Impulsion, a one-shot effect that resolves and is discarded.
 //   It has no zones, attack or health; its text goes in `passive`.
 // - `mutation`: true marks a Mutation, a card attached to a creature. No zones or stats;
@@ -52,13 +53,19 @@
     body,
   ))
   let number(value) = align(center + horizon, text(size: 11pt, weight: "bold")[#value])
-  let zone_block(n) = box(
-    width: 3.9mm,
-    height: 3.9mm,
-    radius: 0.9mm,
-    stroke: 0.7pt + black,
-    align(center + horizon, text(size: 7.5pt, weight: "bold")[#n]),
-  )
+  // Zone 0 does not exist: it stands for the activation symbol of a card without zones.
+  let zone_block(n) = if n == 0 {
+    box(width: 3.9mm, height: 3.9mm, radius: 0.9mm, fill: black, stroke: 0.7pt + black,
+      align(center + horizon, polygon(fill: white, (0mm, 0mm), (2mm, 1.1mm), (0mm, 2.2mm))))
+  } else {
+    box(
+      width: 3.9mm,
+      height: 3.9mm,
+      radius: 0.9mm,
+      stroke: 0.7pt + black,
+      align(center + horizon, text(size: 7.5pt, weight: "bold")[#n]),
+    )
+  }
 
   box(width: width, height: height, {
     place(top + left, rect(width: width, height: height, radius: 2.5mm, fill: rgb("#cfcfca"), stroke: 1mm + black))
@@ -113,6 +120,8 @@
           groups.push(((3 - i,), effect))
         }
       }
+      // An Emprise has no zones: its activation effect is marked with the activation symbol.
+      if emprise and activation != none { groups = (((0,), activation),) }
       let numbers(group) = group.at(0).map(zone_block).join(h(0.5mm))
       let compact(group) = {
         set text(size: 8.5pt * f)
@@ -152,8 +161,8 @@
         ))
       })
       let has_lines = rows.len() > 0
-      if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
       if removal != none { v(3.6mm) }
+      if has_lines { stack(dir: ttb, spacing: 1.4mm, ..rows) }
       let passives = if type(passive) == array { passive } else if passive != none { (passive,) } else { () }
       if passives.len() > 0 {
         if has_lines {

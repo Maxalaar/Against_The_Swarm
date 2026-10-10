@@ -27,7 +27,8 @@ type = "Atout, Base"
 starting = true
 slots = 0
 dice = ["4+"]
-effect = "Déplacer 1."
+uses = 2
+effect = "Ciblez une engeance de votre secteur ou d'un secteur adjacent. *Déplacer~1.*"
 flavor = "Pas là. Là."
 
 [revive]

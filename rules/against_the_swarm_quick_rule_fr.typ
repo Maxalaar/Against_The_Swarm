@@ -205,8 +205,8 @@ Quand un joueur active un atout, il retire immédiatement les dés utilisés de 
   [Infligez 1 dégât à portée 1.],
 
   [Déplacement],
-  [Un dé 4+],
-  [Déplacer 1.],
+  [Un dé 4+, deux utilisations],
+  [Ciblez une engeance de votre secteur ou d'un secteur adjacent. Déplacer 1.],
 
   [Réanimation],
   [Deux dés 6],
@@ -360,6 +360,8 @@ Sauf indication contraire, une engeance entre en jeu en zone 3.
 
 Une *Emprise* est un permanent de l'Essaim qui n'est pas une engeance : elle n'a ni zone, ni Attaque, ni Endurance. Elle se pose dans le secteur où elle est tirée et n'affecte que ce secteur. Elle ne peut pas être ciblée, blessée ni déplacée.
 
+Comme tout permanent de l'Essaim, une Emprise s'active pendant le tour de l'Essaim, puis devient épuisée. Si elle porte un effet d'activation, marqué du symbole d'activation (un triangle blanc dans un carré noir), cet effet s'applique à ce moment-là. Ses autres effets s'appliquent en permanence, qu'elle soit prête ou épuisée.
+
 Pour retirer une Emprise, un joueur doit payer le coût dessiné sur la carte, qui se lit comme le coût d'un atout. « Total 10+ » demande des dés dont la somme atteint au moins 10.
 
 - Seuls l'As du secteur et les As des secteurs adjacents peuvent payer.
@@ -480,7 +482,7 @@ Quand un mot-clé est suivi d'un nombre, noté X ici, ce nombre est indiqué sur
   [*Mot-clé*], [*Effet*],
 
   [Déplacer X],
-  [Le joueur choisit une engeance dans son secteur ou dans un secteur adjacent, et lui fait faire jusqu'à X pas. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
+  [La cible fait jusqu'à X pas, au choix du joueur. Sans cible désignée, le joueur choisit une engeance dans son secteur ou dans un secteur adjacent. Un pas est l'un de ces mouvements : changer d'une zone à l'intérieur de son propre secteur ; passer de son secteur à la même zone d'un secteur adjacent ; passer d'un secteur adjacent à la même zone de son secteur.],
 
   [Armer X],
   [Placez X marqueurs sur cet atout, sans dépasser le maximum qu'il indique.],
