@@ -7,6 +7,7 @@
   --bg: #d9cdb6; --surface: #f8f2e6; --raised: #fffaf0; --fg: #2a211b; --muted: #75665a;
   --line: #bfae92; --accent: #b3401f; --accent-fg: #fff7ee; --swarm: #5b6b2c; --asset: #2f5f7a;
   --shade: rgba(42, 33, 27, .5); --mat: #e9dfcb; --mat-alt: #e1d5bd; --mat-ace: #f1e9d8; --die: #fffdf7;
+  --card: 110px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #14110f; --surface: #25201b; --raised: #302a24; --fg: #efe4d2; --muted: #a8998a;
@@ -19,80 +20,88 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html, body { height: 100%; }
+html, body { height: 100%; margin: 0; }
 body { background: var(--bg); color: var(--fg); font: 14px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   display: flex; flex-direction: column; overflow: hidden; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
 .display { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; letter-spacing: .04em; }
 button { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px;
-  min-height: 36px; padding: 4px 10px; cursor: pointer; touch-action: manipulation; white-space: nowrap; }
+  min-height: 34px; padding: 4px 10px; cursor: pointer; touch-action: manipulation; white-space: nowrap; }
 button:hover { border-color: var(--accent); }
 button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
 button:disabled { opacity: .4; }
-input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 36px; padding: 4px 10px; width: 100%; }
+button.tiny { min-width: 30px; padding: 0; }
+input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 34px; padding: 4px 10px; width: 100%; }
 
 .toolbar { display: flex; align-items: center; gap: 6px; padding: 6px 16px; background: var(--surface); border-bottom: 1px solid var(--line); overflow-x: auto; flex: 0 0 auto; }
 .toolbar .group { display: flex; align-items: center; gap: 2px; padding-right: 8px; margin-right: 2px; border-right: 1px solid var(--line); flex: 0 0 auto; }
 .toolbar .group:last-child { border-right: 0; }
 .toolbar .value { font-size: 20px; padding: 0 6px; white-space: nowrap; }
-.toolbar .tiny { min-width: 30px; padding: 0; }
 .toolbar select { width: auto; }
-#table { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
-#viewport { flex: 1; min-height: 0; position: relative; overflow: hidden; touch-action: none; cursor: grab; }
-#viewport.panning { cursor: grabbing; }
-#world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
-.side { position: absolute; right: 16px; top: 12px; z-index: 5; display: flex; flex-direction: column; gap: 6px; width: 176px; }
-.side button { border-radius: 18px; box-shadow: 0 1px 4px var(--shade); }
-.side .split { display: flex; gap: 4px; }
-.side .split button { flex: 1; padding: 4px; }
-.side .split .tiny { flex: 0 0 34px; }
-.dock { flex: 0 0 auto; display: flex; gap: 12px; align-items: flex-end; padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); overflow-x: auto; touch-action: none; }
+
+#table { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.mat { flex: 1; min-height: 0; display: flex; gap: 8px; padding: 8px 16px; }
+.area { position: relative; overflow: hidden; border: 2px solid var(--line); border-radius: 8px; }
+.area > .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; pointer-events: none; z-index: 0; }
+#lasting { flex: 0 0 calc(var(--card) * 1.25 + 16px); background: var(--mat-alt); border-left: 6px solid var(--swarm); }
+#field { flex: 1; min-width: 0; background: var(--mat); border-left: 6px solid var(--swarm); }
+#field .band { position: absolute; left: 0; right: 0; height: 33.334%; border-bottom: 2px solid var(--line); pointer-events: none; }
+#field .band:nth-child(2) { top: 33.333%; background: var(--mat-alt); } #field .band:nth-child(3) { top: 66.666%; border-bottom: 0; }
+#field .band .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; }
+.side { flex: 0 0 168px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
+.side button { border-radius: 17px; }
+.side .split { display: flex; gap: 4px; } .side .split button:not(.tiny) { flex: 1; padding: 4px; }
+
+.dock { flex: 0 0 auto; display: flex; gap: 12px; align-items: stretch; padding: 6px 16px calc(6px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 2px solid var(--accent); overflow-x: auto; }
 .dock .slot { display: flex; flex-direction: column; gap: 3px; flex: 0 0 auto; color: var(--muted); font-size: 12px; }
-.dock .spacer { flex: 1; }
-@media (max-width: 700px) {
-  .side { position: static; flex-direction: row; width: auto; overflow-x: auto; padding: 6px 16px; background: var(--surface); border-top: 1px solid var(--line); order: 2; }
-  .side button { flex: 0 0 auto; box-shadow: none; }
-  .dock { order: 3; }
-}
+.dock .stats { justify-content: flex-start; gap: 4px; width: 172px; }
+.counter { display: flex; align-items: center; gap: 2px; color: var(--fg); font-size: 14px; }
+.counter span { flex: 1; } .counter b { font-size: 18px; font-variant-numeric: tabular-nums; }
+#tray { display: flex; flex-wrap: wrap; gap: 4px; min-height: calc(var(--card) * .36 + 8px); padding: 3px; border: 2px dashed var(--line); border-radius: 8px; align-content: flex-start; }
+#panoply { display: flex; gap: 8px; flex: 1 1 auto; min-width: calc(var(--card) * 2); overflow-x: auto; padding: 6px 8px 6px 6px; border: 2px dashed var(--line); border-radius: 8px; align-items: flex-start; min-height: calc(var(--card) * 1.397 + 16px); }
+.dock .wide { flex: 1 1 auto; min-width: 0; }
+.piles { display: flex; gap: 8px; }
 
-.region { position: absolute; border: 2px solid var(--line); }
-.region .label { position: absolute; left: 12px; top: 6px; font-size: 26px; color: var(--muted); opacity: .8; pointer-events: none; }
-.region.zone { background: var(--mat); border-left: 8px solid var(--swarm); }
-.region.zone.alt { background: var(--mat-alt); }
-.region.ace { background: var(--mat-ace); border-left: 8px solid var(--accent); }
-.region.tray { border-style: dashed; border-radius: 12px; }
-.region.tray .label { font-size: 18px; top: 2px; }
-
-.obj { touch-action: none; cursor: pointer; }
-#world .obj { position: absolute; }
-.card { width: 126px; height: 176px; border-radius: 8px; box-shadow: 0 2px 6px var(--shade); transition: transform .12s; }
-.card img { width: 100%; height: 100%; border-radius: 8px; display: block; pointer-events: none; -webkit-user-drag: none; }
+.obj { touch-action: none; cursor: pointer; flex: 0 0 auto; }
+.area .obj { position: absolute; }
+.card { position: relative; width: var(--card); height: calc(var(--card) * 1.397); border-radius: calc(var(--card) * .06); box-shadow: 0 2px 5px var(--shade); transition: transform .12s; font-size: calc(var(--card) * .16); }
+.card img { width: 100%; height: 100%; border-radius: inherit; display: block; pointer-events: none; -webkit-user-drag: none; }
 .card.exhausted { transform: rotate(90deg); }
-.card.selected { outline: 5px solid var(--accent); outline-offset: 2px; }
-.card.dragging, .die.dragging { transition: none; box-shadow: 0 10px 22px var(--shade); }
-.card .count { position: absolute; right: -10px; top: -10px; min-width: 40px; height: 40px; border-radius: 20px; background: var(--accent); color: var(--accent-fg);
-  font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--surface); }
+#panoply .card.exhausted { transform: rotate(12deg); filter: grayscale(.6) brightness(.75); }
+.card .count { position: absolute; right: -.4em; top: -.4em; min-width: 1.7em; height: 1.7em; border-radius: 1em; background: var(--accent); color: var(--accent-fg);
+  font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--surface); }
 .card.exhausted .count { transform: rotate(-90deg); }
-.die { width: 46px; height: 46px; border-radius: 9px; background: var(--die); color: #2a211b; border: 3px solid #2a211b; font-size: 28px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px var(--shade); font-variant-numeric: tabular-nums; }
-.pile { width: 72px; height: 100px; border-radius: 6px; border: 2px dashed var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; color: var(--fg); overflow: hidden; }
+.die { width: calc(var(--card) * .36); height: calc(var(--card) * .36); border-radius: 18%; background: var(--die); color: #2a211b; border: 2px solid #2a211b; font-size: calc(var(--card) * .22); font-weight: 800;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px var(--shade); font-variant-numeric: tabular-nums; }
+.die.spent { opacity: .3; border-style: dashed; }
+.lifted { opacity: .25; }
+#ghost { position: fixed; z-index: 60; pointer-events: none; margin: 0; transition: none; box-shadow: 0 10px 22px var(--shade); }
+.pile { width: calc(var(--card) * .72); height: calc(var(--card) * 1.006); border-radius: 6px; border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center; color: var(--fg); overflow: hidden; }
 .pile.full { border: 2px solid var(--fg); color: var(--accent-fg); box-shadow: 3px 3px 0 var(--line); }
 .pile.full.swarm { background: var(--swarm); } .pile.full.asset { background: var(--asset); } .pile.full.token { background: var(--muted); }
 .pile.discard.has { border-style: solid; }
-.pile.over { outline: 3px solid var(--accent); outline-offset: 2px; }
-.pile b { font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; pointer-events: none; }
+.over { outline: 3px solid var(--accent); outline-offset: -3px; }
+.pile b { font-size: calc(var(--card) * .28); line-height: 1; font-variant-numeric: tabular-nums; pointer-events: none; }
 .pile img { width: 100%; height: 100%; display: block; pointer-events: none; }
-#marquee { position: absolute; border: 2px dashed var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); pointer-events: none; }
 
-#preview { position: fixed; top: 60px; width: min(300px, 62vw); border-radius: 12px; box-shadow: 0 6px 24px var(--shade); pointer-events: none; z-index: 30; }
+@media (max-width: 700px) {
+  :root { --card: 62px; }
+  .mat { flex-wrap: wrap; padding: 6px 16px; gap: 6px; }
+  .side { flex: 0 0 100%; flex-direction: row; order: 3; overflow-x: auto; }
+  .side button { flex: 0 0 auto; }
+  #field, #lasting { height: calc(100% - 46px); }
+  .dock { flex-wrap: wrap; gap: 6px; max-height: 46%; overflow-y: auto; }
+  .dock .stats { width: 150px; }
+}
+
+#preview { position: fixed; top: 56px; width: min(300px, 62vw); border-radius: 12px; box-shadow: 0 6px 24px var(--shade); pointer-events: none; z-index: 30; }
 #menu { position: fixed; z-index: 40; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 6px 24px var(--shade); padding: 6px; display: flex; flex-direction: column; gap: 2px; min-width: 190px; }
 #menu button { text-align: left; border-color: transparent; background: transparent; display: flex; justify-content: space-between; gap: 16px; }
 #menu button:hover { background: var(--raised); border-color: var(--line); }
 #menu kbd { color: var(--muted); font: inherit; }
 #menu .line { display: flex; gap: 4px; align-items: center; padding: 0 6px; }
 #menu .line span { flex: 1; }
-#menu .line button { justify-content: center; min-width: 36px; border-color: var(--line); background: var(--raised); }
-#toast { position: fixed; left: 50%; top: 64px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 8px 14px; border-radius: 20px;
+#menu .line button { justify-content: center; min-width: 34px; border-color: var(--line); background: var(--raised); }
+#toast { position: fixed; left: 50%; top: 60px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 8px 14px; border-radius: 20px;
   z-index: 50; max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
 .backdrop { position: fixed; inset: 0; background: var(--shade); display: flex; align-items: center; justify-content: center; z-index: 20; padding: 16px; }
 .sheet { background: var(--surface); width: 100%; max-width: 760px; max-height: 100%; overflow-y: auto; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; user-select: text; }
@@ -117,19 +126,19 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 <script>
 "use strict";
 /* The table knows no rules. It moves cards, shuffles piles, rolls dice and draws invasions.
+   Everything fits one fixed screen: no camera. Positions on the mat are fractions of their area.
    One browser tab shows one player's sector. Tabs of the same browser share the game through localStorage. */
-const SAVE_KEY = "against-the-swarm-table-3", SEAT_KEY = "against-the-swarm-seat";
-const CARD_WIDTH = 126, CARD_HEIGHT = 176, DIE_SIZE = 46;
-const SECTOR_WIDTH = 860, ZONE_HEIGHT = 230, ACE_HEIGHT = 400;
+const SAVE_KEY = "against-the-swarm-table-4", SEAT_KEY = "against-the-swarm-seat", SIZE_KEY = "against-the-swarm-card-size";
+const FREE_AREAS = ["field", "lasting"];
 const ZONE_NAMES = ["Zone 3 · Éloignée", "Zone 2 · Proche", "Zone 1 · Contact"];
 const RANK_ADDED_AT_WAVE = { 3: 2, 5: 3, 7: 4 };
 const ROMAN = ["", "I", "II", "III", "IV"];
 const PILES = [
   { name: "swarmPile", label: "Pile Essaim", kind: "swarm" },
-  { name: "swarmDiscard", label: "Défausse Essaim", kind: "swarm", discard: true },
+  { name: "swarmDiscard", label: "Défausse", kind: "swarm", discard: true },
   { name: "tokens", label: "Jetons", kind: "token" },
   { name: "assetPile", label: "Pile d'atouts", kind: "asset" },
-  { name: "assetDiscard", label: "Défausse d'atouts", kind: "asset", discard: true },
+  { name: "assetDiscard", label: "Défausse", kind: "asset", discard: true },
 ];
 const roundsToHold = wave => 5 + Math.floor((wave - 1) / 2);
 const threatLevel = wave => 6 + Math.floor(wave / 2);
@@ -137,12 +146,10 @@ const threatLevel = wave => 6 + Math.floor(wave / 2);
 let CARDS = {};
 let state = null;
 let seat = 0;
+let cardSize = null;
 let undoStack = [], redoStack = [];
-let view = { x: 0, y: 0, k: 1 };
-let selection = new Set();
 let sheet = null;
 let gesture = null, hovered = null, previewTimer = null, toastTimer = null;
-const pointers = new Map();
 
 const app = document.getElementById("app"), overlay = document.getElementById("overlay");
 const preview = document.getElementById("preview"), menu = document.getElementById("menu"), toastBox = document.getElementById("toast");
@@ -151,55 +158,37 @@ const card = id => CARDS[id];
 const idsOf = set => Object.keys(CARDS).filter(id => CARDS[id].set === set);
 const rollDie = () => 1 + Math.floor(Math.random() * 6);
 const aceName = index => card(state.sectors[index].ace).name;
+const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
 function shuffle(list) {
   for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
   return list;
 }
 
-/* ---------- geometry (one sector per tab, so every sector uses the same coordinates) ---------- */
-const zoneRect = row => ({ x: 0, y: row * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ZONE_HEIGHT });
-const aceRect = () => ({ x: 0, y: 3 * ZONE_HEIGHT, w: SECTOR_WIDTH, h: ACE_HEIGHT });
-const trayRect = () => ({ x: 20, y: 3 * ZONE_HEIGHT + 300, w: 520, h: 80 });
-const sectorRect = () => ({ x: 0, y: 0, w: SECTOR_WIDTH, h: 3 * ZONE_HEIGHT + ACE_HEIGHT });
-const inside = (rect, x, y) => x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h;
-const sizeOf = item => item.kind === "die" ? [DIE_SIZE, DIE_SIZE] : [CARD_WIDTH, CARD_HEIGHT];
-const centerOf = item => { const [w, h] = sizeOf(item); return [item.x + w / 2, item.y + h / 2]; };
-const viewportBox = () => document.getElementById("viewport").getBoundingClientRect();
-function toWorld(clientX, clientY) { const box = viewportBox(); return [(clientX - box.left - view.x) / view.k, (clientY - box.top - view.y) / view.k]; }
-function viewCenter() { const box = viewportBox(); return toWorld(box.left + box.width / 2, box.top + box.height / 2); }
-function fit() {
-  const rect = sectorRect(), box = viewportBox(), reserved = window.innerWidth > 700 ? 200 : 0;
-  const width = Math.max(200, box.width - reserved);
-  const k = Math.min(width / (rect.w + 40), box.height / (rect.h + 40), 1.4);
-  view = { k, x: (width - rect.w * k) / 2, y: (box.height - rect.h * k) / 2 };
-  applyView();
-}
-function applyView() {
-  const world = document.getElementById("world");
-  if (world) world.style.transform = `translate(${view.x}px, ${view.y}px) scale(${view.k})`;
-}
-
 /* ---------- persistence, tab sharing, undo, redo ---------- */
 function save() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (error) { /* storage unavailable */ } }
 function load() { try { const raw = localStorage.getItem(SAVE_KEY); state = raw ? JSON.parse(raw) : null; } catch (error) { state = null; } }
-function loadSeat() { try { seat = Number(sessionStorage.getItem(SEAT_KEY)) || 0; } catch (error) { seat = 0; } clampSeat(); }
-function setSeat(index) { seat = index; clampSeat(); selection.clear(); try { sessionStorage.setItem(SEAT_KEY, String(seat)); } catch (error) { /* ignore */ } }
+function loadSeat() { try { seat = Number(sessionStorage.getItem(SEAT_KEY)) || 0; cardSize = Number(localStorage.getItem(SIZE_KEY)) || null; } catch (error) { seat = 0; } clampSeat(); applyCardSize(); }
+function setSeat(index) { seat = index; clampSeat(); try { sessionStorage.setItem(SEAT_KEY, String(seat)); } catch (error) { /* ignore */ } }
 function clampSeat() { if (!state || seat >= state.sectors.length || seat < 0) seat = 0; }
+function applyCardSize() { if (cardSize) document.documentElement.style.setProperty("--card", cardSize + "px"); else document.documentElement.style.removeProperty("--card"); }
+function resizeCards(step) {
+  const current = cardSize || parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card"));
+  cardSize = clamp(Math.round(current + step), 40, 220); applyCardSize();
+  try { localStorage.setItem(SIZE_KEY, String(cardSize)); } catch (error) { /* ignore */ }
+}
 window.addEventListener("storage", event => {
-  if (event.key !== SAVE_KEY || (gesture && gesture.type === "drag")) return;
-  const had = !!state;
-  load(); clampSeat(); selection.clear(); undoStack = []; redoStack = [];
+  if (event.key !== SAVE_KEY || gesture) return;
+  load(); clampSeat(); undoStack = []; redoStack = [];
   if (!state) { app.innerHTML = ""; sheet = null; }
   render();
-  if (state && !had) fit();
 });
 function commit(before) {
   undoStack.push(before); if (undoStack.length > 80) undoStack.shift();
   redoStack = []; save(); render();
 }
 function act(change) { const before = JSON.stringify(state); change(); commit(before); }
-function undo() { if (!undoStack.length) return; redoStack.push(JSON.stringify(state)); state = JSON.parse(undoStack.pop()); clampSeat(); selection.clear(); save(); render(); }
-function redo() { if (!redoStack.length) return; undoStack.push(JSON.stringify(state)); state = JSON.parse(redoStack.pop()); clampSeat(); selection.clear(); save(); render(); }
+function undo() { if (!undoStack.length) return; redoStack.push(JSON.stringify(state)); state = JSON.parse(undoStack.pop()); clampSeat(); save(); render(); }
+function redo() { if (!redoStack.length) return; undoStack.push(JSON.stringify(state)); state = JSON.parse(redoStack.pop()); clampSeat(); save(); render(); }
 function toast(text) {
   toastBox.textContent = text; toastBox.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { toastBox.hidden = true; }, 3200);
@@ -207,31 +196,31 @@ function toast(text) {
 
 /* ---------- table actions ---------- */
 const mine = () => state.items.filter(item => item.sector === seat);
-function place(id, x, y, extra = {}) {
-  const item = Object.assign({ key: state.next++, kind: "card", id, sector: seat, x, y, z: state.top++, exhausted: false, counter: 0, parent: null }, extra);
+const inArea = area => mine().filter(item => item.area === area).sort((a, b) => a.z - b.z);
+function place(id, area, x, y, extra = {}) {
+  const item = Object.assign({ key: state.next++, kind: "card", id, sector: seat, area, x, y, z: state.top++, exhausted: false, counter: 0, parent: null }, extra);
   state.items.push(item); return item;
 }
-function placeDie(x, y, extra = {}) {
-  const item = Object.assign({ key: state.next++, kind: "die", value: rollDie(), sector: seat, x, y, z: state.top++, parent: null }, extra);
+function placeDie(area, x, y, extra = {}) {
+  const item = Object.assign({ key: state.next++, kind: "die", value: rollDie(), sector: seat, area, x, y, z: state.top++, parent: null, spent: false }, extra);
   state.items.push(item); return item;
 }
 function seatPlayer(ace) {
-  const sector = state.sectors.length, area = aceRect();
-  state.sectors.push({ ace, actionModifier: 0, pending: null });
-  place(ace, area.x + 20, area.y + 50, { sector });
-  idsOf("asset").filter(id => card(id).starting).forEach((id, n) => place(id, area.x + 180 + n * 140, area.y + 50, { sector }));
-  place("swarm/infestation", SECTOR_WIDTH - CARD_WIDTH - 20, 34, { sector });
+  const sector = state.sectors.length;
+  state.sectors.push({ ace, actionModifier: 0, pending: null, wounds: 0, guard: 0 });
+  idsOf("asset").filter(id => card(id).starting).forEach(id => place(id, "panoply", 0, 0, { sector }));
+  place("swarm/infestation", "lasting", 0.1, 0.05, { sector });
   return sector;
 }
 function newGame(ace) {
-  undoStack = []; redoStack = []; selection.clear();
+  undoStack = []; redoStack = [];
   state = {
     wave: 1, round: 1, ranks: [1], next: 1, top: 1, items: [], sectors: [],
     swarmPile: shuffle(idsOf("swarm").filter(id => card(id).rank === 1)), swarmDiscard: [],
     assetPile: shuffle(idsOf("asset").filter(id => !card(id).starting)), assetDiscard: [],
   };
   setSeat(seatPlayer(ace));
-  save(); render(); fit();
+  save(); render();
 }
 function drawFrom(name) {
   const discardName = name === "swarmPile" ? "swarmDiscard" : "assetDiscard";
@@ -245,7 +234,6 @@ function drawFrom(name) {
 function removeItem(item) {
   state.items.forEach(other => { if (other.parent === item.key) other.parent = null; });
   state.items = state.items.filter(other => other !== item);
-  selection.delete(item.key);
 }
 function discardItem(item) {
   removeItem(item);
@@ -262,15 +250,21 @@ function returnToPile(item, bottom) {
   const pile = state[data.set === "asset" ? "assetPile" : "swarmPile"];
   if (bottom) pile.unshift(item.id); else pile.push(item.id);
 }
-function itemsIn(rect, filter = () => true) {
-  return mine().filter(item => { const [x, y] = centerOf(item); return inside(rect, x, y) && filter(item); });
+/* Puts a card where a fresh arrival is easy to see: Emprises in their column, the rest spread along a band of the field. */
+function arrive(id, band = 0, extra = {}) {
+  if (card(id).kind === "emprise" || card(id).kind === "infestation") {
+    const count = inArea("lasting").length;
+    return place(id, "lasting", 0.1, clamp(0.05 + count * 0.16, 0, 0.8), extra);
+  }
+  const count = inArea("field").filter(item => item.kind === "card" && Math.floor(item.y * 3 + 0.2) === band).length;
+  return place(id, "field", 0.02 + (count % 12) * 0.075, band / 3 + 0.045 + (count % 3) * 0.012, extra);
 }
 function invade() {
-  const sector = state.sectors[seat], zone = zoneRect(0), level = threatLevel(state.wave);
+  const sector = state.sectors[seat], level = threatLevel(state.wave);
   const draws = mine().filter(item => item.kind === "card" && card(item.id).kind === "infestation").length;
   if (!draws) return toast("Aucune carte Infestation dans ce secteur.");
-  let slot = itemsIn(zone, item => item.kind === "card").length, entered = 0;
-  const enter = id => { place(id, zone.x + 20 + (slot % 10) * 68, zone.y + 40 + (slot % 3) * 6); slot++; entered++; };
+  let entered = 0;
+  const enter = id => { arrive(id); entered++; };
   for (let draw = 0; draw < draws; draw++) {
     let total = 0;
     if (sector.pending) { total += Math.max(0, (card(sector.pending.id).threat || 0) - sector.pending.consumed); enter(sector.pending.id); sector.pending = null; }
@@ -286,9 +280,8 @@ function invade() {
 }
 const diceCount = () => Math.max(1, card(state.sectors[seat].ace).ap + state.sectors[seat].actionModifier);
 function rollSector() {
-  const tray = trayRect();
-  itemsIn(tray, item => item.kind === "die" && !item.parent).forEach(removeItem);
-  for (let n = 0, count = diceCount(); n < count; n++) placeDie(tray.x + 14 + n * 56, tray.y + 26);
+  inArea("tray").forEach(removeItem);
+  for (let n = 0, count = diceCount(); n < count; n++) placeDie("tray", 0, 0);
 }
 function setWave(wave) {
   state.wave = Math.max(1, wave);
@@ -308,57 +301,61 @@ function nextWave() {
     if (data.set === "swarm" && data.kind !== "infestation") return discardItem(item);
     item.exhausted = false; if (data.set === "asset") item.counter = 0;
   });
-  state.sectors.forEach(sector => { if (sector.pending) state.swarmDiscard.push(sector.pending.id); sector.pending = null; sector.actionModifier = 0; });
+  state.sectors.forEach(sector => { if (sector.pending) state.swarmDiscard.push(sector.pending.id); Object.assign(sector, { pending: null, actionModifier: 0, wounds: 0, guard: 0 }); });
   state.round = 1; setWave(state.wave + 1);
 }
 function readyAll(set) { state.items.forEach(item => { if (item.kind === "card" && card(item.id).set === set) item.exhausted = false; }); }
 
 /* ---------- rendering ---------- */
 function itemHtml(item) {
-  const style = `left:${item.x}px;top:${item.y}px;z-index:${item.z}`;
-  if (item.kind === "die") return `<div class="obj die" data-key="${item.key}" style="${style}">${item.value}</div>`;
+  const free = FREE_AREAS.includes(item.area);
+  const style = free ? `style="left:${(item.x * 100).toFixed(2)}%;top:${(item.y * 100).toFixed(2)}%;z-index:${item.z}"` : "";
+  if (item.kind === "die") return `<div class="obj die ${item.spent ? "spent" : ""}" data-key="${item.key}" ${style}>${item.value}</div>`;
   const data = card(item.id);
-  return `<div class="obj card ${item.exhausted ? "exhausted" : ""} ${selection.has(item.key) ? "selected" : ""}" data-key="${item.key}" data-preview="${item.id}" style="${style}">
+  return `<div class="obj card ${item.exhausted ? "exhausted" : ""}" data-key="${item.key}" data-preview="${item.id}" ${style}>
     <img src="${data.image}" alt="${escapeHtml(data.name)}" draggable="false">${item.counter ? `<span class="count">${item.counter}</span>` : ""}</div>`;
 }
 function pileHtml(pile) {
   const tokens = pile.name === "tokens", count = tokens ? 1 : state[pile.name].length;
   const classes = pile.discard ? `discard ${count ? "has" : ""}` : (count ? `full ${pile.kind}` : "");
   const top = pile.discard && count ? state[pile.name][count - 1] : null;
-  const face = top ? `<img src="${card(top).image}" alt="">` : (tokens ? '<b>+</b>' : `<b>${count}</b>`);
+  const face = top ? `<img src="${card(top).image}" alt="">` : (tokens ? "<b>+</b>" : `<b>${count}</b>`);
   return `<div class="slot"><span>${pile.label}${pile.discard ? ` (${count})` : ""}</span><div class="obj pile ${classes}" data-pile="${pile.name}" ${top ? `data-preview="${top}"` : ""}>${face}</div></div>`;
 }
-function worldHtml() {
-  const tray = trayRect(), name = escapeHtml(aceName(seat));
-  return `${ZONE_NAMES.map((label, row) => `<div class="region zone ${row % 2 ? "alt" : ""}" style="left:0;top:${row * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ZONE_HEIGHT}px"><span class="label display">${label}</span></div>`).join("")}
-    <div class="region ace" style="left:0;top:${3 * ZONE_HEIGHT}px;width:${SECTOR_WIDTH}px;height:${ACE_HEIGHT}px"><span class="label display">${name} · Panoplie</span></div>
-    <div class="region tray" style="left:${tray.x}px;top:${tray.y}px;width:${tray.w}px;height:${tray.h}px"><span class="label display">Réserve de dés</span></div>
-    ${mine().map(itemHtml).join("")}<div id="marquee" hidden></div>`;
-}
+const counterHtml = (label, value, name) => `<div class="counter"><span>${label}</span><button class="tiny" data-stat="${name}" data-by="-1" aria-label="${label} moins">−</button><b>${value}</b><button class="tiny" data-stat="${name}" data-by="1" aria-label="${label} plus">+</button></div>`;
 function render() {
   if (!state) { app.innerHTML = setupHtml(); overlay.innerHTML = ""; return; }
-  if (!document.getElementById("viewport")) {
-    app.innerHTML = `<div class="toolbar" id="toolbar"></div><div id="table"><div id="viewport"><div id="world"></div></div><div class="side" id="side" data-ui></div><div class="dock" id="dock"></div></div>`;
-    bindTable();
-  }
-  const sector = state.sectors[seat], count = diceCount();
+  if (!document.getElementById("table")) { app.innerHTML = `<div class="toolbar" id="toolbar"></div><div id="table"></div>`; bindTable(); }
+  const sector = state.sectors[seat], ace = card(sector.ace), count = diceCount();
   document.getElementById("toolbar").innerHTML = `
     <div class="group"><select data-seat aria-label="Joueur affiché dans cet onglet">${state.sectors.map((one, index) => `<option value="${index}" ${index === seat ? "selected" : ""}>${escapeHtml(aceName(index))}</option>`).join("")}<option value="add">+ Ajouter un joueur…</option></select></div>
     <div class="group"><button class="tiny" data-wave="-1" aria-label="Vague précédente">−</button><span class="value display">Vague ${state.wave}</span><button class="tiny" data-wave="1" aria-label="Vague suivante">+</button></div>
     <div class="group"><button class="tiny" data-round="-1" aria-label="Round précédent">−</button><span class="value display">Round ${state.round}/${roundsToHold(state.wave)}</span><button class="tiny" data-round="1" aria-label="Round suivant">+</button></div>
     <div class="group"><span class="value display">Menace ${threatLevel(state.wave)}</span></div>
+    <div class="group"><span>Cartes</span><button class="tiny" data-size="-10" aria-label="Cartes plus petites">−</button><button class="tiny" data-size="10" aria-label="Cartes plus grandes">+</button></div>
     <div class="group"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
     <div class="group"><button data-do="menu">Menu</button></div>`;
-  document.getElementById("side").innerHTML = `
-    <button class="primary" data-do="invade">Tirage d'invasion</button>
-    <div class="split"><button class="tiny" data-points="-1" aria-label="Un dé de moins">−</button><button class="primary" data-do="roll">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button class="tiny" data-points="1" aria-label="Un dé de plus">+</button></div>
-    <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
-    <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
-    <button data-do="fit">Recentrer</button>`;
-  document.getElementById("dock").innerHTML = PILES.map(pileHtml).join("") + `<span class="spacer"></span>
-    <div class="slot"><span>En attente${sector.pending ? ` (${sector.pending.consumed} payés)` : ""}</span><div class="pile" ${sector.pending ? `data-preview="${sector.pending.id}"` : ""}>${sector.pending ? `<img src="${card(sector.pending.id).image}" alt="">` : ""}</div></div>`;
-  document.getElementById("world").innerHTML = worldHtml();
-  applyView();
+  document.getElementById("table").innerHTML = `
+    <div class="mat">
+      <div class="area" id="lasting" data-area="lasting"><span class="label display">Emprises</span>${inArea("lasting").map(itemHtml).join("")}</div>
+      <div class="area" id="field" data-area="field">${ZONE_NAMES.map((name, row) => `<div class="band" style="top:${row * 33.333}%"><span class="label display">${name}</span></div>`).join("")}${inArea("field").map(itemHtml).join("")}</div>
+      <div class="side">
+        <button class="primary" data-do="invade">Tirage d'invasion</button>
+        <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
+        <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
+      </div>
+    </div>
+    <div class="dock">
+      <div class="slot"><span>${escapeHtml(ace.name)}</span><div class="obj card" data-preview="${sector.ace}" style="cursor:help"><img src="${ace.image}" alt=""></div></div>
+      <div class="slot stats">
+        ${counterHtml(`Blessures <small>(${ace.hp - sector.wounds} PV)</small>`, sector.wounds, "wounds")}${counterHtml("Garde", sector.guard, "guard")}
+        <div class="counter"><button class="tiny" data-points="-1" aria-label="Un dé de moins">−</button><button class="primary" style="flex:1" data-do="roll">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button class="tiny" data-points="1" aria-label="Un dé de plus">+</button></div>
+        <div id="tray" data-area="tray">${inArea("tray").map(itemHtml).join("")}</div>
+      </div>
+      <div class="slot wide"><span>Panoplie</span><div id="panoply" data-area="panoply">${inArea("panoply").map(itemHtml).join("")}</div></div>
+      <div class="slot"><div class="piles">${PILES.map(pileHtml).join("")}
+        <div class="slot"><span>En attente${sector.pending ? ` (${sector.pending.consumed})` : ""}</span><div class="pile" ${sector.pending ? `data-preview="${sector.pending.id}"` : ""}>${sector.pending ? `<img src="${card(sector.pending.id).image}" alt="">` : ""}</div></div></div></div>
+    </div>`;
   overlay.innerHTML = sheetHtml();
 }
 const aceGrid = () => `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">${idsOf("ace").map(id => `<button data-ace="${id}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>`;
@@ -382,7 +379,7 @@ function sheetHtml() {
   if (sheet.type === "picker") {
     const query = (sheet.query || "").toLowerCase();
     const ids = Object.keys(CARDS).filter(id => card(id).set !== "ace" && (!sheet.tokens || card(id).kind === "token") && card(id).name.toLowerCase().includes(query));
-    return frame(sheet.tokens ? "Jetons" : "Ajouter une carte", `${sheet.tokens ? '<p class="hint">Le jeton entre épuisé, au centre de la vue.</p>' : `<input type="search" placeholder="Chercher par nom" value="${escapeHtml(sheet.query || "")}" data-search>`}
+    return frame(sheet.tokens ? "Jetons" : "Ajouter une carte", `${sheet.tokens ? '<p class="hint">Le jeton entre épuisé, en zone 2.</p>' : `<input type="search" placeholder="Chercher par nom" value="${escapeHtml(sheet.query || "")}" data-search>`}
       <div class="grid">${ids.map(id => `<button data-pick="${id}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}" loading="lazy"></button>`).join("")}</div>`);
   }
   if (sheet.type === "menu") {
@@ -393,10 +390,9 @@ function sheetHtml() {
       <p class="hint">Un onglet par joueur. Ouvrez cette page dans un autre onglet du même navigateur, puis choisissez ou ajoutez un joueur dans la liste en haut à gauche. Les onglets partagent la même partie. Le menu d'une carte permet de l'envoyer chez un autre joueur.</p>
       <h2 class="display" style="margin:6px 0 0;font-size:22px">Gestes</h2>
       <dl class="keys">
-        <dt>Glisser</dt><dd>Déplacer une carte ou un dé. Lâchée sur une autre carte, elle la suivra. Lâchée sur une pile ou une défausse, elle y va.</dd>
-        <dt>Clic</dt><dd>Carte : épuiser ou rendre prête. Dé : face suivante. Pile : piocher. Défausse : la parcourir.</dd>
+        <dt>Glisser</dt><dd>Déplacer une carte ou un dé entre le tapis, les Emprises, la Panoplie, la réserve de dés et les piles. Sur le tapis, une carte lâchée sur une autre la suivra.</dd>
+        <dt>Clic</dt><dd>Carte : épuiser ou rendre prête. Dé de la réserve : dépensé ou disponible. Dé sur le tapis : face suivante. Pile : piocher. Défausse : la parcourir.</dd>
         <dt>Clic droit, appui long</dt><dd>Menu de la carte, du dé ou de la pile.</dd>
-        <dt>Fond</dt><dd>Glisser pour se déplacer, molette ou pincement pour zoomer, Maj + glisser pour sélectionner plusieurs cartes.</dd>
         <dt>Clavier</dt><dd>Sur la carte survolée : T épuiser, D défausser, C copier, + et − compteur, Suppr retirer. Sur un dé : 1 à 6, R relancer. Ctrl+Z annuler, Ctrl+Maj+Z rétablir.</dd>
       </dl>`);
   }
@@ -414,8 +410,8 @@ function closeMenu() { menu.hidden = true; menu.target = null; }
 function openMenu(html, target, clientX, clientY) {
   menu.innerHTML = html; menu.target = target; menu.hidden = false;
   const box = menu.getBoundingClientRect();
-  menu.style.left = Math.max(8, Math.min(clientX, window.innerWidth - box.width - 8)) + "px";
-  menu.style.top = Math.max(8, Math.min(clientY, window.innerHeight - box.height - 8)) + "px";
+  menu.style.left = clamp(clientX, 8, window.innerWidth - box.width - 8) + "px";
+  menu.style.top = clamp(clientY, 8, window.innerHeight - box.height - 8) + "px";
 }
 const entry = (action, label, key = "", value = "") => `<button data-menu="${action}" data-value="${value}"><span>${label}</span><kbd>${key}</kbd></button>`;
 const sendEntries = () => state.sectors.map((one, index) => index === seat ? "" : entry("send", `Envoyer chez ${escapeHtml(aceName(index))}`, "", index)).join("");
@@ -428,10 +424,9 @@ function openItemMenu(item, clientX, clientY) {
   showPreview(item.id, clientX);
   openMenu(`${entry("exhaust", item.exhausted ? "Rendre prête" : "Épuiser", "T")}
     <div class="line"><span>Compteur ${item.counter}</span><button data-menu="minus">−</button><button data-menu="plus">+</button></div>
-    ${entry("copy", "Copier", "C")}${data.set === "ace" ? "" : entry("discard", belongsToNoPile(data) ? "Retirer" : "Défausser", "D")}
+    ${entry("copy", "Copier", "C")}${entry("discard", belongsToNoPile(data) ? "Retirer" : "Défausser", "D")}
     ${belongsToNoPile(data) ? "" : entry("top", "Sur la pile") + entry("bottom", "Sous la pile")}
-    ${data.set === "ace" ? "" : sendEntries()}
-    ${item.parent ? entry("detach", "Détacher") : ""}${entry("front", "Premier plan")}${entry("back", "Arrière-plan")}`, item.key, clientX, clientY);
+    ${sendEntries()}${item.parent ? entry("detach", "Détacher") : ""}`, item.key, clientX, clientY);
 }
 function openPileMenu(name, clientX, clientY) {
   if (name === "tokens") return openSheet({ type: "picker", tokens: true });
@@ -456,88 +451,126 @@ menu.addEventListener("click", event => {
   const item = state.items.find(other => other.key === target);
   if (keep && item) openItemMenu(item, box.left, box.top); else { closeMenu(); hidePreview(); }
 });
+function family(root) {
+  const keys = new Set([root.key]);
+  let grew = true;
+  while (grew) { grew = false; state.items.forEach(item => { if (item.parent && keys.has(item.parent) && !keys.has(item.key)) { keys.add(item.key); grew = true; } }); }
+  return state.items.filter(item => keys.has(item.key));
+}
 function itemAction(key, action, value) {
   const item = state.items.find(other => other.key === key);
   if (!item) return;
-  const targets = selection.has(key) ? state.items.filter(other => selection.has(other.key)) : [item];
-  const goal = !item.exhausted;
   act(() => {
-    if (action === "send") {
-      family(targets).forEach(one => { one.sector = Number(value); one.z = state.top++; selection.delete(one.key); });
-      return toast(`Envoyé chez ${aceName(Number(value))}.`);
+    if (action === "send") { family(item).forEach(one => { one.sector = Number(value); one.z = state.top++; }); return toast(`Envoyé chez ${aceName(Number(value))}.`); }
+    if (action === "remove") return removeItem(item);
+    if (item.kind === "die") {
+      if (action === "value") item.value = Number(value);
+      if (action === "reroll") item.value = rollDie();
+      if (action === "discard") removeItem(item);
+      return;
     }
-    targets.forEach(one => {
-      if (one.kind === "die") {
-        if (action === "value") one.value = Number(value);
-        if (action === "reroll") one.value = rollDie();
-        if (action === "remove" || action === "discard") removeItem(one);
-        return;
-      }
-      if (action === "exhaust") one.exhausted = goal;
-      if (action === "plus") one.counter++;
-      if (action === "minus") one.counter = Math.max(0, one.counter - 1);
-      if (action === "copy") place(one.id, one.x + 24, one.y + 24, { exhausted: one.exhausted });
-      if (action === "discard") { if (card(one.id).set !== "ace") discardItem(one); }
-      if (action === "remove") removeItem(one);
-      if (action === "top") returnToPile(one, false);
-      if (action === "bottom") returnToPile(one, true);
-      if (action === "detach") one.parent = null;
-      if (action === "front") one.z = state.top++;
-      if (action === "back") one.z = Math.min(...state.items.map(other => other.z)) - 1;
-    });
+    if (action === "exhaust") item.exhausted = !item.exhausted;
+    if (action === "plus") item.counter++;
+    if (action === "minus") item.counter = Math.max(0, item.counter - 1);
+    if (action === "copy") place(item.id, item.area, clamp(item.x + 0.02, 0, 0.9), clamp(item.y + 0.03, 0, 0.85), { exhausted: item.exhausted });
+    if (action === "discard") discardItem(item);
+    if (action === "top") returnToPile(item, false);
+    if (action === "bottom") returnToPile(item, true);
+    if (action === "detach") item.parent = null;
   });
 }
 function drawToTable(name) {
   act(() => {
     const id = drawFrom(name);
     if (!id) return toast("La pile et sa défausse sont vides.");
-    const [x, y] = viewCenter(), spread = (state.next % 6) * 22;
-    place(id, x - CARD_WIDTH / 2 + spread, y - CARD_HEIGHT / 2 + spread);
+    arrive(id, name === "assetPile" ? 2 : 0);
   });
 }
 function openSheet(next) { sheet = next; closeMenu(); hidePreview(); render(); }
 
-/* ---------- pointer gestures on the table ---------- */
-function family(roots) {
-  const keys = new Set(roots.map(item => item.key));
-  let grew = true;
-  while (grew) { grew = false; state.items.forEach(item => { if (item.parent && keys.has(item.parent) && !keys.has(item.key)) { keys.add(item.key); grew = true; } }); }
-  return state.items.filter(item => keys.has(item.key));
+/* ---------- pointer gestures: one screen, no camera ---------- */
+function targetAt(clientX, clientY) {
+  for (const node of document.elementsFromPoint(clientX, clientY)) {
+    if (node.dataset && node.dataset.pile) return { pile: node.dataset.pile, node };
+    if (node.dataset && node.dataset.area) return { area: node.dataset.area, node };
+  }
+  return null;
 }
-const element = key => document.querySelector(`#world [data-key="${key}"]`);
-const pileAt = (clientX, clientY) => { const node = document.elementsFromPoint(clientX, clientY).find(one => one.dataset && one.dataset.pile); return node ? node.dataset.pile : null; };
-function startDrag(item, event) {
-  const roots = selection.has(item.key) ? mine().filter(other => selection.has(other.key)) : [item];
-  const [x, y] = toWorld(event.clientX, event.clientY);
-  gesture = { type: "drag", before: gesture.before || JSON.stringify(state), root: item, roots, moving: family(roots).map(one => ({ item: one, dx: one.x - x, dy: one.y - y })) };
-  roots.forEach(one => { one.parent = null; });
-  gesture.moving.sort((a, b) => a.item.z - b.item.z).forEach(moved => {
-    moved.item.z = state.top++;
-    const node = element(moved.item.key); if (node) { node.style.zIndex = moved.item.z; node.classList.add("dragging"); }
-  });
+function cardUnder(clientX, clientY, except) {
+  const node = document.elementsFromPoint(clientX, clientY).find(one => one.classList && one.classList.contains("card") && one.dataset.key && !except.has(Number(one.dataset.key)));
+  return node ? Number(node.dataset.key) : null;
+}
+function startDrag(event) {
+  const node = gesture.node, box = node.getBoundingClientRect();
+  const press = [gesture.sx, gesture.sy];
+  const ghost = node.cloneNode(true);
+  ghost.id = "ghost"; ghost.removeAttribute("data-key"); ghost.removeAttribute("data-pile"); ghost.className = node.dataset.pile ? "obj card" : node.className;
+  ghost.style.cssText = `left:${box.left}px;top:${box.top}px;width:${box.width}px;height:${box.height}px`;
+  let item = null, before = JSON.stringify(state);
+  if (node.dataset.pile) {
+    const id = drawFrom(node.dataset.pile);
+    if (!id) { toast("La pile et sa défausse sont vides."); gesture = null; return; }
+    item = place(id, "limbo", 0, 0);
+    ghost.innerHTML = `<img src="${card(id).image}" alt="">`;
+    const width = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--card")) || 110;
+    ghost.style.cssText = `left:${event.clientX - width / 2}px;top:${event.clientY - width * 0.7}px;width:${width}px;height:${width * 1.397}px`;
+  } else {
+    item = state.items.find(other => other.key === Number(node.dataset.key));
+    if (!item) { gesture = null; return; }
+    node.classList.add("lifted");
+  }
+  document.body.appendChild(ghost);
+  const start = ghost.getBoundingClientRect(), fromPile = !!node.dataset.pile;
+  gesture = { type: "drag", item, before, ghost, fromPile, dx: (fromPile ? event.clientX : press[0]) - start.left, dy: (fromPile ? event.clientY : press[1]) - start.top };
   hidePreview(); closeMenu();
 }
-function endDrag() {
-  const { root, roots, moving, before, client, point } = gesture;
-  const movingKeys = new Set(moving.map(moved => moved.item.key));
-  const name = client ? pileAt(client[0], client[1]) : null, pile = PILES.find(one => one.name === name);
-  if (pile) {
-    moving.forEach(moved => {
-      if (moved.item.kind === "die") return removeItem(moved.item);
-      if (card(moved.item.id).set === "ace") { const [x, y] = viewCenter(); moved.item.x = x; moved.item.y = y; return; }
-      if (pile.discard || pile.name === "tokens") discardItem(moved.item); else returnToPile(moved.item, false);
-    });
-  } else if (roots.length === 1) {
-    const [x, y] = point || centerOf(root);
-    const under = mine().filter(other => other.kind === "card" && !movingKeys.has(other.key) && inside({ x: other.x, y: other.y, w: CARD_WIDTH, h: CARD_HEIGHT }, x, y)).sort((a, b) => b.z - a.z)[0];
-    if (under) root.parent = under.key;
+function endDrag(event) {
+  const { item, before, ghost, dx, dy, fromPile } = gesture;
+  const target = targetAt(event.clientX, event.clientY);
+  ghost.remove();
+  document.querySelectorAll(".over").forEach(node => node.classList.remove("over"));
+  const cancel = () => { state = JSON.parse(before); render(); };
+  if (!target) return cancel();
+  const members = family(item);
+  if (target.pile) {
+    const pile = PILES.find(one => one.name === target.pile);
+    members.forEach(one => { if (one.kind === "die") removeItem(one); else if (pile.discard || pile.name === "tokens") discardItem(one); else returnToPile(one, false); });
+    return commit(before);
   }
-  document.querySelectorAll(".pile.over").forEach(node => node.classList.remove("over"));
+  let area = target.area;
+  if (item.kind === "die" && area === "panoply") area = "tray";
+  if (item.kind === "card" && area === "tray") area = "panoply";
+  if (FREE_AREAS.includes(area)) {
+    const box = target.node.getBoundingClientRect(), size = ghost.getBoundingClientRect();
+    const x = clamp((event.clientX - dx - box.left) / box.width, 0, Math.max(0, 1 - size.width / box.width));
+    const y = clamp((event.clientY - dy - box.top) / box.height, 0, Math.max(0, 1 - size.height / box.height));
+    const shiftX = x - item.x, shiftY = y - item.y, sameArea = item.area === area;
+    members.forEach(one => {
+      if (one === item) { one.x = x; one.y = y; }
+      else if (sameArea && FREE_AREAS.includes(one.area)) { one.x = clamp(one.x + shiftX, 0, 0.97); one.y = clamp(one.y + shiftY, 0, 0.95); }
+      else { one.x = clamp(x + 0.02, 0, 0.97); one.y = clamp(y + 0.03, 0, 0.95); }
+      one.area = area;
+    });
+    members.sort((a, b) => a.z - b.z).forEach(one => { one.z = state.top++; });
+    item.parent = cardUnder(event.clientX, event.clientY, new Set(members.map(one => one.key)));
+  } else {
+    /* Row areas (Panoply, dice reserve): the drop position along the row gives the order. */
+    const siblings = inArea(area).filter(one => one !== item);
+    let index = siblings.length;
+    for (const [n, one] of siblings.entries()) {
+      const node = document.querySelector(`[data-key="${one.key}"]`);
+      if (node) { const box = node.getBoundingClientRect(); if (event.clientX < box.left + box.width / 2 && event.clientY < box.bottom) { index = n; break; } }
+    }
+    state.items.forEach(one => { if (one.parent === item.key) one.parent = null; });
+    Object.assign(item, { area, parent: null, x: 0, y: 0 });
+    siblings.splice(index, 0, item);
+    siblings.forEach(one => { one.z = state.top++; });
+  }
+  if (fromPile && item.area === "limbo") return cancel();
   commit(before);
 }
 function bindTable() {
-  const table = document.getElementById("table"), viewport = document.getElementById("viewport");
-  viewport.addEventListener("scroll", () => { viewport.scrollLeft = 0; viewport.scrollTop = 0; });
+  const table = document.getElementById("table");
   table.addEventListener("contextmenu", event => {
     event.preventDefault();
     const node = event.target.closest(".obj");
@@ -546,23 +579,14 @@ function bindTable() {
     const item = state.items.find(other => other.key === Number(node.dataset.key));
     if (item) openItemMenu(item, event.clientX, event.clientY);
   });
-  viewport.addEventListener("wheel", event => { event.preventDefault(); zoomAt(event.clientX, event.clientY, Math.exp(-event.deltaY * 0.0015)); }, { passive: false });
   table.addEventListener("pointerdown", event => {
-    if (event.target.closest("[data-ui]") || event.button === 2) return;
-    const node = event.target.closest(".obj"), onMat = !!event.target.closest("#viewport");
-    if (!node && !onMat) return;
+    if (event.button === 2 || event.target.closest("button")) return;
     closeMenu(); hidePreview();
-    pointers.set(event.pointerId, event);
+    const node = event.target.closest(".obj");
+    if (!node || gesture || (!node.dataset.key && !node.dataset.pile)) return;
     table.setPointerCapture(event.pointerId);
-    if (pointers.size === 2) {
-      if (gesture && gesture.type === "drag") endDrag();
-      clearTimeout(gesture && gesture.timer);
-      const [a, b] = [...pointers.values()];
-      gesture = { type: "pinch", distance: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx: (a.clientX + b.clientX) / 2, cy: (a.clientY + b.clientY) / 2 };
-      return;
-    }
-    gesture = { type: "press", node, sx: event.clientX, sy: event.clientY, shift: event.shiftKey };
-    if (node && event.pointerType !== "mouse") {
+    gesture = { type: "press", node, sx: event.clientX, sy: event.clientY };
+    if (event.pointerType !== "mouse") {
       gesture.timer = setTimeout(() => {
         const pressed = gesture; gesture = null;
         if (pressed.node.dataset.pile) return openPileMenu(pressed.node.dataset.pile, pressed.sx, pressed.sy);
@@ -572,69 +596,29 @@ function bindTable() {
     }
   });
   table.addEventListener("pointermove", event => {
-    if (pointers.has(event.pointerId)) pointers.set(event.pointerId, event);
-    if (!gesture) return hover(event);
-    if (gesture.type === "pinch" && pointers.size >= 2) {
-      const [a, b] = [...pointers.values()];
-      const distance = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx = (a.clientX + b.clientX) / 2, cy = (a.clientY + b.clientY) / 2;
-      view.x += cx - gesture.cx; view.y += cy - gesture.cy;
-      zoomAt(cx, cy, distance / gesture.distance);
-      Object.assign(gesture, { distance, cx, cy });
-      return;
-    }
+    if (!gesture) { if (event.pointerType === "mouse") { const node = event.target.closest("[data-key]"); hovered = node ? Number(node.dataset.key) : null; } return; }
     if (gesture.type === "press") {
       if (Math.hypot(event.clientX - gesture.sx, event.clientY - gesture.sy) < 6) return;
       clearTimeout(gesture.timer);
-      const node = gesture.node;
-      if (!node) {
-        if (gesture.shift) { const [x, y] = toWorld(gesture.sx, gesture.sy); gesture = { type: "marquee", x, y }; }
-        else { gesture = { type: "pan", lx: gesture.sx, ly: gesture.sy }; viewport.classList.add("panning"); }
-      } else if (node.dataset.pile) {
-        const name = node.dataset.pile;
-        if (!name.endsWith("Pile")) { gesture = null; return; }
-        const before = JSON.stringify(state), id = drawFrom(name);
-        if (!id) { toast("La pile et sa défausse sont vides."); gesture = null; return; }
-        const [x, y] = toWorld(event.clientX, event.clientY);
-        const drawn = place(id, x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2);
-        gesture = { before }; render(); startDrag(drawn, event);
-      } else {
-        const item = state.items.find(other => other.key === Number(node.dataset.key));
-        if (item) startDrag(item, event); else gesture = null;
-      }
+      if (gesture.node.dataset.pile && !gesture.node.dataset.pile.endsWith("Pile")) { gesture = null; return; }
+      startDrag(event);
     }
-    if (!gesture) return;
-    if (gesture.type === "pan") {
-      view.x += event.clientX - gesture.lx; view.y += event.clientY - gesture.ly;
-      gesture.lx = event.clientX; gesture.ly = event.clientY; applyView();
-    } else if (gesture.type === "drag") {
-      const [x, y] = toWorld(event.clientX, event.clientY);
-      gesture.point = [x, y]; gesture.client = [event.clientX, event.clientY];
-      gesture.moving.forEach(moved => {
-        moved.item.x = Math.round(x + moved.dx); moved.item.y = Math.round(y + moved.dy);
-        const node = element(moved.item.key); if (node) { node.style.left = moved.item.x + "px"; node.style.top = moved.item.y + "px"; }
-      });
-      const over = pileAt(event.clientX, event.clientY);
-      document.querySelectorAll(".pile[data-pile]").forEach(node => node.classList.toggle("over", node.dataset.pile === over));
-    } else if (gesture.type === "marquee") {
-      const [x, y] = toWorld(event.clientX, event.clientY);
-      const rect = { x: Math.min(x, gesture.x), y: Math.min(y, gesture.y), w: Math.abs(x - gesture.x), h: Math.abs(y - gesture.y) };
-      gesture.rect = rect;
-      const box = document.getElementById("marquee");
-      box.hidden = false; box.style.cssText = `left:${rect.x}px;top:${rect.y}px;width:${rect.w}px;height:${rect.h}px;z-index:${state.top + 1}`;
-    }
+    if (!gesture || gesture.type !== "drag") return;
+    gesture.ghost.style.left = event.clientX - gesture.dx + "px"; gesture.ghost.style.top = event.clientY - gesture.dy + "px";
+    const target = targetAt(event.clientX, event.clientY);
+    document.querySelectorAll(".over").forEach(node => { if (!target || node !== target.node) node.classList.remove("over"); });
+    if (target) target.node.classList.add("over");
   });
   const finish = event => {
-    pointers.delete(event.pointerId);
-    viewport.classList.remove("panning");
     if (!gesture) return;
     clearTimeout(gesture.timer);
     const done = gesture;
-    if (done.type === "pinch") { if (pointers.size < 2) gesture = null; return; }
-    if (done.type === "drag") { endDrag(); gesture = null; return; }
+    if (done.type === "drag") {
+      if (event.type === "pointercancel") { done.ghost.remove(); state = JSON.parse(done.before); gesture = null; return render(); }
+      endDrag(event); gesture = null; return;
+    }
     gesture = null;
-    if (done.type === "marquee") { selection = new Set(done.rect ? itemsIn(done.rect).map(item => item.key) : []); return render(); }
-    if (done.type !== "press" || event.type === "pointercancel") return;
-    if (!done.node) { if (selection.size) { selection.clear(); render(); } return; }
+    if (event.type === "pointercancel") return;
     if (done.node.dataset.pile) {
       const name = done.node.dataset.pile;
       if (name === "tokens") return openSheet({ type: "picker", tokens: true });
@@ -642,24 +626,12 @@ function bindTable() {
     }
     const item = state.items.find(other => other.key === Number(done.node.dataset.key));
     if (!item) return;
-    if (item.kind === "die") return act(() => { item.value = item.value % 6 + 1; });
-    if (done.shift) { if (selection.has(item.key)) selection.delete(item.key); else selection.add(item.key); return render(); }
+    if (item.kind === "die") return act(() => { if (item.area === "tray") item.spent = !item.spent; else item.value = item.value % 6 + 1; });
     act(() => { item.exhausted = !item.exhausted; });
   };
   table.addEventListener("pointerup", finish);
   table.addEventListener("pointercancel", finish);
   table.addEventListener("pointerleave", () => { hovered = null; });
-}
-function zoomAt(clientX, clientY, factor) {
-  const box = viewportBox();
-  const k = Math.max(0.12, Math.min(3, view.k * factor)), px = clientX - box.left, py = clientY - box.top;
-  view.x = px - (px - view.x) * (k / view.k); view.y = py - (py - view.y) * (k / view.k); view.k = k;
-  applyView();
-}
-function hover(event) {
-  if (event.pointerType !== "mouse") return;
-  const node = event.target.closest("[data-key]");
-  hovered = node ? Number(node.dataset.key) : null;
 }
 document.addEventListener("pointermove", event => {
   if (event.pointerType !== "mouse" || gesture || !menu.hidden) return;
@@ -675,7 +647,7 @@ document.addEventListener("pointerdown", event => { if (!menu.hidden && !event.t
 document.addEventListener("change", event => {
   if (!event.target.matches("[data-seat]")) return;
   if (event.target.value === "add") return openSheet({ type: "ace" });
-  setSeat(Number(event.target.value)); render(); fit();
+  setSeat(Number(event.target.value)); render();
 });
 document.addEventListener("input", event => {
   if (!event.target.matches("[data-search]")) return;
@@ -687,18 +659,15 @@ document.addEventListener("click", event => {
   if (!target || target.closest("#menu")) return;
   const data = target.dataset;
   if ("close" in data) { if (target === event.target || target.tagName === "BUTTON") { sheet = null; hidePreview(); render(); } return; }
-  if (data.ace) {
-    hidePreview();
-    if (!state) return newGame(data.ace);
-    act(() => { setSeat(seatPlayer(data.ace)); sheet = null; });
-    return fit();
-  }
+  if (data.ace) { hidePreview(); return state ? act(() => { setSeat(seatPlayer(data.ace)); sheet = null; }) : newGame(data.ace); }
   if (data.do) return command(data.do);
+  if (data.size) return resizeCards(Number(data.size));
   if (data.wave) return act(() => setWave(state.wave + Number(data.wave)));
   if (data.round) return act(() => { state.round = Math.max(1, state.round + Number(data.round)); });
   if (data.points) return act(() => { state.sectors[seat].actionModifier += Number(data.points); });
-  if (data.take) return act(() => { const [id] = state[sheet.name].splice(Number(data.take), 1); const [x, y] = viewCenter(); place(id, x - CARD_WIDTH / 2, y - CARD_HEIGHT / 2); sheet = null; hidePreview(); });
-  if (data.pick) return act(() => { const [x, y] = viewCenter(), spread = (state.next % 6) * 22; place(data.pick, x - CARD_WIDTH / 2 + spread, y - CARD_HEIGHT / 2 + spread, { exhausted: !!sheet.tokens }); sheet = null; hidePreview(); });
+  if (data.stat) return act(() => { const sector = state.sectors[seat]; sector[data.stat] = Math.max(0, (sector[data.stat] || 0) + Number(data.by)); });
+  if (data.take) return act(() => { const [id] = state[sheet.name].splice(Number(data.take), 1); arrive(id, 1); sheet = null; hidePreview(); });
+  if (data.pick) return act(() => { arrive(data.pick, 1, { exhausted: !!sheet.tokens }); sheet = null; hidePreview(); });
 });
 function command(name) {
   switch (name) {
@@ -708,10 +677,9 @@ function command(name) {
     case "roll": return act(rollSector);
     case "ready-assets": return act(() => readyAll("asset"));
     case "ready-swarm": return act(() => readyAll("swarm"));
-    case "add-die": return act(() => { const [x, y] = viewCenter(); placeDie(x - 23 + (state.next % 5) * 14, y - 23 + (state.next % 5) * 14); });
+    case "add-die": return act(() => { const count = inArea("field").filter(item => item.kind === "die").length; placeDie("field", 0.45 + (count % 6) * 0.03, 0.45 + (count % 6) * 0.02); });
     case "add-token": return openSheet({ type: "picker", tokens: true });
     case "add-card": return openSheet({ type: "picker" });
-    case "fit": return fit();
     case "menu": return openSheet({ type: "menu" });
     case "next-wave": return act(() => { sheet = null; nextWave(); });
     case "ask-reset": sheet.confirm = true; return render();
@@ -731,8 +699,6 @@ document.addEventListener("keydown", event => {
   if (action) { event.preventDefault(); itemAction(item.key, action); }
 });
 
-fetch("cards.json").then(response => response.json()).then(cards => {
-  CARDS = cards; load(); loadSeat(); render();
-  if (state) fit();
-}).catch(() => { app.innerHTML = '<p class="hint" style="padding:16px">Impossible de charger les cartes.</p>'; });
+fetch("cards.json").then(response => response.json()).then(cards => { CARDS = cards; load(); loadSeat(); render(); })
+  .catch(() => { app.innerHTML = '<p class="hint" style="padding:16px">Impossible de charger les cartes.</p>'; });
 </script>
