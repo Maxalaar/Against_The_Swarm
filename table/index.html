@@ -7,7 +7,7 @@
   --bg: #d9cdb6; --surface: #f8f2e6; --raised: #fffaf0; --fg: #2a211b; --muted: #75665a;
   --line: #bfae92; --accent: #b3401f; --accent-fg: #fff7ee; --swarm: #5b6b2c; --asset: #2f5f7a;
   --shade: rgba(42, 33, 27, .5); --mat: #e9dfcb; --mat-alt: #e1d5bd; --mat-ace: #f1e9d8; --die: #fffdf7;
-  --card: 110px;
+  --card: 140px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #14110f; --surface: #25201b; --raised: #302a24; --fg: #efe4d2; --muted: #a8998a;
@@ -21,7 +21,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { height: 100%; margin: 0; }
-body { background: var(--bg); color: var(--fg); font: 14px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+body { background: var(--bg); color: var(--fg); font: 16px/1.35 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   display: flex; flex-direction: column; overflow: hidden; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
 .display { font-family: "Bebas Neue", Impact, "Arial Narrow", sans-serif; font-weight: 400; letter-spacing: .04em; }
 button { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px;
@@ -32,28 +32,34 @@ button:disabled { opacity: .4; }
 button.tiny { min-width: 30px; padding: 0; }
 input, select { font: inherit; color: inherit; background: var(--raised); border: 1px solid var(--line); border-radius: 8px; min-height: 34px; padding: 4px 10px; width: 100%; }
 
-.toolbar { display: flex; align-items: center; gap: 6px; padding: 6px 16px; background: var(--surface); border-bottom: 1px solid var(--line); overflow-x: auto; flex: 0 0 auto; }
+.unused-toolbar { display: flex; align-items: center; gap: 6px; padding: 6px 16px; background: var(--surface); border-bottom: 1px solid var(--line); overflow-x: auto; flex: 0 0 auto; }
 .toolbar .group { display: flex; align-items: center; gap: 2px; padding-right: 8px; margin-right: 2px; border-right: 1px solid var(--line); flex: 0 0 auto; }
 .toolbar .group:last-child { border-right: 0; }
 .toolbar .value { font-size: 20px; padding: 0 6px; white-space: nowrap; }
 .toolbar select { width: auto; }
 
 #table { flex: 1; min-height: 0; display: flex; flex-direction: column; }
-.mat { flex: 1; min-height: 0; display: flex; gap: 8px; padding: 8px 16px; }
+.mat { flex: 1; min-height: 0; display: flex; padding: 8px 16px; position: relative; }
 .area { position: relative; overflow: hidden; border: 2px solid var(--line); border-radius: 8px; }
-.area > .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; pointer-events: none; z-index: 0; }
-#lasting { flex: 0 0 calc(var(--card) * 1.25 + 16px); background: var(--mat-alt); border-left: 6px solid var(--swarm); }
+.area .strip .label, .area > .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; pointer-events: none; z-index: 0; }
 #field { flex: 1; min-width: 0; background: var(--mat); border-left: 6px solid var(--swarm); }
-#field .band { position: absolute; left: 0; right: 0; height: 33.334%; border-bottom: 2px solid var(--line); pointer-events: none; }
-#field .band:nth-child(2) { top: 33.333%; background: var(--mat-alt); } #field .band:nth-child(3) { top: 66.666%; border-bottom: 0; }
+#field .strip { position: absolute; left: 0; top: 0; bottom: 0; width: 14%; border-right: 2px dashed var(--line); background: var(--mat-alt); pointer-events: none; }
+#field .band { position: absolute; left: 14%; right: 0; height: 33.334%; border-bottom: 2px solid var(--line); pointer-events: none; }
+#field .band.last { border-bottom: 0; }
 #field .band .label { position: absolute; left: 8px; top: 3px; font-size: 16px; color: var(--muted); opacity: .85; }
-.side { flex: 0 0 168px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
-.side button { border-radius: 17px; }
-.side .split { display: flex; gap: 4px; } .side .split button:not(.tiny) { flex: 1; padding: 4px; }
+.side { position: absolute; right: 24px; top: 16px; z-index: 100000; width: 176px; display: flex; flex-direction: column; gap: 6px; opacity: .92; }
+.side button { border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
+.side .split { display: flex; gap: 4px; } .side .split button { flex: 1; padding: 4px; font-size: .85em; }
 
 .dock { flex: 0 0 auto; display: flex; gap: 12px; align-items: stretch; padding: 6px 16px calc(6px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 2px solid var(--accent); overflow-x: auto; }
 .dock .slot { display: flex; flex-direction: column; gap: 3px; flex: 0 0 auto; color: var(--muted); font-size: 12px; }
-.dock .stats { justify-content: flex-start; gap: 4px; width: 172px; }
+.dock .stats { justify-content: flex-start; gap: 4px; width: 210px; }
+.dock .tabs { justify-content: center; gap: 6px; }
+.dock .tabs button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.dock .info { justify-content: flex-start; gap: 6px; color: var(--fg); min-width: 200px; padding-top: 6px; }
+.dock .info .row { display: flex; align-items: center; gap: 4px; }
+.dock .info .value { font-size: 22px; flex: 1; white-space: nowrap; }
+.dock { min-height: calc(var(--card) * 1.397 + 46px); }
 .counter { display: flex; align-items: center; gap: 2px; color: var(--fg); font-size: 14px; }
 .counter span { flex: 1; } .counter b { font-size: 18px; font-variant-numeric: tabular-nums; }
 #tray { display: flex; flex-wrap: wrap; gap: 4px; min-height: calc(var(--card) * .36 + 8px); padding: 3px; border: 2px dashed var(--line); border-radius: 8px; align-content: flex-start; }
@@ -84,11 +90,9 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .pile img { width: 100%; height: 100%; display: block; pointer-events: none; }
 
 @media (max-width: 700px) {
-  :root { --card: 62px; }
-  .mat { flex-wrap: wrap; padding: 6px 16px; gap: 6px; }
-  .side { flex: 0 0 100%; flex-direction: row; order: 3; overflow-x: auto; }
-  .side button { flex: 0 0 auto; }
-  #field, #lasting { height: calc(100% - 46px); }
+  :root { --card: 72px; }
+  .side { left: 20px; right: 20px; top: auto; bottom: 12px; width: auto; flex-direction: row; overflow-x: auto; gap: 4px; font-size: 13px; }
+  .side button, .side .split { flex: 0 0 auto; min-height: 32px; }
   .dock { flex-wrap: wrap; gap: 6px; max-height: 46%; overflow-y: auto; }
   .dock .stats { width: 150px; }
 }
@@ -128,8 +132,9 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 /* The table knows no rules. It moves cards, shuffles piles, rolls dice and draws invasions.
    Everything fits one fixed screen: no camera. Positions on the mat are fractions of their area.
    One browser tab shows one player's sector. Tabs of the same browser share the game through localStorage. */
-const SAVE_KEY = "against-the-swarm-table-4", SEAT_KEY = "against-the-swarm-seat", SIZE_KEY = "against-the-swarm-card-size";
-const FREE_AREAS = ["field", "lasting"];
+const SAVE_KEY = "against-the-swarm-table-5", SEAT_KEY = "against-the-swarm-seat", SIZE_KEY = "against-the-swarm-card-size";
+const FREE_AREAS = ["field"];
+const STRIP = 0.14; /* width of the Emprise strip, a purely graphic mark on the single play area */
 const ZONE_NAMES = ["Zone 3 · Éloignée", "Zone 2 · Proche", "Zone 1 · Contact"];
 const RANK_ADDED_AT_WAVE = { 3: 2, 5: 3, 7: 4 };
 const ROMAN = ["", "I", "II", "III", "IV"];
@@ -149,6 +154,7 @@ let seat = 0;
 let cardSize = null;
 let undoStack = [], redoStack = [];
 let sheet = null;
+let panel = "ace";
 let gesture = null, hovered = null, previewTimer = null, toastTimer = null;
 
 const app = document.getElementById("app"), overlay = document.getElementById("overlay");
@@ -209,7 +215,7 @@ function seatPlayer(ace) {
   const sector = state.sectors.length;
   state.sectors.push({ ace, actionModifier: 0, pending: null, wounds: 0, guard: 0 });
   idsOf("asset").filter(id => card(id).starting).forEach(id => place(id, "panoply", 0, 0, { sector }));
-  place("swarm/infestation", "lasting", 0.1, 0.05, { sector });
+  place("swarm/infestation", "field", 0.012, 0.05, { sector });
   return sector;
 }
 function newGame(ace) {
@@ -250,14 +256,16 @@ function returnToPile(item, bottom) {
   const pile = state[data.set === "asset" ? "assetPile" : "swarmPile"];
   if (bottom) pile.unshift(item.id); else pile.push(item.id);
 }
-/* Puts a card where a fresh arrival is easy to see: Emprises in their column, the rest spread along a band of the field. */
+/* Puts a card where a fresh arrival is easy to see: Emprises in the left strip, the rest spread along a band. */
 function arrive(id, band = 0, extra = {}) {
-  if (card(id).kind === "emprise" || card(id).kind === "infestation") {
-    const count = inArea("lasting").length;
-    return place(id, "lasting", 0.1, clamp(0.05 + count * 0.16, 0, 0.8), extra);
+  const strip = card(id).kind === "emprise" || card(id).kind === "infestation";
+  const cards = inArea("field").filter(item => item.kind === "card");
+  if (strip) {
+    const count = cards.filter(item => item.x < STRIP - 0.03).length;
+    return place(id, "field", 0.012 + (count % 2) * 0.015, clamp(0.05 + count * 0.15, 0, 0.8), extra);
   }
-  const count = inArea("field").filter(item => item.kind === "card" && Math.floor(item.y * 3 + 0.2) === band).length;
-  return place(id, "field", 0.02 + (count % 12) * 0.075, band / 3 + 0.045 + (count % 3) * 0.012, extra);
+  const count = cards.filter(item => item.x >= STRIP - 0.03 && Math.floor(item.y * 3 + 0.2) === band).length;
+  return place(id, "field", STRIP + 0.015 + (count % 11) * 0.065, band / 3 + 0.045 + (count % 3) * 0.012, extra);
 }
 function invade() {
   const sector = state.sectors[seat], level = threatLevel(state.wave);
@@ -325,44 +333,49 @@ function pileHtml(pile) {
 const counterHtml = (label, value, name) => `<div class="counter"><span>${label}</span><button class="tiny" data-stat="${name}" data-by="-1" aria-label="${label} moins">−</button><b>${value}</b><button class="tiny" data-stat="${name}" data-by="1" aria-label="${label} plus">+</button></div>`;
 function render() {
   if (!state) { app.innerHTML = setupHtml(); overlay.innerHTML = ""; return; }
-  if (!document.getElementById("table")) { app.innerHTML = `<div class="toolbar" id="toolbar"></div><div id="table"></div>`; bindTable(); }
+  if (!document.getElementById("table")) { app.innerHTML = `<div id="table"></div>`; bindTable(); }
   const sector = state.sectors[seat], ace = card(sector.ace), count = diceCount();
-  document.getElementById("toolbar").innerHTML = `
-    <div class="group"><select data-seat aria-label="Joueur affiché dans cet onglet">${state.sectors.map((one, index) => `<option value="${index}" ${index === seat ? "selected" : ""}>${escapeHtml(aceName(index))}</option>`).join("")}<option value="add">+ Ajouter un joueur…</option></select></div>
-    <div class="group"><button class="tiny" data-wave="-1" aria-label="Vague précédente">−</button><span class="value display">Vague ${state.wave}</span><button class="tiny" data-wave="1" aria-label="Vague suivante">+</button></div>
-    <div class="group"><button class="tiny" data-round="-1" aria-label="Round précédent">−</button><span class="value display">Round ${state.round}/${roundsToHold(state.wave)}</span><button class="tiny" data-round="1" aria-label="Round suivant">+</button></div>
-    <div class="group"><span class="value display">Menace ${threatLevel(state.wave)}</span></div>
-    <div class="group"><span>Cartes</span><button class="tiny" data-size="-10" aria-label="Cartes plus petites">−</button><button class="tiny" data-size="10" aria-label="Cartes plus grandes">+</button></div>
-    <div class="group"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
-    <div class="group"><button data-do="menu">Menu</button></div>`;
-  document.getElementById("table").innerHTML = `
-    <div class="mat">
-      <div class="area" id="lasting" data-area="lasting"><span class="label display">Emprises</span>${inArea("lasting").map(itemHtml).join("")}</div>
-      <div class="area" id="field" data-area="field">${ZONE_NAMES.map((name, row) => `<div class="band" style="top:${row * 33.333}%"><span class="label display">${name}</span></div>`).join("")}${inArea("field").map(itemHtml).join("")}</div>
-      <div class="side">
-        <button class="primary" data-do="invade">Tirage d'invasion</button>
-        <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
-        <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
-      </div>
-    </div>
-    <div class="dock">
+  const tabs = `<div class="slot tabs"><button data-panel="ace" aria-pressed="${panel === "ace"}">As</button><button data-panel="piles" aria-pressed="${panel === "piles"}">Piles</button></div>`;
+  const acePanel = `
       <div class="slot"><span>${escapeHtml(ace.name)}</span><div class="obj card" data-preview="${sector.ace}" style="cursor:help"><img src="${ace.image}" alt=""></div></div>
       <div class="slot stats">
         ${counterHtml(`Blessures <small>(${ace.hp - sector.wounds} PV)</small>`, sector.wounds, "wounds")}${counterHtml("Garde", sector.guard, "guard")}
         <div class="counter"><button class="tiny" data-points="-1" aria-label="Un dé de moins">−</button><button class="primary" style="flex:1" data-do="roll">Lancer ${count} dé${count > 1 ? "s" : ""}</button><button class="tiny" data-points="1" aria-label="Un dé de plus">+</button></div>
         <div id="tray" data-area="tray">${inArea("tray").map(itemHtml).join("")}</div>
       </div>
-      <div class="slot wide"><span>Panoplie</span><div id="panoply" data-area="panoply">${inArea("panoply").map(itemHtml).join("")}</div></div>
+      <div class="slot wide"><span>Panoplie</span><div id="panoply" data-area="panoply">${inArea("panoply").map(itemHtml).join("")}</div></div>`;
+  const pilesPanel = `
+      <div class="slot info">
+        <select data-seat aria-label="Joueur affiché dans cet onglet">${state.sectors.map((one, index) => `<option value="${index}" ${index === seat ? "selected" : ""}>${escapeHtml(aceName(index))}</option>`).join("")}<option value="add">+ Ajouter un joueur…</option></select>
+        <div class="row"><button class="tiny" data-wave="-1" aria-label="Vague précédente">−</button><span class="value display">Vague ${state.wave}</span><button class="tiny" data-wave="1" aria-label="Vague suivante">+</button></div>
+        <div class="row"><button class="tiny" data-round="-1" aria-label="Round précédent">−</button><span class="value display">Round ${state.round}/${roundsToHold(state.wave)}</span><button class="tiny" data-round="1" aria-label="Round suivant">+</button></div>
+      </div>
+      <div class="slot info">
+        <span class="value display">Menace ${threatLevel(state.wave)}</span>
+        <div class="row"><button class="tiny" data-size="-10" aria-label="Cartes plus petites">−</button><span style="flex:1">Taille des cartes</span><button class="tiny" data-size="10" aria-label="Cartes plus grandes">+</button></div>
+      </div>
+      <div class="slot wide"></div>
       <div class="slot"><div class="piles">${PILES.map(pileHtml).join("")}
-        <div class="slot"><span>En attente${sector.pending ? ` (${sector.pending.consumed})` : ""}</span><div class="pile" ${sector.pending ? `data-preview="${sector.pending.id}"` : ""}>${sector.pending ? `<img src="${card(sector.pending.id).image}" alt="">` : ""}</div></div></div></div>
-    </div>`;
+        <div class="slot"><span>En attente${sector.pending ? ` (${sector.pending.consumed})` : ""}</span><div class="pile" ${sector.pending ? `data-preview="${sector.pending.id}"` : ""}>${sector.pending ? `<img src="${card(sector.pending.id).image}" alt="">` : ""}</div></div></div></div>`;
+  document.getElementById("table").innerHTML = `
+    <div class="mat">
+      <div class="area" id="field" data-area="field"><div class="strip"><span class="label display">Emprises</span></div>${ZONE_NAMES.map((name, row) => `<div class="band ${row === 2 ? "last" : ""}" style="top:${row * 33.333}%"><span class="label display">${name}</span></div>`).join("")}${inArea("field").map(itemHtml).join("")}</div>
+      <div class="side">
+        <button class="primary" data-do="invade">Tirage d'invasion</button>
+        <button data-do="ready-assets">Atouts prêts</button><button data-do="ready-swarm">Essaim prêt</button>
+        <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
+        <div class="split"><button data-do="undo" ${undoStack.length ? "" : "disabled"}>Annuler</button><button data-do="redo" ${redoStack.length ? "" : "disabled"}>Rétablir</button></div>
+        <button data-do="menu">Menu</button>
+      </div>
+    </div>
+    <div class="dock">${tabs}${panel === "ace" ? acePanel : pilesPanel}</div>`;
   overlay.innerHTML = sheetHtml();
 }
 const aceGrid = () => `<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">${idsOf("ace").map(id => `<button data-ace="${id}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>`;
 function setupHtml() {
   return `<div class="setup"><h1 class="display">Against<br>the Swarm</h1>
     <p class="hint">Table de test libre. Elle mélange, pioche et lance les dés. Les règles, c'est vous.</p>
-    <p class="hint">Choisissez votre As pour poser la table en solo. Pour un joueur de plus, ouvrez cette page dans un autre onglet du même navigateur et ajoutez-le depuis la liste des joueurs.</p>
+    <p class="hint">Choisissez votre As pour poser la table en solo. Pour un joueur de plus, ouvrez cette page dans un autre onglet du même navigateur et ajoutez-le depuis le panneau « Piles ».</p>
     ${aceGrid()}</div>`;
 }
 function frame(title, body) {
@@ -387,10 +400,10 @@ function sheetHtml() {
       <div style="display:flex;flex-wrap:wrap;gap:8px"><button data-do="next-wave">Vague suivante (défausser l'Essaim, retirer les dés)</button>
         ${sheet.confirm ? '<button class="primary" data-do="reset">Confirmer : effacer cette partie</button>' : '<button data-do="ask-reset">Nouvelle partie</button>'}</div>
       <h2 class="display" style="margin:6px 0 0;font-size:22px">Plusieurs joueurs</h2>
-      <p class="hint">Un onglet par joueur. Ouvrez cette page dans un autre onglet du même navigateur, puis choisissez ou ajoutez un joueur dans la liste en haut à gauche. Les onglets partagent la même partie. Le menu d'une carte permet de l'envoyer chez un autre joueur.</p>
+      <p class="hint">Un onglet par joueur. Ouvrez cette page dans un autre onglet du même navigateur, puis choisissez ou ajoutez un joueur dans la liste du panneau « Piles ». Les onglets partagent la même partie. Le menu d'une carte permet de l'envoyer chez un autre joueur.</p>
       <h2 class="display" style="margin:6px 0 0;font-size:22px">Gestes</h2>
       <dl class="keys">
-        <dt>Glisser</dt><dd>Déplacer une carte ou un dé entre le tapis, les Emprises, la Panoplie, la réserve de dés et les piles. Sur le tapis, une carte lâchée sur une autre la suivra.</dd>
+        <dt>Glisser</dt><dd>Déplacer une carte ou un dé entre le tapis, la Panoplie, la réserve de dés et les piles. Survoler « As » ou « Piles » en tenant une carte change de panneau. Sur le tapis, une carte lâchée sur une autre la suivra.</dd>
         <dt>Clic</dt><dd>Carte : épuiser ou rendre prête. Dé de la réserve : dépensé ou disponible. Dé sur le tapis : face suivante. Pile : piocher. Défausse : la parcourir.</dd>
         <dt>Clic droit, appui long</dt><dd>Menu de la carte, du dé ou de la pile.</dd>
         <dt>Clavier</dt><dd>Sur la carte survolée : T épuiser, D défausser, C copier, + et − compteur, Suppr retirer. Sur un dé : 1 à 6, R relancer. Ctrl+Z annuler, Ctrl+Maj+Z rétablir.</dd>
@@ -605,6 +618,8 @@ function bindTable() {
     }
     if (!gesture || gesture.type !== "drag") return;
     gesture.ghost.style.left = event.clientX - gesture.dx + "px"; gesture.ghost.style.top = event.clientY - gesture.dy + "px";
+    const tab = document.elementsFromPoint(event.clientX, event.clientY).find(node => node.dataset && node.dataset.panel);
+    if (tab && tab.dataset.panel !== panel) { panel = tab.dataset.panel; render(); }
     const target = targetAt(event.clientX, event.clientY);
     document.querySelectorAll(".over").forEach(node => { if (!target || node !== target.node) node.classList.remove("over"); });
     if (target) target.node.classList.add("over");
@@ -660,6 +675,7 @@ document.addEventListener("click", event => {
   const data = target.dataset;
   if ("close" in data) { if (target === event.target || target.tagName === "BUTTON") { sheet = null; hidePreview(); render(); } return; }
   if (data.ace) { hidePreview(); return state ? act(() => { setSeat(seatPlayer(data.ace)); sheet = null; }) : newGame(data.ace); }
+  if (data.panel) { panel = data.panel; return render(); }
   if (data.do) return command(data.do);
   if (data.size) return resizeCards(Number(data.size));
   if (data.wave) return act(() => setWave(state.wave + Number(data.wave)));
