@@ -126,6 +126,9 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .grid button { padding: 0; border: 0; background: none; border-radius: 6px; min-height: 0; }
 .grid img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 1px 4px var(--shade); }
 .hint { color: var(--muted); margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border-radius: 17px; }
+.chips button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
 .setup { max-width: 640px; margin: 0 auto; padding: 24px 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; user-select: text; }
 .setup h1 { font-size: 48px; line-height: .95; color: var(--accent); margin: 0; }
 .keys { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; }
@@ -148,6 +151,7 @@ const FREE_AREAS = ["field"];
 const STRIP = 0.14; /* width of the Emprise strip, a purely graphic mark on the single play area */
 const ZONE_NAMES = ["Zone 3 · Éloignée", "Zone 2 · Proche", "Zone 1 · Contact"];
 const RANK_ADDED_AT_WAVE = { 3: 2, 5: 3, 7: 4 };
+const SWARM_KINDS = { engeance: "Engeance", structure: "Structure", token: "Jeton", impulse: "Impulsion", emprise: "Emprise", mutation: "Mutation", infestation: "Infestation" };
 const ROMAN = ["", "I", "II", "III", "IV"];
 const PILES = [
   { name: "swarmPile", label: "Pile Essaim", kind: "swarm" },
@@ -279,6 +283,8 @@ function arrive(id, band = 0, extra = {}) {
   return place(id, "field", STRIP + 0.015 + (count % 11) * 0.065, band / 3 + 0.045 + (count % 3) * 0.012, extra);
 }
 /* The invasion draw is played by hand: each click on the swarm pile reveals one card and the table only keeps count. */
+/* Cards that activate arrive exhausted from an invasion, so they do not block the end of the swarm turn. */
+function arriveInvading(id) { return arrive(id, 0, { exhausted: ["engeance", "structure", "token", "emprise"].includes(card(id).kind) }); }
 function startInvasion() {
   const sector = state.sectors[seat];
   const draws = mine().filter(item => item.kind === "card" && card(item.id).kind === "infestation").length;
@@ -296,7 +302,7 @@ function invasionStep() {
   if (invasion.total >= level) return closeDraw(invasion);
   if (sector.pending) {
     invasion.total += Math.max(0, (card(sector.pending.id).threat || 0) - sector.pending.consumed);
-    arrive(sector.pending.id); sector.pending = null;
+    arriveInvading(sector.pending.id); sector.pending = null;
   } else {
     const id = drawFrom("swarmPile");
     if (!id) { toast("La pile Essaim et sa défausse sont vides."); invasion.done = true; return; }
@@ -304,7 +310,7 @@ function invasionStep() {
     if (invasion.total + threat > level) {
       sector.pending = { id, consumed: level - invasion.total }; invasion.total = level;
       toast(`${card(id).name} dépasse le seuil et reste en attente.`);
-    } else { arrive(id); invasion.total += threat; }
+    } else { arriveInvading(id); invasion.total += threat; }
   }
   if (invasion.total >= level) closeDraw(invasion);
 }
@@ -449,10 +455,16 @@ function sheetHtml() {
       <div class="grid">${ids.map((id, n) => `<button data-take="${ids.length - 1 - n}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}" loading="lazy"></button>`).join("") || '<p class="hint">Vide.</p>'}</div>`);
   }
   if (sheet.type === "picker") {
-    const query = (sheet.query || "").toLowerCase();
-    const ids = Object.keys(CARDS).filter(id => card(id).set !== "ace" && (!sheet.tokens || card(id).kind === "token") && card(id).name.toLowerCase().includes(query));
-    return frame(sheet.tokens ? "Jetons" : "Ajouter une carte", `${sheet.tokens ? '<p class="hint">Le jeton est posé épuisé au milieu du plateau, à vous de le glisser dans sa zone.</p>' : `<input type="search" placeholder="Chercher par nom" value="${escapeHtml(sheet.query || "")}" data-search>`}
-      <div class="grid">${ids.map(id => `<button data-pick="${id}" data-preview="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}" loading="lazy"></button>`).join("")}</div>`);
+    const grid = ids => `<div class="grid">${ids.sort((a, b) => card(a).name.localeCompare(card(b).name, "fr")).map(id => `<button data-pick="${id}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>`;
+    if (sheet.tokens) return frame("Jetons", `<p class="hint">Le jeton est posé épuisé au milieu du plateau, à vous de le glisser dans sa zone.</p>${grid(idsOf("swarm").filter(id => card(id).kind === "token"))}`);
+    const group = sheet.group || "swarm", subtype = id => group === "swarm" ? SWARM_KINDS[card(id).kind] : card(id).type.split(", ")[1];
+    const subtypes = [...new Set(idsOf(group).map(subtype))].sort((a, b) => a.localeCompare(b, "fr"));
+    const chosen = subtypes.includes(sheet.subtype) ? sheet.subtype : subtypes[0];
+    const chip = (attribute, value, label, on) => `<button data-${attribute}="${escapeHtml(value)}" aria-pressed="${on}">${escapeHtml(label)}</button>`;
+    return frame("Ajouter une carte", `
+      <div class="chips">${chip("group", "swarm", "Essaim", group === "swarm")}${chip("group", "asset", "Atouts", group === "asset")}</div>
+      <div class="chips">${subtypes.map(name => chip("subtype", name, name, name === chosen)).join("")}</div>
+      ${grid(idsOf(group).filter(id => subtype(id) === chosen))}`);
   }
   if (sheet.type === "menu") {
     return frame("Menu", `
@@ -717,11 +729,6 @@ document.addEventListener("change", event => {
   if (event.target.value === "add") return openSheet({ type: "ace" });
   setSeat(Number(event.target.value)); render();
 });
-document.addEventListener("input", event => {
-  if (!event.target.matches("[data-search]")) return;
-  sheet.query = event.target.value; overlay.innerHTML = sheetHtml();
-  const input = overlay.querySelector("[data-search]"); input.focus(); input.setSelectionRange(input.value.length, input.value.length);
-});
 document.addEventListener("click", event => {
   const target = event.target.closest("button, [data-close]");
   if (!target || target.closest("#menu")) return;
@@ -729,6 +736,8 @@ document.addEventListener("click", event => {
   if ("close" in data) { if (target === event.target || target.tagName === "BUTTON") { sheet = null; hidePreview(); render(); } return; }
   if (data.ace) { hidePreview(); return state ? act(() => { setSeat(seatPlayer(data.ace)); sheet = null; }) : newGame(data.ace); }
   if (data.panel) { panel = data.panel; return render(); }
+  if (data.group) { sheet.group = data.group; sheet.subtype = null; return render(); }
+  if (data.subtype) { sheet.subtype = data.subtype; return render(); }
   if (data.do) return command(data.do);
   if (data.draft) return act(() => resolveDraft(Number(data.draft)));
   if (data.threat) return act(() => { const invasion = state.sectors[seat].invasion; invasion.total = Math.max(0, invasion.total + Number(data.threat)); });
