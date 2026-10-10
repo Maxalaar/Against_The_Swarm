@@ -317,7 +317,7 @@ function invasionStep() {
 function endTurn() {
   if (state.phase === "swarm") {
     readyAll("swarm"); state.phase = "players";
-    state.sectors.forEach(sector => { sector.guard = 0; });
+    state.sectors.forEach(sector => { sector.guard = 0; sector.invasion = null; });
     return;
   }
   readyAll("asset");
