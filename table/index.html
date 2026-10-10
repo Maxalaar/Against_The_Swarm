@@ -84,7 +84,7 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .die.spent { opacity: .3; border-style: dashed; }
 .lifted { opacity: .25; }
 #ghost { position: fixed; z-index: 2000000; pointer-events: none; margin: 0; transition: none; box-shadow: 0 10px 22px var(--shade); }
-.pile { width: calc(var(--card) * .72); height: calc(var(--card) * 1.006); border-radius: 6px; border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center; color: var(--fg); overflow: hidden; }
+.pile { width: var(--card); height: calc(var(--card) * 1.397); border-radius: calc(var(--card) * .06); border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center; color: var(--fg); overflow: hidden; }
 .pile.full { border: 2px solid var(--fg); color: var(--accent-fg); box-shadow: 3px 3px 0 var(--line); }
 .pile.full.swarm { background: var(--swarm); } .pile.full.asset { background: var(--asset); } .pile.full.token { background: var(--muted); }
 .pile.discard.has { border-style: solid; }
