@@ -54,6 +54,7 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
 .draft { display: flex; gap: 12px; justify-content: center; }
 .draft button { flex: 1 1 0; max-width: 240px; padding: 0; border: 0; background: none; }
 .draft img { width: 100%; display: block; border-radius: 10px; box-shadow: 0 2px 8px var(--shade); }
+.side .status { display: flex; flex-direction: column; align-items: center; background: var(--fg); color: var(--bg); border-radius: 14px; padding: 6px 10px; font-size: 22px; line-height: 1.15; box-shadow: 0 1px 4px var(--shade); }
 .side .split { display: flex; gap: 4px; }
 .side .bubble { align-items: center; background: var(--raised); border: 1px solid var(--line); border-radius: 17px; box-shadow: 0 1px 4px var(--shade); }
 .side .bubble span { flex: 1; text-align: center; }
@@ -101,7 +102,8 @@ input, select { font: inherit; color: inherit; background: var(--raised); border
   :root { --card: 62px; }
   .banner { max-width: calc(100% - 24px); top: 8px; }
   .side { left: 20px; right: 20px; top: auto; bottom: 12px; width: auto; flex-direction: row; overflow-x: auto; gap: 4px; font-size: 13px; }
-  .side button, .side .split { flex: 0 0 auto; min-height: 32px; }
+  .side button, .side .split, .side .status { flex: 0 0 auto; min-height: 32px; }
+  .side .status { flex-direction: row; gap: 10px; font-size: 16px; align-items: center; }
   .dock { flex-wrap: wrap; gap: 6px; max-height: 46%; overflow-y: auto; }
   .dock .stats { width: 150px; }
 }
@@ -408,6 +410,7 @@ function render() {
       <div class="area" id="field" data-area="field"><div class="strip"><span class="label display">Emprises</span></div>${ZONE_NAMES.map((name, row) => `<div class="band ${row === 2 ? "last" : ""}" style="top:${row * 33.333}%"><span class="label display">${name}</span></div>`).join("")}${inArea("field").map(itemHtml).join("")}</div>
       ${banner}
       <div class="side">
+        <div class="status display"><span>Vague ${state.wave}</span><span>Round ${state.round}/${roundsToHold(state.wave)}</span><span>Menace ${level}</span></div>
         <button class="primary" data-do="${state.held ? "held" : "end-turn"}">${state.held ? "Vague tenue" : state.phase === "swarm" ? "Fin du tour de l'Essaim" : "Fin du tour des joueurs"}</button>
         <button data-do="invade" ${invasion ? "disabled" : ""}>Tirage d'invasion</button><button data-do="draft">Draft</button>
         <button data-do="add-die">Ajouter un dé</button><button data-do="add-token">Ajouter un jeton</button><button data-do="add-card">Ajouter une carte</button>
@@ -435,6 +438,8 @@ function sheetHtml() {
     <div class="draft">${draft.map((id, index) => `<button data-draft="${index}"><img src="${card(id).image}" alt="${escapeHtml(card(id).name)}"></button>`).join("")}</div>
     <p class="hint">L'atout choisi rejoint la Panoplie, les autres partent à la défausse.</p><button data-draft="-1">Aucun</button></div></div>`;
   if (!sheet) return "";
+  if (sheet.type === "confirm-turn") return frame("Finir le tour de l'Essaim ?", `<p class="hint">${sheet.ready} carte${sheet.ready > 1 ? "s" : ""} de l'Essaim ${sheet.ready > 1 ? "ne sont pas épuisées" : "n'est pas épuisée"}. Êtes-vous sûr ?</p>
+    <div style="display:flex;gap:8px"><button class="primary" style="flex:1" data-do="confirm-turn">Oui, finir le tour</button><button style="flex:1" data-close>Non</button></div>`);
   if (sheet.type === "held") return frame(`Vague ${state.wave} tenue`, `<p class="hint">Le dernier round est terminé. Préparer la vague suivante défausse l'Essaim, retire les dés et remet les Blessures à zéro${RANK_ADDED_AT_WAVE[state.wave + 1] ? `, puis ajoute le rang ${ROMAN[RANK_ADDED_AT_WAVE[state.wave + 1]]} à la pile Essaim` : ""}.</p>
     <button class="primary" data-do="next-wave">Préparer la vague ${state.wave + 1}</button>`);
   if (sheet.type === "ace") return frame("Ajouter un joueur", `<p class="hint">Cet onglet passera sur le nouveau joueur. Les autres onglets gardent le leur.</p>${aceGrid()}`);
@@ -571,7 +576,9 @@ function startDrag(event) {
   const press = [gesture.sx, gesture.sy];
   const ghost = node.cloneNode(true);
   ghost.id = "ghost"; ghost.removeAttribute("data-key"); ghost.removeAttribute("data-pile"); ghost.className = node.dataset.pile ? "obj card" : node.className;
-  ghost.style.cssText = `left:${box.left}px;top:${box.top}px;width:${box.width}px;height:${box.height}px`;
+  /* A rotated (exhausted) card reports a rotated bounding box: size the ghost from the unrotated element and keep its centre. */
+  const width = node.offsetWidth, height = node.offsetHeight;
+  ghost.style.cssText = `left:${box.left + (box.width - width) / 2}px;top:${box.top + (box.height - height) / 2}px;width:${width}px;height:${height}px`;
   let item = null, before = JSON.stringify(state);
   if (node.dataset.pile) {
     const id = drawFrom(node.dataset.pile);
@@ -586,7 +593,7 @@ function startDrag(event) {
     node.classList.add("lifted");
   }
   document.body.appendChild(ghost);
-  const start = ghost.getBoundingClientRect(), fromPile = !!node.dataset.pile;
+  const start = { left: parseFloat(ghost.style.left), top: parseFloat(ghost.style.top) }, fromPile = !!node.dataset.pile;
   gesture = { type: "drag", item, before, ghost, fromPile, dx: (fromPile ? event.clientX : press[0]) - start.left, dy: (fromPile ? event.clientY : press[1]) - start.top };
   hidePreview(); closeMenu();
 }
@@ -607,7 +614,7 @@ function endDrag(event) {
   if (item.kind === "die" && area === "panoply") area = "tray";
   if (item.kind === "card" && area === "tray") area = "panoply";
   if (FREE_AREAS.includes(area)) {
-    const box = target.node.getBoundingClientRect(), size = ghost.getBoundingClientRect();
+    const box = target.node.getBoundingClientRect(), size = { width: parseFloat(ghost.style.width), height: parseFloat(ghost.style.height) };
     const x = clamp((event.clientX - dx - box.left) / box.width, 0, Math.max(0, 1 - size.width / box.width));
     const y = clamp((event.clientY - dy - box.top) / box.height, 0, Math.max(0, 1 - size.height / box.height));
     const shiftX = x - item.x, shiftY = y - item.y, sameArea = item.area === area;
@@ -739,7 +746,11 @@ function command(name) {
     case "redo": return redo();
     case "invade": return act(startInvasion);
     case "close-invasion": return act(() => { state.sectors[seat].invasion = null; });
-    case "end-turn": return act(endTurn);
+    case "end-turn": {
+      const ready = state.phase !== "swarm" ? 0 : state.items.filter(item => item.kind === "card" && item.area === "field" && !item.exhausted && card(item.id).set === "swarm" && card(item.id).kind !== "infestation").length;
+      return ready ? openSheet({ type: "confirm-turn", ready }) : act(endTurn);
+    }
+    case "confirm-turn": return act(() => { sheet = null; endTurn(); });
     case "held": return openSheet({ type: "held" });
     case "draft": return act(startDraft);
     case "roll": return act(rollSector);
